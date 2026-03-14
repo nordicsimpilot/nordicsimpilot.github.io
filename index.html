@@ -1,121 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>NordicSimPilot</title>
 
 <style>
 
-body{
-    margin:0;
-    font-family:Arial, Helvetica, sans-serif;
-    background:#0f172a;
-    color:white;
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
 }
 
-/* Header */
+body{
+font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+background:#0f172a;
+color:white;
+line-height:1.6;
+}
+
+/* HEADER */
 
 header{
-    padding:20px 60px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    border-bottom:1px solid rgba(255,255,255,0.1);
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:25px 60px;
+border-bottom:1px solid rgba(255,255,255,0.1);
 }
 
-.logo{
-    font-size:22px;
-    font-weight:bold;
-    letter-spacing:1px;
+.logo a{
+font-size:22px;
+font-weight:600;
+text-decoration:none;
+color:white;
+letter-spacing:1px;
 }
 
 nav a{
-    margin-left:30px;
-    text-decoration:none;
-    color:#cbd5f5;
-    font-size:14px;
+margin-left:30px;
+text-decoration:none;
+color:#94a3b8;
+font-size:14px;
 }
 
 nav a:hover{
-    color:white;
+color:white;
 }
 
-/* Hero */
+/* HERO */
 
 .hero{
-    height:70vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
+height:80vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
 }
 
 .hero h1{
-    font-size:60px;
-    margin-bottom:10px;
+font-size:64px;
+font-weight:700;
+margin-bottom:15px;
 }
 
 .hero p{
-    font-size:18px;
-    color:#94a3b8;
+font-size:18px;
+color:#94a3b8;
+max-width:600px;
 }
 
-/* Flights section */
+/* SECTION */
 
 .section{
-    padding:80px 60px;
+padding:80px 60px;
+max-width:1200px;
+margin:auto;
 }
 
 .section h2{
-    font-size:32px;
-    margin-bottom:40px;
+font-size:32px;
+margin-bottom:40px;
 }
 
+/* FLIGHT GRID */
+
 .flight-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:25px;
 }
 
 .flight-card{
-    background:#1e293b;
-    padding:20px;
-    border-radius:10px;
-    transition:0.2s;
+background:#1e293b;
+padding:25px;
+border-radius:12px;
+transition:0.25s;
+border:1px solid rgba(255,255,255,0.05);
 }
 
 .flight-card:hover{
-    transform:translateY(-4px);
+transform:translateY(-6px);
+border:1px solid rgba(255,255,255,0.15);
 }
 
 .flight-card h3{
-    margin:0 0 10px 0;
+margin-bottom:10px;
+font-size:18px;
 }
 
 .flight-card p{
-    margin:4px 0;
-    color:#94a3b8;
+font-size:14px;
+color:#94a3b8;
 }
 
-/* Footer */
+/* FOOTER */
 
 footer{
-    text-align:center;
-    padding:40px;
-    color:#94a3b8;
-    border-top:1px solid rgba(255,255,255,0.1);
+margin-top:80px;
+padding:40px;
+text-align:center;
+color:#64748b;
+border-top:1px solid rgba(255,255,255,0.1);
+font-size:14px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width:700px){
+
+header{
+padding:20px;
+}
+
+.section{
+padding:60px 25px;
+}
+
+.hero h1{
+font-size:42px;
+}
+
 }
 
 </style>
+
 </head>
 
 <body>
 
 <header>
 
-<div class="logo">NordicSimPilot</div>
+<div class="logo">
+<a href="/">NordicSimPilot</a>
+</div>
 
 <nav>
 <a href="#">Flights</a>
@@ -131,7 +174,10 @@ footer{
 
 <h1>NordicSimPilot</h1>
 
-<p>Virtual flight logbook documenting routes, aircraft and journeys across the skies.</p>
+<p>
+A personal flight simulator logbook documenting routes, aircraft,
+and recorded flights across Europe and beyond.
+</p>
 
 </section>
 
@@ -144,23 +190,23 @@ footer{
 
 <div class="flight-card">
 <h3>EKCH → EHAM</h3>
-<p>Aircraft: A330</p>
+<p>Aircraft: Airbus A330</p>
 <p>Date: 13 Mar 2026</p>
-<p>Flight Time: 1h 12m</p>
+<p>Flight time: 1h 12m</p>
 </div>
 
 <div class="flight-card">
 <h3>ESSA → EDDF</h3>
-<p>Aircraft: A320</p>
+<p>Aircraft: Airbus A320</p>
 <p>Date: 10 Mar 2026</p>
-<p>Flight Time: 2h 05m</p>
+<p>Flight time: 2h 05m</p>
 </div>
 
 <div class="flight-card">
 <h3>EDDF → LEMD</h3>
-<p>Aircraft: A320</p>
+<p>Aircraft: Airbus A320</p>
 <p>Date: 8 Mar 2026</p>
-<p>Flight Time: 2h 35m</p>
+<p>Flight time: 2h 35m</p>
 </div>
 
 </div>
@@ -170,7 +216,8 @@ footer{
 
 <footer>
 
-© 2026 NordicSimPilot
+© 2026 NordicSimPilot  
+Hosted on GitHub Pages
 
 </footer>
 
