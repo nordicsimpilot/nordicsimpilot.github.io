@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NordicSimPilot</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#0f172a;
+    color:white;
+}
+
+/* Header */
+
+header{
+    padding:20px 60px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+.logo{
+    font-size:22px;
+    font-weight:bold;
+    letter-spacing:1px;
+}
+
+nav a{
+    margin-left:30px;
+    text-decoration:none;
+    color:#cbd5f5;
+    font-size:14px;
+}
+
+nav a:hover{
+    color:white;
+}
+
+/* Hero */
+
+.hero{
+    height:70vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+.hero h1{
+    font-size:60px;
+    margin-bottom:10px;
+}
+
+.hero p{
+    font-size:18px;
+    color:#94a3b8;
+}
+
+/* Flights section */
+
+.section{
+    padding:80px 60px;
+}
+
+.section h2{
+    font-size:32px;
+    margin-bottom:40px;
+}
+
+.flight-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.flight-card{
+    background:#1e293b;
+    padding:20px;
+    border-radius:10px;
+    transition:0.2s;
+}
+
+.flight-card:hover{
+    transform:translateY(-4px);
+}
+
+.flight-card h3{
+    margin:0 0 10px 0;
+}
+
+.flight-card p{
+    margin:4px 0;
+    color:#94a3b8;
+}
+
+/* Footer */
+
+footer{
+    text-align:center;
+    padding:40px;
+    color:#94a3b8;
+    border-top:1px solid rgba(255,255,255,0.1);
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">NordicSimPilot</div>
+
+<nav>
+<a href="#">Flights</a>
+<a href="#">Aircraft</a>
+<a href="#">Routes</a>
+<a href="#">Videos</a>
+</nav>
+
+</header>
+
+
+<section class="hero">
+
+<h1>NordicSimPilot</h1>
+
+<p>Virtual flight logbook documenting routes, aircraft and journeys across the skies.</p>
+
+</section>
+
+
+<section class="section">
+
+<h2>Recent Flights</h2>
+
+<div class="flight-grid">
+
+<div class="flight-card">
+<h3>EKCH → EHAM</h3>
+<p>Aircraft: A330</p>
+<p>Date: 13 Mar 2026</p>
+<p>Flight Time: 1h 12m</p>
+</div>
+
+<div class="flight-card">
+<h3>ESSA → EDDF</h3>
+<p>Aircraft: A320</p>
+<p>Date: 10 Mar 2026</p>
+<p>Flight Time: 2h 05m</p>
+</div>
+
+<div class="flight-card">
+<h3>EDDF → LEMD</h3>
+<p>Aircraft: A320</p>
+<p>Date: 8 Mar 2026</p>
+<p>Flight Time: 2h 35m</p>
+</div>
+
+</div>
+
+</section>
+
+
+<footer>
+
+© 2026 NordicSimPilot
+
+</footer>
+
+</body>
+</html>
