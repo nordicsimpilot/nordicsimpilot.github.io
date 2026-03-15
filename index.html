@@ -53,7 +53,7 @@ nav a:hover{
 color:white;
 }
 
-/* HERO BANNER */
+/* HERO */
 
 .hero{
 height:70vh;
@@ -109,14 +109,16 @@ margin-bottom:40px;
 
 .flight-grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
 gap:25px;
 }
 
+/* FLIGHT CARD */
+
 .flight-card{
 background:#1e293b;
-padding:25px;
 border-radius:12px;
+overflow:hidden;
 transition:0.25s;
 border:1px solid rgba(255,255,255,0.05);
 text-decoration:none;
@@ -129,12 +131,22 @@ transform:translateY(-6px);
 border:1px solid rgba(255,255,255,0.15);
 }
 
-.flight-card h3{
-margin-bottom:10px;
-font-size:18px;
+.flight-card img{
+width:100%;
+display:block;
 }
 
-.flight-card p{
+.flight-info{
+padding:20px;
+}
+
+.route{
+font-size:20px;
+font-weight:600;
+margin-bottom:8px;
+}
+
+.meta{
 font-size:14px;
 color:#94a3b8;
 }
@@ -177,7 +189,7 @@ padding:60px 25px;
 <header>
 
 <div class="logo">
-<a href="index.html">NordicSimPilot</a>
+<a href="/">NordicSimPilot</a>
 </div>
 
 <nav>
@@ -211,33 +223,68 @@ Virtual flight logbook documenting routes, aircraft and journeys across the skie
 
 <div class="flight-grid">
 
+
 <a href="flights/efjo-efhk.html" class="flight-card">
-<h3>EFJO → EFHK</h3>
-<p>Aircraft: Airbus A330</p>
-<p>Date: 6 Mar 2026</p>
-<p>Flight time: 45m</p>
+
+<img src="images/JOEN1.png">
+
+<div class="flight-info">
+
+<div class="route">EFJO → EFHK</div>
+
+<p class="meta">Aircraft: Airbus A330</p>
+<p class="meta">Date: 6 Mar 2026</p>
+<p class="meta">Flight time: 45m</p>
+
+</div>
+
 </a>
+
 
 <a href="flights/ekch-eham.html" class="flight-card">
-<h3>EKCH → EHAM</h3>
-<p>Aircraft: Airbus A330</p>
-<p>Date: 13 Mar 2026</p>
-<p>Flight time: 1h 12m</p>
+
+<div class="flight-info">
+
+<div class="route">EKCH → EHAM</div>
+
+<p class="meta">Aircraft: Airbus A330</p>
+<p class="meta">Date: 13 Mar 2026</p>
+<p class="meta">Flight time: 1h 12m</p>
+
+</div>
+
 </a>
+
 
 <a href="flights/essa-eddf.html" class="flight-card">
-<h3>ESSA → EDDF</h3>
-<p>Aircraft: Airbus A320</p>
-<p>Date: 10 Mar 2026</p>
-<p>Flight time: 2h 05m</p>
+
+<div class="flight-info">
+
+<div class="route">ESSA → EDDF</div>
+
+<p class="meta">Aircraft: Airbus A320</p>
+<p class="meta">Date: 10 Mar 2026</p>
+<p class="meta">Flight time: 2h 05m</p>
+
+</div>
+
 </a>
 
+
 <a href="flights/eddf-lemd.html" class="flight-card">
-<h3>EDDF → LEMD</h3>
-<p>Aircraft: Airbus A320</p>
-<p>Date: 8 Mar 2026</p>
-<p>Flight time: 2h 35m</p>
+
+<div class="flight-info">
+
+<div class="route">EDDF → LEMD</div>
+
+<p class="meta">Aircraft: Airbus A320</p>
+<p class="meta">Date: 8 Mar 2026</p>
+<p class="meta">Flight time: 2h 35m</p>
+
+</div>
+
 </a>
+
 
 </div>
 
