@@ -1,51 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
 
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>My Flight Log</title>
+<title>Nordic Sim Pilot</title>
 
 <style>
 
 body{
     font-family: Arial, sans-serif;
     margin:0;
-    background:#f4f4f4;
-    text-align:center;
+    background:#f4f6f8;
 }
 
-/* Navigation bar */
+/* Top Navigation */
+
 nav{
+    text-align:center;
+    padding:25px;
     background:white;
-    padding:20px;
-    box-shadow:0 2px 5px rgba(0,0,0,0.1);
+    box-shadow:0 2px 6px rgba(0,0,0,0.1);
 }
 
-/* Menu links */
 nav a{
     margin:0 30px;
     text-decoration:none;
-    font-size:22px;
+    font-size:24px;
     font-weight:bold;
-    color:#333;
+    color:#222;
 }
 
-/* Recent flight section */
+nav a:hover{
+    color:#0077cc;
+}
+
+/* Page Title */
+
+.title{
+    text-align:center;
+    margin-top:40px;
+}
+
+.title h1{
+    font-size:36px;
+}
+
+/* Recent Flight Section */
+
 .recent-flight{
-    margin-top:60px;
+    text-align:center;
+    margin-top:50px;
+}
+
+.recent-flight h2{
+    font-size:28px;
 }
 
 /* Thumbnail size */
+
 .recent-flight img{
     width:320px;
     border-radius:12px;
+    margin-top:20px;
     cursor:pointer;
 }
 
 /* Hover effect */
+
 .recent-flight img:hover{
     transform:scale(1.05);
     transition:0.3s;
+}
+
+/* Flight description */
+
+.flight-info{
+    margin-top:10px;
+    font-size:18px;
+    color:#555;
+}
+
+footer{
+    text-align:center;
+    margin-top:80px;
+    padding:20px;
+    color:#777;
 }
 
 </style>
@@ -54,7 +93,6 @@ nav a{
 
 <body>
 
-<!-- Top Navigation -->
 <nav>
 <a href="#">Home</a>
 <a href="#">Flights</a>
@@ -62,20 +100,28 @@ nav a{
 <a href="#">About</a>
 </nav>
 
+<div class="title">
+<h1>Nordic Sim Pilot</h1>
+<p>X-Plane Virtual Flights</p>
+</div>
 
-<!-- Recent Flight -->
 <div class="recent-flight">
 
 <h2>Recent Flight</h2>
 
-<a href="https://youtu.be/YOURVIDEOID" target="_blank">
+<a href="https://youtube.com" target="_blank">
 <img src="thumbnail.jpg" alt="Recent Flight">
 </a>
 
-<p>Joensuu → Helsinki | X-Plane 12 | A330</p>
+<div class="flight-info">
+Joensuu → Helsinki | Airbus A330 | X-Plane 12
+</div>
 
 </div>
 
-</body>
+<footer>
+© 2026 Nordic Sim Pilot
+</footer>
 
+</body>
 </html>
