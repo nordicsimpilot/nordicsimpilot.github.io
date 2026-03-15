@@ -53,7 +53,7 @@ nav a:hover{
 color:white;
 }
 
-/* HERO BANNER */
+/* HERO */
 
 .hero{
 height:70vh;
@@ -66,8 +66,6 @@ align-items:center;
 text-align:center;
 position:relative;
 }
-
-/* OVERLAY */
 
 .hero::before{
 content:"";
@@ -107,7 +105,7 @@ font-size:32px;
 margin-bottom:40px;
 }
 
-/* FLIGHT GRID */
+/* FLIGHTS */
 
 .flight-grid{
 display:grid;
@@ -121,6 +119,9 @@ padding:25px;
 border-radius:12px;
 transition:0.25s;
 border:1px solid rgba(255,255,255,0.05);
+text-decoration:none;
+color:white;
+display:block;
 }
 
 .flight-card:hover{
@@ -176,7 +177,7 @@ padding:60px 25px;
 <header>
 
 <div class="logo">
-<a href="/">NordicSimPilot</a>
+<a href="index.html">NordicSimPilot</a>
 </div>
 
 <nav>
@@ -187,7 +188,6 @@ padding:60px 25px;
 </nav>
 
 </header>
-
 
 <section class="hero">
 
@@ -203,38 +203,36 @@ Virtual flight logbook documenting routes, aircraft and journeys across the skie
 
 </section>
 
-
 <section class="section">
 
 <h2>Recent Flights</h2>
 
 <div class="flight-grid">
 
-<div class="flight-card">
+<a href="flights/ekch-eham.html" class="flight-card">
 <h3>EKCH → EHAM</h3>
 <p>Aircraft: Airbus A330</p>
 <p>Date: 13 Mar 2026</p>
 <p>Flight time: 1h 12m</p>
-</div>
+</a>
 
-<div class="flight-card">
+<a href="flights/essa-eddf.html" class="flight-card">
 <h3>ESSA → EDDF</h3>
 <p>Aircraft: Airbus A320</p>
 <p>Date: 10 Mar 2026</p>
 <p>Flight time: 2h 05m</p>
-</div>
+</a>
 
-<div class="flight-card">
+<a href="flights/eddf-lemd.html" class="flight-card">
 <h3>EDDF → LEMD</h3>
 <p>Aircraft: Airbus A320</p>
 <p>Date: 8 Mar 2026</p>
 <p>Flight time: 2h 35m</p>
-</div>
+</a>
 
 </div>
 
 </section>
-
 
 <footer>
 
