@@ -62,10 +62,32 @@ width:100%;
 border-radius:10px;
 box-shadow:0 10px 25px rgba(0,0,0,0.4);
 transition:0.3s;
+cursor:pointer;
 }
 
 .gallery img:hover{
 transform:scale(1.03);
+}
+
+/* LIGHTBOX */
+
+.lightbox{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.9);
+justify-content:center;
+align-items:center;
+z-index:1000;
+}
+
+.lightbox img{
+max-width:90%;
+max-height:90%;
+border-radius:10px;
 }
 
 </style>
@@ -103,19 +125,28 @@ allowfullscreen>
 
 <div class="gallery">
 
-<a href="../images/JOEN1.png" target="_blank">
-<img src="../images/JOEN1.png">
-</a>
-
-<a href="../images/JOEN2.png" target="_blank">
-<img src="../images/JOEN2.png">
-</a>
-
-<a href="../images/JOEN3.png" target="_blank">
-<img src="../images/JOEN3.png">
-</a>
+<img src="../images/JOEN1.png" onclick="openImage(this.src)">
+<img src="../images/JOEN2.png" onclick="openImage(this.src)">
+<img src="../images/JOEN3.png" onclick="openImage(this.src)">
 
 </div>
+
+<div class="lightbox" id="lightbox" onclick="closeImage()">
+<img id="lightbox-img">
+</div>
+
+<script>
+
+function openImage(src){
+document.getElementById("lightbox-img").src = src;
+document.getElementById("lightbox").style.display = "flex";
+}
+
+function closeImage(){
+document.getElementById("lightbox").style.display = "none";
+}
+
+</script>
 
 </body>
 </html>
