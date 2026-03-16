@@ -15,8 +15,6 @@ margin:0;
 padding:0;
 }
 
-/* BODY */
-
 body{
 font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
 color:white;
@@ -30,8 +28,8 @@ background-color:#0a0a0a;
 /* MAP BACKGROUND */
 
 background-image:url("images/map.png");
-background-size:cover;
-background-position:center;
+background-size:contain;
+background-position:center center;
 background-repeat:no-repeat;
 background-attachment:fixed;
 
@@ -65,6 +63,7 @@ color:#b5b5b5;
 
 .section{
 margin-top:40px;
+margin-bottom:40px;
 padding:50px 40px;
 max-width:1100px;
 width:95%;
@@ -134,11 +133,29 @@ color:#b5b5b5;
 /* FOOTER */
 
 footer{
-margin-top:80px;
+margin-top:auto;
 padding:30px;
 text-align:center;
 color:#9c9c9c;
 font-size:14px;
+}
+
+/* MOBILE IMPROVEMENTS */
+
+@media (max-width:700px){
+
+.logo a{
+font-size:32px;
+}
+
+.section{
+padding:30px 20px;
+}
+
+.section h2{
+font-size:26px;
+}
+
 }
 
 </style>
