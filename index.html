@@ -29,26 +29,26 @@ align-items:center;
 
 header{
 text-align:center;
-padding:40px 20px 20px;
+padding:50px 20px 30px;
 }
 
 .logo a{
-font-size:28px;
-font-weight:600;
+font-size:36px;
+font-weight:700;
 text-decoration:none;
 color:white;
 letter-spacing:1px;
 }
 
 nav{
-margin-top:10px;
+margin-top:15px;
 }
 
 nav a{
-margin:0 10px;
+margin:0 14px;
 text-decoration:none;
 color:#cbd5f5;
-font-size:14px;
+font-size:18px;
 }
 
 nav a:hover{
@@ -58,68 +58,68 @@ color:white;
 /* SECTION */
 
 .section{
-padding:40px 20px;
-max-width:900px;
+padding:50px 20px;
+max-width:1100px;
 width:100%;
 text-align:center;
 }
 
 .section h2{
-font-size:26px;
-margin-bottom:30px;
+font-size:34px;
+margin-bottom:40px;
 }
 
 /* FLIGHT GRID */
 
 .flight-grid{
-display:flex;
-justify-content:center;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:30px;
 }
 
 /* FLIGHT CARD */
 
 .flight-card{
 background:#1e293b;
-padding:15px;
-border-radius:12px;
+padding:20px;
+border-radius:14px;
 border:1px solid rgba(255,255,255,0.05);
 text-decoration:none;
 color:white;
-width:260px;
 transition:0.25s;
 }
 
 .flight-card:hover{
-transform:translateY(-5px);
+transform:translateY(-6px);
 border:1px solid rgba(255,255,255,0.15);
 }
 
 .flight-card img{
 width:100%;
-height:150px;
+height:190px;
 object-fit:cover;
-border-radius:8px;
-margin-bottom:10px;
+border-radius:10px;
+margin-bottom:14px;
 }
 
 .flight-card h3{
-font-size:16px;
+font-size:22px;
 margin-bottom:6px;
 }
 
 .flight-card p{
-font-size:13px;
+font-size:16px;
 color:#94a3b8;
 }
 
 /* FOOTER */
 
 footer{
-margin-top:60px;
-padding:20px;
+margin-top:70px;
+padding:30px;
 text-align:center;
 color:#64748b;
-font-size:13px;
+font-size:15px;
 }
 
 </style>
@@ -146,9 +146,25 @@ font-size:13px;
 
 <section class="section">
 
-<h2>Recent Flight</h2>
+<h2>Recent Flights</h2>
 
 <div class="flight-grid">
+
+<!-- EFHK → ESSA -->
+
+<a href="flights/efhk-essa.html" class="flight-card">
+
+<img src="images/HEL1.png">
+
+<h3>EFHK → ESSA</h3>
+
+<p>Airbus A330-300</p>
+<p>16 Mar 2026 • 45m</p>
+
+</a>
+
+
+<!-- EFJO → EFHK -->
 
 <a href="flights/efjo-efhk.html" class="flight-card">
 
