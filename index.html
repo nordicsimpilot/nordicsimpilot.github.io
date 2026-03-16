@@ -1,144 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 
-<meta charset="UTF-8">
+<meta charset="utf-8">
+<title>NordicSimPilot</title>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>NordicSimPilot</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
 <style>
 
-*{
-box-sizing:border-box;
-margin:0;
-padding:0;
-}
-
 body{
-font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+margin:0;
+font-family:system-ui,-apple-system,Segoe UI,Roboto;
 background:#0a0a0a;
 color:white;
-line-height:1.6;
-min-height:200vh;
-position:relative;
 }
 
-/* SCROLLABLE MAP BACKGROUND */
+/* MAP */
 
-.map-bg{
+#map{
 position:absolute;
 top:0;
-left:0;
+bottom:0;
 width:100%;
-height:220vh;
-
-background-image:url("images/map.png");
-background-size:100% auto;
-background-position:center top;
-background-repeat:no-repeat;
-
-z-index:-1;
 }
 
 /* HEADER */
 
-header{
+.header{
+position:absolute;
+top:20px;
+left:50%;
+transform:translateX(-50%);
+z-index:1000;
 text-align:center;
-padding:70px 20px 30px;
 }
 
-.logo a{
-font-size:42px;
-font-weight:700;
-text-decoration:none;
-color:white;
-letter-spacing:1px;
+.header h1{
+margin:0;
+font-size:36px;
 }
 
-.tagline{
-margin-top:10px;
-font-size:16px;
+.header p{
+margin-top:5px;
 color:#b5b5b5;
 }
 
-/* CONTENT PANEL */
+/* MENU */
 
-.section{
-margin:60px auto;
-padding:50px 40px;
-max-width:1100px;
-width:95%;
-
+.menu{
+position:absolute;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+z-index:1000;
 background:rgba(10,10,10,0.85);
-border-radius:16px;
-border:1px solid rgba(255,255,255,0.08);
-}
-
-/* SECTION TITLE */
-
-.section h2{
-font-size:32px;
-margin-bottom:35px;
-}
-
-/* FLIGHT GRID */
-
-.flight-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-gap:28px;
-}
-
-/* FLIGHT CARD */
-
-.flight-card{
-background:#111111;
-padding:20px;
-border-radius:14px;
-border:1px solid rgba(255,255,255,0.06);
-text-decoration:none;
-color:white;
-transition:all 0.25s ease;
-}
-
-.flight-card:hover{
-transform:translateY(-6px);
-border:1px solid rgba(255,255,255,0.25);
-box-shadow:0 10px 25px rgba(0,0,0,0.5);
-}
-
-/* CARD IMAGE */
-
-.flight-card img{
-width:100%;
-height:190px;
-object-fit:cover;
+padding:12px 20px;
 border-radius:10px;
-margin-bottom:14px;
 }
 
-/* ROUTE TITLE */
-
-.flight-card h3{
-font-size:24px;
-margin-bottom:6px;
-}
-
-/* TEXT */
-
-.flight-card p{
+.menu a{
+color:white;
+text-decoration:none;
+margin:0 10px;
 font-size:15px;
-color:#b5b5b5;
 }
 
-/* FOOTER */
-
-footer{
-text-align:center;
-padding:40px;
-color:#9c9c9c;
-font-size:14px;
+.menu a:hover{
+text-decoration:underline;
 }
 
 </style>
@@ -147,60 +78,82 @@ font-size:14px;
 
 <body>
 
-<div class="map-bg"></div>
+<div id="map"></div>
 
-<header>
+<div class="header">
 
-<div class="logo">
-<a href="/">NordicSimPilot</a>
-</div>
-
-<p class="tagline">
-Flight simulation journeys across the Nordic skies
-</p>
-
-</header>
-
-
-<section class="section">
-
-<h2>Recent Flights</h2>
-
-<div class="flight-grid">
-
-<a href="flights/efhk-essa.html" class="flight-card">
-
-<img src="images/HEL1.PNG">
-
-<h3>EFHK → ESSA</h3>
-
-<p>Airbus A330-300</p>
-<p>16 Mar 2026 • 45m</p>
-
-</a>
-
-<a href="flights/efjo-efhk.html" class="flight-card">
-
-<img src="images/JOEN1.png">
-
-<h3>EFJO → EFHK</h3>
-
-<p>Airbus A330</p>
-<p>6 Mar 2026 • 45m</p>
-
-</a>
+<h1>NordicSimPilot</h1>
+<p>Flight simulation journeys across the Nordic skies</p>
 
 </div>
 
-</section>
+<div class="menu">
 
+<a href="flights/efhk-essa.html">EFHK → ESSA</a>
+<a href="flights/efjo-efhk.html">EFJO → EFHK</a>
 
-<footer>
+</div>
 
-© 2026 NordicSimPilot  
-Hosted on GitHub Pages
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-</footer>
+<script>
+
+/* MAP */
+
+var map = L.map('map').setView([60,15],4);
+
+/* GRAYSCALE TILES */
+
+L.tileLayer(
+'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+{
+attribution:'© OpenStreetMap contributors © CARTO'
+}).addTo(map);
+
+/* ROUTE EFHK → ESSA */
+
+var efhk_essa = L.polyline([
+[60.3172,24.9633],
+[59.6519,17.9186]
+],{
+color:'#00d4ff',
+weight:4
+}).addTo(map);
+
+efhk_essa.on('click',function(){
+
+window.location.href="flights/efhk-essa.html";
+
+});
+
+/* ROUTE EFJO → EFHK */
+
+var efjo_efhk = L.polyline([
+[62.6629,29.6076],
+[60.3172,24.9633]
+],{
+color:'#ffcc00',
+weight:4
+}).addTo(map);
+
+efjo_efhk.on('click',function(){
+
+window.location.href="flights/efjo-efhk.html";
+
+});
+
+/* AIRPORT MARKERS */
+
+L.marker([60.3172,24.9633]).addTo(map)
+.bindPopup("EFHK Helsinki");
+
+L.marker([59.6519,17.9186]).addTo(map)
+.bindPopup("ESSA Stockholm");
+
+L.marker([62.6629,29.6076]).addTo(map)
+.bindPopup("EFJO Joensuu");
+
+</script>
 
 </body>
 </html>
