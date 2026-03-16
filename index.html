@@ -15,11 +15,22 @@ margin:0;
 padding:0;
 }
 
+/* BACKGROUND MAP */
+
 body{
 font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
-background:#0f172a;
 color:white;
 line-height:1.6;
+min-height:100vh;
+
+background-image:
+linear-gradient(rgba(10,15,30,0.75), rgba(10,15,30,0.85)),
+url("images/map.png");
+
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+
 display:flex;
 flex-direction:column;
 align-items:center;
@@ -29,30 +40,15 @@ align-items:center;
 
 header{
 text-align:center;
-padding:50px 20px 30px;
+padding:60px 20px 30px;
 }
 
 .logo a{
-font-size:36px;
+font-size:40px;
 font-weight:700;
 text-decoration:none;
 color:white;
 letter-spacing:1px;
-}
-
-nav{
-margin-top:15px;
-}
-
-nav a{
-margin:0 14px;
-text-decoration:none;
-color:#cbd5f5;
-font-size:18px;
-}
-
-nav a:hover{
-color:white;
 }
 
 /* SECTION */
@@ -80,18 +76,19 @@ gap:30px;
 /* FLIGHT CARD */
 
 .flight-card{
-background:#1e293b;
+background:rgba(15,23,42,0.9);
 padding:20px;
 border-radius:14px;
-border:1px solid rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.08);
 text-decoration:none;
 color:white;
 transition:0.25s;
+backdrop-filter:blur(6px);
 }
 
 .flight-card:hover{
 transform:translateY(-6px);
-border:1px solid rgba(255,255,255,0.15);
+border:1px solid rgba(255,255,255,0.2);
 }
 
 .flight-card img{
@@ -109,16 +106,16 @@ margin-bottom:6px;
 
 .flight-card p{
 font-size:16px;
-color:#94a3b8;
+color:#cbd5f5;
 }
 
 /* FOOTER */
 
 footer{
-margin-top:70px;
+margin-top:80px;
 padding:30px;
 text-align:center;
-color:#64748b;
+color:#94a3b8;
 font-size:15px;
 }
 
@@ -134,15 +131,6 @@ font-size:15px;
 <a href="/">NordicSimPilot</a>
 </div>
 
-<!--
-<nav>
-<a href="#">Flights</a>
-<a href="#">Aircraft</a>
-<a href="#">Routes</a>
-<a href="#">Videos</a>
-</nav>
--->
-
 </header>
 
 
@@ -151,8 +139,6 @@ font-size:15px;
 <h2>Recent Flights</h2>
 
 <div class="flight-grid">
-
-<!-- EFHK → ESSA -->
 
 <a href="flights/efhk-essa.html" class="flight-card">
 
@@ -165,8 +151,6 @@ font-size:15px;
 
 </a>
 
-
-<!-- EFJO → EFHK -->
 
 <a href="flights/efjo-efhk.html" class="flight-card">
 
