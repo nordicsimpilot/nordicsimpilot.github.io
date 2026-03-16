@@ -24,11 +24,12 @@ line-height:1.6;
 min-height:100vh;
 
 background-image:
-linear-gradient(rgba(10,15,30,0.75), rgba(10,15,30,0.85)),
+linear-gradient(rgba(10,15,30,0.30), rgba(10,15,30,0.30)),
 url("images/map.png");
 
 background-size:cover;
-background-position:center;
+background-position:center center;
+background-repeat:no-repeat;
 background-attachment:fixed;
 
 display:flex;
@@ -76,19 +77,19 @@ gap:30px;
 /* FLIGHT CARD */
 
 .flight-card{
-background:rgba(15,23,42,0.9);
+background:rgba(15,23,42,0.85);
 padding:20px;
 border-radius:14px;
-border:1px solid rgba(255,255,255,0.08);
+border:1px solid rgba(255,255,255,0.1);
 text-decoration:none;
 color:white;
 transition:0.25s;
-backdrop-filter:blur(6px);
+backdrop-filter:blur(4px);
 }
 
 .flight-card:hover{
 transform:translateY(-6px);
-border:1px solid rgba(255,255,255,0.2);
+border:1px solid rgba(255,255,255,0.25);
 }
 
 .flight-card img{
@@ -115,7 +116,7 @@ footer{
 margin-top:80px;
 padding:30px;
 text-align:center;
-color:#94a3b8;
+color:#cbd5f5;
 font-size:15px;
 }
 
@@ -140,6 +141,8 @@ font-size:15px;
 
 <div class="flight-grid">
 
+<!-- Flight 1 -->
+
 <a href="flights/efhk-essa.html" class="flight-card">
 
 <img src="images/HEL1.PNG">
@@ -151,6 +154,8 @@ font-size:15px;
 
 </a>
 
+
+<!-- Flight 2 -->
 
 <a href="flights/efjo-efhk.html" class="flight-card">
 
