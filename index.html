@@ -3,7 +3,7 @@
 <head>
 
 <meta charset="utf-8">
-<title>NordicSimPilot</title>
+<title>Payam's Flight Logbook</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -35,13 +35,13 @@ transform:translateX(-50%);
 z-index:1000;
 text-align:center;
 background:rgba(10,10,10,0.65);
-padding:10px 20px;
-border-radius:8px;
+padding:10px 22px;
+border-radius:10px;
 }
 
 .header h1{
 margin:0;
-font-size:34px;
+font-size:32px;
 }
 
 .header p{
@@ -82,8 +82,8 @@ text-decoration:underline;
 <div id="map"></div>
 
 <div class="header">
-<h1>NordicSimPilot</h1>
-<p>Flight simulation journeys across the Nordic skies</p>
+<h1>Payam’s Flight Logbook</h1>
+<p>Virtual routes across the Nordic skies</p>
 </div>
 
 <div class="menu">
@@ -95,11 +95,11 @@ text-decoration:underline;
 
 <script>
 
-/* CREATE MAP */
+/* MAP */
 
 var map = L.map('map').setView([60,15],4);
 
-/* GRAYSCALE TILE LAYER */
+/* GRAYSCALE MAP */
 
 L.tileLayer(
 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
@@ -109,7 +109,7 @@ attribution:'© OpenStreetMap contributors © CARTO'
 
 /* ROUTE COLOR */
 
-var routeColor = "#00d4ff";
+var routeColor = "#39FF14"; // phosphor green
 
 /* ROUTE ANIMATION FUNCTION */
 
@@ -117,8 +117,8 @@ function animateRoute(coords, link){
 
 let line = L.polyline([],{
 color:routeColor,
-weight:5,
-opacity:0.9
+weight:3,
+opacity:0.95
 }).addTo(map);
 
 let i = 0;
@@ -132,12 +132,22 @@ if(i >= coords.length){
 clearInterval(interval);
 }
 
-},200);
+},180);
 
 /* CLICK ROUTE */
 
 line.on('click',function(){
 window.location.href = link;
+});
+
+/* HOVER EFFECT */
+
+line.on('mouseover',function(){
+line.setStyle({weight:6});
+});
+
+line.on('mouseout',function(){
+line.setStyle({weight:3});
 });
 
 return line;
@@ -162,13 +172,14 @@ var route2 = animateRoute(
 'flights/efjo-efhk.html'
 );
 
-/* SMALL AIRPORT MARKERS */
+/* NICE CITY PINS */
 
 function airport(lat,lon,name){
 
 L.circleMarker([lat,lon],{
-radius:4,
-color:"#ffffff",
+radius:5,
+color:"#000",
+weight:2,
 fillColor:"#ffffff",
 fillOpacity:1
 }).addTo(map).bindPopup(name);
@@ -181,7 +192,7 @@ airport(60.3172,24.9633,"EFHK Helsinki");
 airport(59.6519,17.9186,"ESSA Stockholm");
 airport(62.6629,29.6076,"EFJO Joensuu");
 
-/* AUTO FIT MAP TO ROUTES */
+/* AUTO FIT MAP */
 
 var group = L.featureGroup([route1,route2]);
 map.fitBounds(group.getBounds(),{padding:[80,80]});
