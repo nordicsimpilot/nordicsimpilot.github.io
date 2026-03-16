@@ -19,15 +19,18 @@ padding:0;
 
 body{
 font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
-background:#0b1324;
 color:white;
 line-height:1.6;
 min-height:100vh;
 
+/* BACKGROUND COLOR FROM YOUR IMAGE */
+
+background-color:#0a0a0a;
+
 /* MAP BACKGROUND */
 
 background-image:url("images/map.png");
-background-size:contain;
+background-size:cover;
 background-position:center;
 background-repeat:no-repeat;
 background-attachment:fixed;
@@ -48,14 +51,14 @@ padding:60px 20px 20px;
 font-size:42px;
 font-weight:700;
 text-decoration:none;
-color:#e2e8f0;
+color:white;
 letter-spacing:1px;
 }
 
 .tagline{
 margin-top:8px;
 font-size:16px;
-color:#9ca9c2;
+color:#b5b5b5;
 }
 
 /* RECENT FLIGHTS PANEL */
@@ -66,12 +69,12 @@ padding:50px 40px;
 max-width:1100px;
 width:95%;
 
-background:#111827;
-border:1px solid #2b3448;
+background:rgba(10,10,10,0.85);
 border-radius:16px;
+border:1px solid rgba(255,255,255,0.08);
 }
 
-/* SECTION TITLE */
+/* TITLE */
 
 .section h2{
 font-size:32px;
@@ -89,10 +92,10 @@ gap:28px;
 /* FLIGHT CARD */
 
 .flight-card{
-background:#1c2536;
+background:#111111;
 padding:20px;
 border-radius:14px;
-border:1px solid #2b3448;
+border:1px solid rgba(255,255,255,0.06);
 text-decoration:none;
 color:white;
 transition:all 0.25s ease;
@@ -100,11 +103,11 @@ transition:all 0.25s ease;
 
 .flight-card:hover{
 transform:translateY(-6px);
-border:1px solid #4b5a77;
-box-shadow:0 10px 25px rgba(0,0,0,0.4);
+border:1px solid rgba(255,255,255,0.25);
+box-shadow:0 10px 25px rgba(0,0,0,0.5);
 }
 
-/* CARD IMAGE */
+/* IMAGE */
 
 .flight-card img{
 width:100%;
@@ -114,11 +117,10 @@ border-radius:10px;
 margin-bottom:14px;
 }
 
-/* ROUTE TITLE */
+/* ROUTE */
 
 .flight-card h3{
 font-size:24px;
-font-weight:700;
 margin-bottom:6px;
 }
 
@@ -126,7 +128,7 @@ margin-bottom:6px;
 
 .flight-card p{
 font-size:15px;
-color:#9ca9c2;
+color:#b5b5b5;
 }
 
 /* FOOTER */
@@ -135,7 +137,7 @@ footer{
 margin-top:80px;
 padding:30px;
 text-align:center;
-color:#9ca9c2;
+color:#9c9c9c;
 font-size:14px;
 }
 
@@ -157,14 +159,11 @@ Flight simulation journeys across the Nordic skies
 
 </header>
 
-
 <section class="section">
 
 <h2>Recent Flights</h2>
 
 <div class="flight-grid">
-
-<!-- EFHK → ESSA -->
 
 <a href="flights/efhk-essa.html" class="flight-card">
 
@@ -176,9 +175,6 @@ Flight simulation journeys across the Nordic skies
 <p>16 Mar 2026 • 45m</p>
 
 </a>
-
-
-<!-- EFJO → EFHK -->
 
 <a href="flights/efjo-efhk.html" class="flight-card">
 
@@ -194,7 +190,6 @@ Flight simulation journeys across the Nordic skies
 </div>
 
 </section>
-
 
 <footer>
 
