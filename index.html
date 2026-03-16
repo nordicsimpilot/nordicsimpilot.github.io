@@ -15,14 +15,14 @@ margin:0;
 padding:0;
 }
 
+/* BACKGROUND MAP */
+
 body{
 font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
-background-color:#0f172a;
+background:#020617;
 color:white;
 line-height:1.6;
 min-height:100vh;
-
-/* MAP BACKGROUND */
 
 background-image:url("images/map.png");
 background-size:contain;
@@ -43,58 +43,58 @@ padding:60px 20px 30px;
 }
 
 .logo a{
-font-size:40px;
+font-size:42px;
 font-weight:700;
 text-decoration:none;
-color:white;
+color:#e2e8f0;
 letter-spacing:1px;
 }
 
-/* SECTION */
+/* RECENT FLIGHTS PANEL */
 
 .section{
-padding:50px 20px;
+margin-top:40px;
+padding:50px 40px;
 max-width:1100px;
-width:100%;
-text-align:center;
-}
+width:95%;
 
-/* LIGHT PANEL so text readable */
-
-.section{
 background:rgba(15,23,42,0.75);
-border-radius:14px;
-padding:40px;
+border:1px solid rgba(255,255,255,0.08);
+border-radius:16px;
+
+backdrop-filter:blur(10px);
 }
 
 .section h2{
-font-size:34px;
-margin-bottom:40px;
+font-size:32px;
+margin-bottom:35px;
+color:#f1f5f9;
 }
 
-/* FLIGHT GRID */
+/* GRID */
 
 .flight-grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-gap:30px;
+gap:28px;
 }
 
 /* FLIGHT CARD */
 
 .flight-card{
-background:#1e293b;
+background:rgba(30,41,59,0.95);
 padding:20px;
 border-radius:14px;
-border:1px solid rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.06);
 text-decoration:none;
 color:white;
-transition:0.25s;
+transition:all 0.25s ease;
 }
 
 .flight-card:hover{
 transform:translateY(-6px);
-border:1px solid rgba(255,255,255,0.15);
+border:1px solid rgba(148,163,184,0.3);
+box-shadow:0 10px 25px rgba(0,0,0,0.4);
 }
 
 .flight-card img{
@@ -108,10 +108,11 @@ margin-bottom:14px;
 .flight-card h3{
 font-size:22px;
 margin-bottom:6px;
+color:#f8fafc;
 }
 
 .flight-card p{
-font-size:16px;
+font-size:15px;
 color:#94a3b8;
 }
 
@@ -121,8 +122,8 @@ footer{
 margin-top:80px;
 padding:30px;
 text-align:center;
-color:#cbd5f5;
-font-size:15px;
+color:#94a3b8;
+font-size:14px;
 }
 
 </style>
@@ -138,6 +139,7 @@ font-size:15px;
 </div>
 
 </header>
+
 
 <section class="section">
 
@@ -156,6 +158,7 @@ font-size:15px;
 
 </a>
 
+
 <a href="flights/efjo-efhk.html" class="flight-card">
 
 <img src="images/JOEN1.png">
@@ -170,6 +173,7 @@ font-size:15px;
 </div>
 
 </section>
+
 
 <footer>
 
