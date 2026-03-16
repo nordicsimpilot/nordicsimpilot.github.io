@@ -15,26 +15,26 @@ margin:0;
 padding:0;
 }
 
-/* PAGE */
-
 body{
 font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
 background:#0a0a0a;
 color:white;
 line-height:1.6;
+min-height:200vh;
+position:relative;
 }
 
-/* MAP BACKGROUND LAYER */
+/* SCROLLABLE MAP BACKGROUND */
 
-.map-background{
-position:fixed;
+.map-bg{
+position:absolute;
 top:0;
 left:0;
 width:100%;
-height:200vh;
+height:220vh;
 
 background-image:url("images/map.png");
-background-size:cover;
+background-size:100% auto;
 background-position:center top;
 background-repeat:no-repeat;
 
@@ -45,7 +45,7 @@ z-index:-1;
 
 header{
 text-align:center;
-padding:70px 20px 20px;
+padding:70px 20px 30px;
 }
 
 .logo a{
@@ -57,12 +57,12 @@ letter-spacing:1px;
 }
 
 .tagline{
-margin-top:8px;
+margin-top:10px;
 font-size:16px;
 color:#b5b5b5;
 }
 
-/* CONTENT SECTION */
+/* CONTENT PANEL */
 
 .section{
 margin:60px auto;
@@ -75,14 +75,14 @@ border-radius:16px;
 border:1px solid rgba(255,255,255,0.08);
 }
 
-/* TITLE */
+/* SECTION TITLE */
 
 .section h2{
 font-size:32px;
 margin-bottom:35px;
 }
 
-/* GRID */
+/* FLIGHT GRID */
 
 .flight-grid{
 display:grid;
@@ -90,7 +90,7 @@ grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
 gap:28px;
 }
 
-/* CARD */
+/* FLIGHT CARD */
 
 .flight-card{
 background:#111111;
@@ -108,7 +108,7 @@ border:1px solid rgba(255,255,255,0.25);
 box-shadow:0 10px 25px rgba(0,0,0,0.5);
 }
 
-/* IMAGE */
+/* CARD IMAGE */
 
 .flight-card img{
 width:100%;
@@ -118,7 +118,7 @@ border-radius:10px;
 margin-bottom:14px;
 }
 
-/* ROUTE */
+/* ROUTE TITLE */
 
 .flight-card h3{
 font-size:24px;
@@ -138,6 +138,7 @@ footer{
 text-align:center;
 padding:40px;
 color:#9c9c9c;
+font-size:14px;
 }
 
 </style>
@@ -146,7 +147,7 @@ color:#9c9c9c;
 
 <body>
 
-<div class="map-background"></div>
+<div class="map-bg"></div>
 
 <header>
 
@@ -159,6 +160,7 @@ Flight simulation journeys across the Nordic skies
 </p>
 
 </header>
+
 
 <section class="section">
 
@@ -191,6 +193,7 @@ Flight simulation journeys across the Nordic skies
 </div>
 
 </section>
+
 
 <footer>
 
