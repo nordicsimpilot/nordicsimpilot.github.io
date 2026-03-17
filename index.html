@@ -27,35 +27,39 @@ bottom:0;
 width:100%;
 }
 
-/* CENTER UI */
+/* TOP CENTER PANEL */
 
-.center-ui{
+.top-ui{
 position:absolute;
-top:50%;
+top:20px;
 left:50%;
-transform:translate(-50%,-50%);
+transform:translateX(-50%);
 z-index:1000;
 text-align:center;
+
+background:rgba(10,10,10,0.85);
+padding:14px 28px;
+border-radius:12px;
 }
 
 /* TITLE */
 
-.center-ui h1{
+.top-ui h1{
 margin:0;
-font-size:34px;
+font-size:28px;
 font-weight:600;
 }
 
-.center-ui p{
-margin-top:6px;
+.top-ui p{
+margin-top:4px;
 color:#b5b5b5;
-font-size:14px;
+font-size:13px;
 }
 
-/* NAVIGATION */
+/* NAV */
 
 .nav{
-margin-top:20px;
+margin-top:10px;
 display:flex;
 justify-content:center;
 gap:25px;
@@ -64,8 +68,8 @@ gap:25px;
 .nav a{
 color:white;
 text-decoration:none;
-font-size:14px;
-opacity:0.85;
+font-size:13px;
+opacity:0.9;
 }
 
 .nav a:hover{
@@ -76,7 +80,7 @@ text-decoration:underline;
 /* ROUTE TOOLTIP */
 
 .route-label{
-background:rgba(0,0,0,0.85);
+background:rgba(0,0,0,0.9);
 color:white;
 padding:4px 8px;
 border-radius:6px;
@@ -92,9 +96,9 @@ border:none;
 
 <div id="map"></div>
 
-<!-- CENTER CONTENT -->
+<!-- TOP UI -->
 
-<div class="center-ui">
+<div class="top-ui">
 
 <h1>Payam’s Flight Logbook</h1>
 <p>Virtual routes across the world</p>
@@ -161,7 +165,7 @@ direction:'top',
 className:'route-label'
 });
 
-/* HOVER EFFECT */
+/* HOVER */
 
 line.on('mouseover',function(){
 line.setStyle({weight:6});
@@ -195,7 +199,7 @@ var r2 = animateRoute(
 'EFJO → EFHK'
 );
 
-/* SMALL CLEAN AIRPORT PINS */
+/* AIRPORT PINS */
 
 function airport(lat,lon){
 
