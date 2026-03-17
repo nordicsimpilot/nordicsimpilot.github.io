@@ -25,52 +25,60 @@ bottom:0;
 width:100%;
 }
 
-/* HEADER */
+/* HEADER LEFT */
 
 .header{
 position:absolute;
 top:20px;
-left:50%;
-transform:translateX(-50%);
+left:20px;
 z-index:1000;
-text-align:center;
 background:rgba(10,10,10,0.65);
-padding:10px 22px;
-border-radius:10px;
+padding:8px 14px;
+border-radius:8px;
 }
 
 .header h1{
 margin:0;
-font-size:32px;
+font-size:20px;
 }
 
 .header p{
-margin-top:4px;
+margin:2px 0 0;
+font-size:12px;
 color:#b5b5b5;
 }
 
-/* MENU */
+/* TOP RIGHT MENU */
 
 .menu{
 position:absolute;
-bottom:20px;
-left:50%;
-transform:translateX(-50%);
+top:20px;
+right:20px;
 z-index:1000;
-background:rgba(10,10,10,0.85);
-padding:10px 18px;
-border-radius:10px;
+background:rgba(10,10,10,0.75);
+padding:8px 14px;
+border-radius:8px;
 }
 
 .menu a{
 color:white;
 text-decoration:none;
-margin:0 10px;
-font-size:14px;
+margin-left:12px;
+font-size:13px;
 }
 
 .menu a:hover{
 text-decoration:underline;
+}
+
+/* TOOLTIP STYLE */
+
+.route-label{
+background:rgba(0,0,0,0.8);
+color:white;
+padding:4px 8px;
+border-radius:6px;
+font-size:12px;
 }
 
 </style>
@@ -83,12 +91,13 @@ text-decoration:underline;
 
 <div class="header">
 <h1>Payam’s Flight Logbook</h1>
-<p>Exploring the world through virtual flight</p>
+<p>Virtual routes across the world</p>
 </div>
 
 <div class="menu">
-<a href="flights/efhk-essa.html">EFHK → ESSA</a>
-<a href="flights/efjo-efhk.html">EFJO → EFHK</a>
+<a href="index.html">Map</a>
+<a href="#">Flights</a>
+<a href="#">About</a>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -109,11 +118,11 @@ attribution:'© OpenStreetMap contributors © CARTO'
 
 /* ROUTE COLOR */
 
-var routeColor = "#39FF14"; // phosphor green
+var routeColor = "#39FF14";
 
-/* ROUTE ANIMATION FUNCTION */
+/* ROUTE FUNCTION */
 
-function animateRoute(coords, link){
+function animateRoute(coords, link, label){
 
 let line = L.polyline([],{
 color:routeColor,
@@ -124,23 +133,28 @@ opacity:0.95
 let i = 0;
 
 let interval = setInterval(function(){
-
 line.addLatLng(coords[i]);
 i++;
-
 if(i >= coords.length){
 clearInterval(interval);
 }
+},150);
 
-},180);
-
-/* CLICK ROUTE */
+/* CLICK */
 
 line.on('click',function(){
 window.location.href = link;
 });
 
-/* HOVER EFFECT */
+/* HOVER LABEL */
+
+line.bindTooltip(label,{
+permanent:false,
+direction:'top',
+className:'route-label'
+});
+
+/* HOVER GLOW */
 
 line.on('mouseover',function(){
 line.setStyle({weight:6});
@@ -156,45 +170,45 @@ return line;
 
 /* ROUTES */
 
-var route1 = animateRoute(
+var r1 = animateRoute(
 [
 [60.3172,24.9633],
 [59.6519,17.9186]
 ],
-'flights/efhk-essa.html'
+'flights/efhk-essa.html',
+'EFHK → ESSA'
 );
 
-var route2 = animateRoute(
+var r2 = animateRoute(
 [
 [62.6629,29.6076],
 [60.3172,24.9633]
 ],
-'flights/efjo-efhk.html'
+'flights/efjo-efhk.html',
+'EFJO → EFHK'
 );
 
-/* NICE CITY PINS */
+/* SMALL CLEAN AIRPORT PINS */
 
-function airport(lat,lon,name){
+function airport(lat,lon){
 
 L.circleMarker([lat,lon],{
-radius:5,
+radius:4,
 color:"#000",
-weight:2,
-fillColor:"#ffffff",
+weight:1,
+fillColor:"#fff",
 fillOpacity:1
-}).addTo(map).bindPopup(name);
+}).addTo(map);
 
 }
 
-/* AIRPORTS */
+airport(60.3172,24.9633);
+airport(59.6519,17.9186);
+airport(62.6629,29.6076);
 
-airport(60.3172,24.9633,"EFHK Helsinki");
-airport(59.6519,17.9186,"ESSA Stockholm");
-airport(62.6629,29.6076,"EFJO Joensuu");
+/* FIT MAP */
 
-/* AUTO FIT MAP */
-
-var group = L.featureGroup([route1,route2]);
+var group = L.featureGroup([r1,r2]);
 map.fitBounds(group.getBounds(),{padding:[80,80]});
 
 </script>
