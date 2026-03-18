@@ -131,18 +131,9 @@ var routeColor = "#39FF14";
 
 function animateRoute(coords, link, label){
 
-/* INVISIBLE CLICK AREA (BIG HITBOX) */
-let hitbox = L.polyline(coords,{
-color:"#000",
-weight:20,          // 👈 BIG touch area
-opacity:0,          // invisible
-interactive:true
-}).addTo(map);
-
-/* VISIBLE LINE */
 let line = L.polyline([],{
 color:routeColor,
-weight:6,
+weight:8,              // 👈 thicker = easier to tap
 opacity:0.95,
 lineCap:'round',
 lineJoin:'round'
@@ -158,6 +149,37 @@ clearInterval(interval);
 }
 },150);
 
+/* CLICK + TOUCH (important for iOS) */
+function goToFlight(e){
+L.DomEvent.stopPropagation(e);
+window.location.href = link;
+}
+
+line.on('click', goToFlight);
+line.on('touchstart', goToFlight);   // 👈 KEY FIX for iPhone
+
+/* TOOLTIP (hover only) */
+line.on('mouseover',function(){
+line.setStyle({weight:11});
+line.bindTooltip(label,{
+direction:'top',
+className:'route-label'
+}).openTooltip();
+});
+
+line.on('mouseout',function(){
+line.setStyle({weight:8});
+line.closeTooltip();
+});
+
+/* Prevent iOS weird delays */
+line.on('mousedown',function(e){
+L.DomEvent.preventDefault(e);
+});
+
+return line;
+
+}
 /* CLICK (use hitbox instead of line) */
 hitbox.on('click',function(e){
 L.DomEvent.stopPropagation(e);
