@@ -18,7 +18,7 @@ background:#0a0a0a;
 color:white;
 }
 
-/* REMOVE CLICK BOX / OUTLINE */
+/* REMOVE CLICK OUTLINE */
 .leaflet-interactive:focus{
 outline:none !important;
 }
@@ -32,7 +32,7 @@ bottom:0;
 width:100%;
 }
 
-/* TOP UI */
+/* TOP CENTER PANEL */
 
 .top-ui{
 position:absolute;
@@ -57,6 +57,8 @@ margin-top:4px;
 color:#b5b5b5;
 font-size:13px;
 }
+
+/* NAV */
 
 .nav{
 margin-top:10px;
@@ -133,7 +135,7 @@ function animateRoute(coords, link, label){
 
 let line = L.polyline([],{
 color:routeColor,
-weight:8,              // 👈 thicker = easier to tap
+weight:8,              // thicker for mobile
 opacity:0.95,
 lineCap:'round',
 lineJoin:'round'
@@ -149,16 +151,16 @@ clearInterval(interval);
 }
 },150);
 
-/* CLICK + TOUCH (important for iOS) */
+/* CLICK + TOUCH (iOS fix) */
 function goToFlight(e){
 L.DomEvent.stopPropagation(e);
 window.location.href = link;
 }
 
 line.on('click', goToFlight);
-line.on('touchstart', goToFlight);   // 👈 KEY FIX for iPhone
+line.on('touchstart', goToFlight);
 
-/* TOOLTIP (hover only) */
+/* HOVER TOOLTIP (desktop only) */
 line.on('mouseover',function(){
 line.setStyle({weight:11});
 line.bindTooltip(label,{
@@ -172,67 +174,7 @@ line.setStyle({weight:8});
 line.closeTooltip();
 });
 
-/* Prevent iOS weird delays */
-line.on('mousedown',function(e){
-L.DomEvent.preventDefault(e);
-});
-
-return line;
-
-}
-/* CLICK (use hitbox instead of line) */
-hitbox.on('click',function(e){
-L.DomEvent.stopPropagation(e);
-window.location.href = link;
-});
-
-/* HOVER (desktop only) */
-line.on('mouseover',function(){
-line.setStyle({weight:9});
-line.bindTooltip(label,{
-direction:'top',
-className:'route-label'
-}).openTooltip();
-});
-
-line.on('mouseout',function(){
-line.setStyle({weight:6});
-line.closeTooltip();
-});
-
 /* Prevent weird mobile behavior */
-hitbox.on('mousedown',function(e){
-L.DomEvent.preventDefault(e);
-});
-
-return line;
-
-}
-
-/* CLICK (NO TOOLTIP FLASH) */
-
-line.on('click',function(e){
-L.DomEvent.stopPropagation(e);   // prevent weird UI
-window.location.href = link;
-});
-
-/* TOOLTIP ONLY ON HOVER */
-
-line.on('mouseover',function(){
-line.setStyle({weight:8});
-line.bindTooltip(label,{
-direction:'top',
-className:'route-label'
-}).openTooltip();
-});
-
-line.on('mouseout',function(){
-line.setStyle({weight:5});
-line.closeTooltip();
-});
-
-/* PREVENT FOCUS */
-
 line.on('mousedown',function(e){
 L.DomEvent.preventDefault(e);
 });
