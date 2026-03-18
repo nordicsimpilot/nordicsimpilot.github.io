@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ESSA → ENGM | Payam’s Flight Logbook</title>
+<title>ESSA → ENGM | A330-300 Full Flight | Payam’s Flight Logbook</title>
 
 <style>
 
@@ -25,7 +25,7 @@ max-width:1000px;
 margin:auto;
 }
 
-/* BACK LINK */
+/* BACK */
 
 .back{
 position:absolute;
@@ -33,10 +33,12 @@ top:20px;
 left:20px;
 color:#cfcfcf;
 text-decoration:none;
+transition:0.2s;
 }
 
 .back:hover{
 color:white;
+transform:translateX(-3px);
 }
 
 /* TITLE */
@@ -48,29 +50,44 @@ margin-bottom:20px;
 /* INFO */
 
 .info{
-margin-bottom:40px;
+margin-bottom:30px;
 color:#b5b5b5;
+}
+
+/* STATS GRID */
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+margin-bottom:40px;
+}
+
+.card{
+background:#111;
+padding:15px;
+border-radius:10px;
 }
 
 /* VIDEO */
 
 .video{
+position:relative;
+padding-bottom:56.25%;
+height:0;
+overflow:hidden;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,0.6);
 margin-bottom:50px;
 }
 
 .video iframe{
+position:absolute;
+top:0;
+left:0;
 width:100%;
-height:500px;
+height:100%;
 border:none;
-border-radius:12px;
-box-shadow:0 10px 30px rgba(0,0,0,0.6);
-}
-
-/* SECTION HEADINGS */
-
-h2{
-margin-top:40px;
-margin-bottom:20px;
 }
 
 /* GALLERY */
@@ -85,25 +102,25 @@ gap:20px;
 width:100%;
 border-radius:12px;
 box-shadow:0 10px 25px rgba(0,0,0,0.5);
-transition:0.25s;
 cursor:pointer;
+transition:0.25s;
 }
 
 .gallery img:hover{
 transform:scale(1.03);
 }
 
-/* PDF CARD */
+/* PDF */
 
 .pdf-card{
 position:relative;
 border-radius:12px;
 overflow:hidden;
+transition:0.25s;
 }
 
-.pdf-card img{
-width:100%;
-border-radius:12px;
+.pdf-card:hover{
+transform:scale(1.03);
 }
 
 .pdf-label{
@@ -114,7 +131,6 @@ background:rgba(0,0,0,0.85);
 padding:6px 10px;
 border-radius:6px;
 font-size:13px;
-color:white;
 }
 
 /* LIGHTBOX */
@@ -153,33 +169,99 @@ border-radius:10px;
 <div class="info">
 
 <p><b>Aircraft:</b> Airbus A330-300</p>
-<p><b>Departure:</b> Stockholm Arlanda (ESSA)</p>
-<p><b>Arrival:</b> Oslo Gardermoen (ENGM)</p>
 <p><b>Simulator:</b> X-Plane 12</p>
 
 </div>
+
+<!-- STATS -->
+
+<div class="stats">
+
+<div class="card">
+<b>Route</b><br>
+ARS6G → ARS → N623 → IBGAX → EBURI → ESEBA4M
+</div>
+
+<div class="card">
+<b>Cruise Level</b><br>
+FL340
+</div>
+
+<div class="card">
+<b>Distance</b><br>
+256 NM
+</div>
+
+<div class="card">
+<b>Flight Time</b><br>
+~46 min
+</div>
+
+<div class="card">
+<b>Departure</b><br>
+ESSA RWY 19R
+</div>
+
+<div class="card">
+<b>Arrival</b><br>
+ENGM RWY 19L
+</div>
+
+<div class="card">
+<b>Block Fuel</b><br>
+12.9 tons
+</div>
+
+<div class="card">
+<b>Wind</b><br>
+302° / 38 kt
+</div>
+
+</div>
+
+<!-- VIDEO -->
 
 <h2>Flight Video</h2>
 
 <div class="video">
 
 <iframe
-src="https://youtu.be/T0scI9D1Sic"
+src="https://www.youtube.com/embed/T0scI9D1Sic"
 title="ESSA to ENGM Flight"
 allowfullscreen>
 </iframe>
 
 </div>
 
+<!-- PDF -->
+
+<h2>Flight Plan</h2>
+
+<div class="gallery">
+
+<a href="../files/ESSAENGM.pdf" target="_blank" class="pdf-card">
+<img src="../images/pdf-preview.png">
+<div class="pdf-label">View OFP (PDF)</div>
+</a>
+
+</div>
+
+<!-- SCREENSHOTS -->
+
 <h2>Flight Screenshots</h2>
 
 <div class="gallery">
 
 <img src="../images/OSL1.png" onclick="openImage(this.src)">
+<img src="../images/OSL2.png" onclick="openImage(this.src)">
+<img src="../images/OSL3.png" onclick="openImage(this.src)">
+<img src="../images/OSL4.png" onclick="openImage(this.src)">
 
 </div>
 
 </div>
+
+<!-- LIGHTBOX -->
 
 <div id="lightbox" class="lightbox" onclick="closeImage()">
 <img id="lightbox-img">
