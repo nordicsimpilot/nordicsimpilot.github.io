@@ -98,6 +98,8 @@ grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
 gap:20px;
 }
 
+/* IMAGES */
+
 .gallery img{
 width:100%;
 border-radius:12px;
@@ -110,27 +112,38 @@ transition:0.25s;
 transform:scale(1.03);
 }
 
-/* PDF */
+/* PDF CARD (IMPROVED) */
 
 .pdf-card{
-position:relative;
+display:flex;
+align-items:center;
+justify-content:center;
+height:180px;
 border-radius:12px;
-overflow:hidden;
+background:linear-gradient(135deg,#1f1f1f,#111);
+box-shadow:0 10px 25px rgba(0,0,0,0.6);
+text-decoration:none;
+color:white;
 transition:0.25s;
 }
 
 .pdf-card:hover{
 transform:scale(1.03);
+background:linear-gradient(135deg,#2a2a2a,#111);
+}
+
+.pdf-content{
+text-align:center;
+}
+
+.pdf-icon{
+font-size:40px;
+margin-bottom:10px;
 }
 
 .pdf-label{
-position:absolute;
-bottom:10px;
-left:10px;
-background:rgba(0,0,0,0.85);
-padding:6px 10px;
-border-radius:6px;
-font-size:13px;
+font-size:14px;
+color:#ccc;
 }
 
 /* LIGHTBOX */
@@ -213,8 +226,8 @@ ENGM RWY 19L
 </div>
 
 <div class="card">
-<b>Wind</b><br>
-302° / 38 kt
+<b>Callsign</b><br>
+FIN1003
 </div>
 
 </div>
@@ -240,8 +253,13 @@ allowfullscreen>
 <div class="gallery">
 
 <a href="../files/ESSAENGM.pdf" target="_blank" class="pdf-card">
-<img src="../images/pdf-preview.png">
-<div class="pdf-label">View OFP (PDF)</div>
+
+<div class="pdf-content">
+<div class="pdf-icon">📄</div>
+<div><b>Flight Plan (OFP)</b></div>
+<div class="pdf-label">Click to open PDF</div>
+</div>
+
 </a>
 
 </div>
