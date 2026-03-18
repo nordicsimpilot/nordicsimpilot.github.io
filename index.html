@@ -137,7 +137,7 @@ function animateRoute(coords, link, label){
 
 let line = L.polyline([],{
 color:routeColor,
-weight:3,
+weight:5,              // thicker line
 opacity:0.95
 }).addTo(map);
 
@@ -168,11 +168,11 @@ className:'route-label'
 /* HOVER */
 
 line.on('mouseover',function(){
-line.setStyle({weight:6});
+line.setStyle({weight:8});
 });
 
 line.on('mouseout',function(){
-line.setStyle({weight:3});
+line.setStyle({weight:5});
 });
 
 return line;
@@ -201,13 +201,24 @@ var r2 = animateRoute(
 
 var r3 = animateRoute(
 [
-[59.6519,17.9186], // ESSA (Stockholm Arlanda)
-[60.1939,11.1004]  // ENGM (Oslo Gardermoen)
+[59.6519,17.9186],
+[60.1939,11.1004]
 ],
 'flights/essa-engm.html',
 'ESSA → ENGM'
 );
-  
+
+/* NEW ROUTE: ENGM → EIDW */
+
+var r4 = animateRoute(
+[
+[60.1939,11.1004],
+[53.4213,-6.2701]
+],
+'flights/engm-eidw.html',
+'ENGM → EIDW'
+);
+
 /* AIRPORT PINS */
 
 function airport(lat,lon){
@@ -222,14 +233,15 @@ fillOpacity:1
 
 }
 
-airport(60.3172,24.9633);
-airport(59.6519,17.9186);
-airport(62.6629,29.6076);
+airport(60.3172,24.9633); // EFHK
+airport(59.6519,17.9186); // ESSA
+airport(62.6629,29.6076); // EFJO
 airport(60.1939,11.1004); // ENGM
-  
+airport(53.4213,-6.2701); // EIDW
+
 /* FIT MAP */
 
-var group = L.featureGroup([r1,r2]);
+var group = L.featureGroup([r1,r2,r3,r4]);
 map.fitBounds(group.getBounds(),{padding:[80,80]});
 
 </script>
