@@ -199,6 +199,15 @@ var r2 = animateRoute(
 'EFJO → EFHK'
 );
 
+var r3 = animateRoute(
+[
+[59.6519,17.9186], // ESSA (Stockholm Arlanda)
+[60.1939,11.1004]  // ENGM (Oslo Gardermoen)
+],
+'flights/essa-engm.html',
+'ESSA → ENGM'
+);
+  
 /* AIRPORT PINS */
 
 function airport(lat,lon){
@@ -216,7 +225,8 @@ fillOpacity:1
 airport(60.3172,24.9633);
 airport(59.6519,17.9186);
 airport(62.6629,29.6076);
-
+airport(60.1939,11.1004); // ENGM
+  
 /* FIT MAP */
 
 var group = L.featureGroup([r1,r2]);
