@@ -24,7 +24,6 @@ outline:none !important;
 }
 
 /* MAP */
-
 #map{
 position:absolute;
 top:0;
@@ -32,8 +31,7 @@ bottom:0;
 width:100%;
 }
 
-/* TOP CENTER PANEL */
-
+/* TOP PANEL */
 .top-ui{
 position:absolute;
 top:20px;
@@ -59,7 +57,6 @@ font-size:13px;
 }
 
 /* NAV */
-
 .nav{
 margin-top:10px;
 display:flex;
@@ -80,7 +77,6 @@ text-decoration:underline;
 }
 
 /* TOOLTIP */
-
 .route-label{
 background:rgba(0,0,0,0.9);
 color:white;
@@ -114,11 +110,9 @@ border:none;
 <script>
 
 /* MAP */
-
-var map = L.map('map').setView([60,15],4);
+var map = L.map('map').setView([58,10],4);
 
 /* TILE */
-
 L.tileLayer(
 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
 {
@@ -126,16 +120,14 @@ attribution:'© OpenStreetMap contributors © CARTO'
 }).addTo(map);
 
 /* ROUTE COLOR */
-
 var routeColor = "#39FF14";
 
 /* ROUTE FUNCTION */
-
 function animateRoute(coords, link, label){
 
 let line = L.polyline([],{
 color:routeColor,
-weight:8,              // thicker for mobile
+weight:8,
 opacity:0.95,
 lineCap:'round',
 lineJoin:'round'
@@ -149,9 +141,9 @@ i++;
 if(i >= coords.length){
 clearInterval(interval);
 }
-},150);
+},120);
 
-/* CLICK + TOUCH (iOS fix) */
+/* CLICK + TOUCH */
 function goToFlight(e){
 L.DomEvent.stopPropagation(e);
 window.location.href = link;
@@ -160,7 +152,7 @@ window.location.href = link;
 line.on('click', goToFlight);
 line.on('touchstart', goToFlight);
 
-/* HOVER TOOLTIP (desktop only) */
+/* TOOLTIP */
 line.on('mouseover',function(){
 line.setStyle({weight:11});
 line.bindTooltip(label,{
@@ -174,13 +166,11 @@ line.setStyle({weight:8});
 line.closeTooltip();
 });
 
-/* Prevent weird mobile behavior */
 line.on('mousedown',function(e){
 L.DomEvent.preventDefault(e);
 });
 
 return line;
-
 }
 
 /* ROUTES */
@@ -209,8 +199,14 @@ var r4 = animateRoute(
 'ENGM → EIDW'
 );
 
-/* AIRPORTS */
+/* NEW ROUTE: DUBLIN → HEATHROW */
+var r5 = animateRoute(
+[[53.4213,-6.2701],[51.4700,-0.4543]],
+'flights/eidw-egll.html',
+'EIDW → EGLL (A330)'
+);
 
+/* AIRPORTS */
 function airport(lat,lon){
 L.circleMarker([lat,lon],{
 radius:4,
@@ -221,15 +217,15 @@ fillOpacity:1
 }).addTo(map);
 }
 
-airport(60.3172,24.9633);
-airport(59.6519,17.9186);
-airport(62.6629,29.6076);
-airport(60.1939,11.1004);
-airport(53.4213,-6.2701);
+airport(60.3172,24.9633); // EFHK
+airport(59.6519,17.9186); // ESSA
+airport(62.6629,29.6076); // EFJO
+airport(60.1939,11.1004); // ENGM
+airport(53.4213,-6.2701); // EIDW
+airport(51.4700,-0.4543); // EGLL  <-- NEW
 
 /* FIT */
-
-var group = L.featureGroup([r1,r2,r3,r4]);
+var group = L.featureGroup([r1,r2,r3,r4,r5]);
 map.fitBounds(group.getBounds(),{padding:[80,80]});
 
 </script>
