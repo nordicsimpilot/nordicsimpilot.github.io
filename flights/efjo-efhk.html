@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>EFJO → EFHK | Payam’s Flight Logbook</title>
+<title>JOENSUU (EFJO) → HELSINKI (EFHK) | A330-300 | Payam’s Flight Logbook</title>
 
 <style>
 
@@ -18,14 +18,10 @@ padding:60px 20px;
 line-height:1.6;
 }
 
-/* CONTAINER */
-
 .container{
 max-width:1000px;
 margin:auto;
 }
-
-/* BACK LINK */
 
 .back{
 position:absolute;
@@ -33,47 +29,54 @@ top:20px;
 left:20px;
 color:#cfcfcf;
 text-decoration:none;
+transition:0.2s;
 }
 
 .back:hover{
 color:white;
+transform:translateX(-3px);
 }
-
-/* TITLE */
 
 h1{
 margin-bottom:20px;
 }
 
-/* INFO */
-
 .info{
-margin-bottom:40px;
+margin-bottom:30px;
 color:#b5b5b5;
 }
 
-/* VIDEO */
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+margin-bottom:40px;
+}
+
+.card{
+background:#111;
+padding:15px;
+border-radius:10px;
+}
 
 .video{
+position:relative;
+padding-bottom:56.25%;
+height:0;
+overflow:hidden;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,0.6);
 margin-bottom:50px;
 }
 
 .video iframe{
+position:absolute;
+top:0;
+left:0;
 width:100%;
-height:500px;
+height:100%;
 border:none;
-border-radius:12px;
-box-shadow:0 10px 30px rgba(0,0,0,0.6);
 }
-
-/* SECTION HEADINGS */
-
-h2{
-margin-top:40px;
-margin-bottom:20px;
-}
-
-/* GALLERY */
 
 .gallery{
 display:grid;
@@ -85,15 +88,45 @@ gap:20px;
 width:100%;
 border-radius:12px;
 box-shadow:0 10px 25px rgba(0,0,0,0.5);
-transition:0.25s;
 cursor:pointer;
+transition:0.25s;
 }
 
 .gallery img:hover{
 transform:scale(1.03);
 }
 
-/* LIGHTBOX */
+.pdf-card{
+display:flex;
+align-items:center;
+justify-content:center;
+height:180px;
+border-radius:12px;
+background:linear-gradient(135deg,#1f1f1f,#111);
+box-shadow:0 10px 25px rgba(0,0,0,0.6);
+text-decoration:none;
+color:white;
+transition:0.25s;
+}
+
+.pdf-card:hover{
+transform:scale(1.03);
+background:linear-gradient(135deg,#2a2a2a,#111);
+}
+
+.pdf-content{
+text-align:center;
+}
+
+.pdf-icon{
+font-size:40px;
+margin-bottom:10px;
+}
+
+.pdf-label{
+font-size:14px;
+color:#ccc;
+}
 
 .lightbox{
 display:none;
@@ -128,12 +161,58 @@ border-radius:10px;
 
 <div class="info">
 
-<p><b>Aircraft:</b> Airbus A330</p>
-<p><b>Departure:</b> Joensuu (EFJO)</p>
-<p><b>Arrival:</b> Helsinki (EFHK)</p>
+<p><b>Aircraft:</b> Airbus A330-300 (Trent 772)</p>
 <p><b>Simulator:</b> X-Plane 12</p>
 
 </div>
+
+<!-- STATS -->
+
+<div class="stats">
+
+<div class="card">
+<b>Route</b><br>
+UVOVO2L → UVOVO → DCT → ULVED → DCT → ROKVI → Y358 → VEPIN → VEPIN4M
+</div>
+
+<div class="card">
+<b>Cruise Level</b><br>
+FL300
+</div>
+
+<div class="card">
+<b>Distance</b><br>
+~234 NM (air)
+</div>
+
+<div class="card">
+<b>Flight Time</b><br>
+~42 min (air) / ~1h15 block
+</div>
+
+<div class="card">
+<b>Departure</b><br>
+EFJO RWY 10
+</div>
+
+<div class="card">
+<b>Arrival</b><br>
+EFHK RWY 15
+</div>
+
+<div class="card">
+<b>Block Fuel</b><br>
+11.5 tons
+</div>
+
+<div class="card">
+<b>Callsign</b><br>
+FIN1001
+</div>
+
+</div>
+
+<!-- VIDEO -->
 
 <h2>Flight Video</h2>
 
@@ -147,17 +226,40 @@ allowfullscreen>
 
 </div>
 
+<!-- PDF -->
+
+<h2>Flight Plan</h2>
+
+<div class="gallery">
+
+<a href="../files/EFJOEFHK.pdf" target="_blank" class="pdf-card">
+
+<div class="pdf-content">
+<div class="pdf-icon">📄</div>
+<div><b>Flight Plan (OFP)</b></div>
+<div class="pdf-label">Click to open PDF</div>
+</div>
+
+</a>
+
+</div>
+
+<!-- SCREENSHOTS -->
+
 <h2>Flight Screenshots</h2>
 
 <div class="gallery">
 
-<img src="../images/JOEN1.png" onclick="openImage(this.src)">
-<img src="../images/JOEN2.png" onclick="openImage(this.src)">
-<img src="../images/JOEN3.png" onclick="openImage(this.src)">
+<img src="../images/JOE1.png" onclick="openImage(this.src)">
+<img src="../images/JOE2.png" onclick="openImage(this.src)">
+<img src="../images/JOE3.png" onclick="openImage(this.src)">
+<img src="../images/JOE4.png" onclick="openImage(this.src)">
 
 </div>
 
 </div>
+
+<!-- LIGHTBOX -->
 
 <div id="lightbox" class="lightbox" onclick="closeImage()">
 <img id="lightbox-img">
