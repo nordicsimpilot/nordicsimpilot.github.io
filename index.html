@@ -104,7 +104,7 @@ border:none;
 
 <script>
 
-var map = L.map('map').setView([58,10],4);
+var map = L.map('map').setView([55,10],4);
 
 L.tileLayer(
 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
@@ -132,7 +132,7 @@ i++;
 if(i >= coords.length){
 clearInterval(interval);
 }
-},120);
+},100);
 
 function goToFlight(e){
 L.DomEvent.stopPropagation(e);
@@ -164,42 +164,50 @@ return line;
 
 /* ROUTES */
 
-var r1 = animateRoute(
+var routes = [];
+
+routes.push(animateRoute(
 [[60.3172,24.9633],[59.6519,17.9186]],
 'flights/efhk-essa.html',
 'EFHK → ESSA'
-);
+));
 
-var r2 = animateRoute(
+routes.push(animateRoute(
 [[62.6629,29.6076],[60.3172,24.9633]],
 'flights/efjo-efhk.html',
 'EFJO → EFHK'
-);
+));
 
-var r3 = animateRoute(
+routes.push(animateRoute(
 [[59.6519,17.9186],[60.1939,11.1004]],
 'flights/essa-engm.html',
 'ESSA → ENGM'
-);
+));
 
-var r4 = animateRoute(
+routes.push(animateRoute(
 [[60.1939,11.1004],[53.4213,-6.2701]],
 'flights/engm-eidw.html',
 'ENGM → EIDW'
-);
+));
 
-var r5 = animateRoute(
+routes.push(animateRoute(
 [[53.4213,-6.2701],[51.4700,-0.4543]],
 'flights/eidw-egll.html',
 'EIDW → EGLL (A330)'
-);
+));
 
-/* NEW ROUTE: HEATHROW → LISBON */
-var r6 = animateRoute(
+routes.push(animateRoute(
 [[51.4700,-0.4543],[38.7742,-9.1342]],
 'flights/egll-lppt.html',
 'EGLL → LPPT (A330)'
-);
+));
+
+/* NEW: LISBON → MADRID */
+routes.push(animateRoute(
+[[38.7742,-9.1342],[40.4722,-3.5608]],
+'flights/lppt-lemd.html',
+'LPPT → LEMD (A330)'
+));
 
 /* AIRPORTS */
 
@@ -219,11 +227,12 @@ airport(62.6629,29.6076); // EFJO
 airport(60.1939,11.1004); // ENGM
 airport(53.4213,-6.2701); // EIDW
 airport(51.4700,-0.4543); // EGLL
-airport(38.7742,-9.1342); // LPPT <-- NEW
+airport(38.7742,-9.1342); // LPPT
+airport(40.4722,-3.5608); // LEMD (NEW)
 
-/* FIT */
+/* FIT ALL ROUTES */
 
-var group = L.featureGroup([r1,r2,r3,r4,r5,r6]);
+var group = L.featureGroup(routes);
 map.fitBounds(group.getBounds(),{padding:[80,80]});
 
 </script>
