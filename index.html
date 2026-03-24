@@ -214,7 +214,13 @@ routes.push(animateRoute(
 'flights/lemd-lfpg.html',
 'LEMD → LFPG (A330)'
 ));
-
+  
+routes.push(animateRoute(
+[[49.0097,2.5479],[50.9010,4.4844]],
+'flights/lfpg-ebbr.html',
+'LFPG → EBBR (A330)'
+));
+  
 /* AIRPORTS */
 
 function airport(lat,lon){
@@ -236,6 +242,7 @@ airport(51.4700,-0.4543); // EGLL
 airport(38.7742,-9.1342); // LPPT
 airport(40.4722,-3.5608); // LEMD 
 airport(49.0097,2.5479); // LFPG 
+airport(50.9010,4.4844); // EBBR
   
 /* FIT ALL ROUTES */
 
