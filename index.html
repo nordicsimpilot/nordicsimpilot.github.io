@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-
 <html>
 <head>
 
 <meta charset="utf-8">
 <title>Payam's Flight Logbook</title>
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
@@ -28,7 +26,7 @@ width:100%;
 z-index:1;
 }
 
-/* UI MUST BE ABOVE MAP */
+/* UI ABOVE MAP */
 .top-ui,
 .recent-flights{
 z-index:9999;
@@ -41,86 +39,55 @@ position:absolute;
 top:20px;
 left:50%;
 transform:translateX(-50%);
-text-align:center;
 background:rgba(10,10,10,0.85);
 padding:14px 28px;
 border-radius:12px;
+text-align:center;
 }
 
-.top-ui h1{
-margin:0;
-font-size:28px;
-}
-
-.top-ui p{
-margin-top:4px;
-color:#b5b5b5;
-font-size:13px;
-}
-
-/* NAV */
 .nav{
 margin-top:10px;
 display:flex;
+gap:20px;
 justify-content:center;
-gap:25px;
 }
 
 .nav a{
 color:white;
 text-decoration:none;
-font-size:13px;
 }
 
 .nav a:hover{
 text-decoration:underline;
 }
 
-/* ROUTE TOOLTIP */
-.route-label{
-background:rgba(0,0,0,0.9);
-color:white;
-padding:4px 8px;
-border-radius:6px;
-font-size:12px;
-}
-
-/* GLOW LINE */
+/* ROUTES */
 .glow-line{
 filter: drop-shadow(0 0 6px rgba(47,128,237,0.6));
 }
 
-/* RECENT FLIGHTS */
+.route-label{
+background:#000;
+color:#fff;
+padding:4px 8px;
+border-radius:6px;
+}
+
+/* RECENT */
 .recent-flights{
 position:absolute;
 bottom:20px;
 left:50%;
 transform:translateX(-50%);
 background:rgba(10,10,10,0.9);
-padding:14px 20px;
+padding:14px;
 border-radius:12px;
 width:260px;
-}
-
-.recent-flights h3{
-margin:0 0 8px 0;
-font-size:14px;
-}
-
-.recent-flights ul{
-list-style:none;
-padding:0;
-margin:0;
-}
-
-.recent-flights li{
-padding:4px 0;
 }
 
 .recent-flights a{
 color:#2F80ED;
 text-decoration:none;
-pointer-events:auto;
 cursor:pointer;
 }
 
@@ -129,7 +96,6 @@ text-decoration:underline;
 }
 
 </style>
-
 </head>
 
 <body>
@@ -139,11 +105,10 @@ text-decoration:underline;
 <div class="top-ui">
 <h1>Payam’s Flight Logbook</h1>
 <p>Virtual routes across the world</p>
-
 <div class="nav">
-<a href="index.html">Map</a>
-<a href="aircraft.html">Aircraft</a>
-<a href="about.html">About</a>
+<a href="#">Map</a>
+<a href="#">Aircraft</a>
+<a href="#">About</a>
 </div>
 </div>
 
@@ -157,18 +122,15 @@ text-decoration:underline;
 <script>
 
 /* MAP */
-
 var map = L.map('map').setView([55,10],4);
 
 L.tileLayer(
-'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-{attribution:'© OpenStreetMap © CARTO'}
+'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
 ).addTo(map);
 
 var routeColor = "#2F80ED";
 
-/* ROUTE DRAW */
-
+/* DRAW ROUTE */
 function animateRoute(coords, link, label){
 
 let line = L.polyline([],{
@@ -190,7 +152,7 @@ line.on('click', ()=> window.location.href = link);
 
 line.on('mouseover',()=>{
 line.setStyle({weight:6});
-line.bindTooltip(label,{direction:'top',className:'route-label'}).openTooltip();
+line.bindTooltip(label,{className:'route-label'}).openTooltip();
 });
 
 line.on('mouseout',()=>{
@@ -201,8 +163,7 @@ line.closeTooltip();
 return line;
 }
 
-/* FLIGHTS */
-
+/* FLIGHTS DATA */
 var flights = [
 
 {coords:[[60.3172,24.9633],[59.6519,17.9186]], link:'flights/efhk-essa.html', label:'EFHK → ESSA'},
@@ -230,19 +191,17 @@ var flights = [
 
 ];
 
-/* DRAW ROUTES */
-
+/* DRAW ALL */
 var routes = [];
 flights.forEach(f => routes.push(animateRoute(f.coords, f.link, f.label)));
 
 /* AIRPORTS */
-
 function airport(lat,lon){
 L.circleMarker([lat,lon],{
 radius:4,
+fillColor:"#fff",
 color:"#000",
 weight:1,
-fillColor:"#fff",
 fillOpacity:1
 }).addTo(map);
 }
@@ -253,19 +212,18 @@ airport(f.coords[1][0], f.coords[1][1]);
 });
 
 /* FIT */
-
 var group = L.featureGroup(routes);
 map.fitBounds(group.getBounds(),{padding:[80,80]});
 
-/* RECENT FLIGHTS (WORKING) */
+/* RECENT FLIGHTS (FINAL FIX) */
+window.onload = function(){
 
-document.addEventListener("DOMContentLoaded", function(){
+var list = document.getElementById("recent-list");
+list.innerHTML = "";
 
-var recentList = document.getElementById("recent-list");
+var last = flights.slice(-3).reverse();
 
-var lastThree = flights.slice(-3).reverse();
-
-lastThree.forEach(f=>{
+last.forEach(f=>{
 let li = document.createElement("li");
 
 let a = document.createElement("a");
@@ -273,10 +231,10 @@ a.href = f.link;
 a.textContent = f.label;
 
 li.appendChild(a);
-recentList.appendChild(li);
+list.appendChild(li);
 });
 
-});
+};
 
 </script>
 
