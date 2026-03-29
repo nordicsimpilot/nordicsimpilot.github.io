@@ -19,23 +19,28 @@ background:#0a0a0a;
 color:white;
 }
 
-.leaflet-interactive:focus{
-outline:none !important;
-}
-
+/* MAP */
 #map{
 position:absolute;
 top:0;
 bottom:0;
 width:100%;
+z-index:1;
 }
 
+/* UI MUST BE ABOVE MAP */
+.top-ui,
+.recent-flights{
+z-index:9999;
+pointer-events:auto;
+}
+
+/* HEADER */
 .top-ui{
 position:absolute;
 top:20px;
 left:50%;
 transform:translateX(-50%);
-z-index:1000;
 text-align:center;
 background:rgba(10,10,10,0.85);
 padding:14px 28px;
@@ -45,7 +50,6 @@ border-radius:12px;
 .top-ui h1{
 margin:0;
 font-size:28px;
-font-weight:600;
 }
 
 .top-ui p{
@@ -54,6 +58,7 @@ color:#b5b5b5;
 font-size:13px;
 }
 
+/* NAV */
 .nav{
 margin-top:10px;
 display:flex;
@@ -65,44 +70,41 @@ gap:25px;
 color:white;
 text-decoration:none;
 font-size:13px;
-opacity:0.9;
 }
 
 .nav a:hover{
-opacity:1;
 text-decoration:underline;
 }
 
+/* ROUTE TOOLTIP */
 .route-label{
 background:rgba(0,0,0,0.9);
 color:white;
 padding:4px 8px;
 border-radius:6px;
 font-size:12px;
-border:none;
 }
 
+/* GLOW LINE */
 .glow-line{
 filter: drop-shadow(0 0 6px rgba(47,128,237,0.6));
 }
 
+/* RECENT FLIGHTS */
 .recent-flights{
 position:absolute;
 bottom:20px;
 left:50%;
 transform:translateX(-50%);
-z-index:1000;
 background:rgba(10,10,10,0.9);
 padding:14px 20px;
 border-radius:12px;
 width:260px;
-text-align:left;
 }
 
 .recent-flights h3{
 margin:0 0 8px 0;
 font-size:14px;
-font-weight:600;
 }
 
 .recent-flights ul{
@@ -112,18 +114,14 @@ margin:0;
 }
 
 .recent-flights li{
-font-size:13px;
 padding:4px 0;
-border-bottom:1px solid rgba(255,255,255,0.08);
-}
-
-.recent-flights li:last-child{
-border-bottom:none;
 }
 
 .recent-flights a{
 color:#2F80ED;
 text-decoration:none;
+pointer-events:auto;
+cursor:pointer;
 }
 
 .recent-flights a:hover{
@@ -158,17 +156,18 @@ text-decoration:underline;
 
 <script>
 
+/* MAP */
+
 var map = L.map('map').setView([55,10],4);
 
 L.tileLayer(
 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-{
-attribution:'© OpenStreetMap contributors © CARTO'
-}).addTo(map);
+{attribution:'© OpenStreetMap © CARTO'}
+).addTo(map);
 
 var routeColor = "#2F80ED";
 
-/* ANIMATION FUNCTION */
+/* ROUTE DRAW */
 
 function animateRoute(coords, link, label){
 
@@ -176,38 +175,25 @@ let line = L.polyline([],{
 color:routeColor,
 weight:4,
 opacity:0.8,
-lineCap:'round',
-lineJoin:'round',
 className:'glow-line'
 }).addTo(map);
 
 let i = 0;
 
-let interval = setInterval(function(){
+let interval = setInterval(()=>{
 line.addLatLng(coords[i]);
 i++;
-if(i >= coords.length){
-clearInterval(interval);
-}
+if(i >= coords.length) clearInterval(interval);
 },100);
 
-function goToFlight(e){
-L.DomEvent.stopPropagation(e);
-window.location.href = link;
-}
+line.on('click', ()=> window.location.href = link);
 
-line.on('click', goToFlight);
-line.on('touchstart', goToFlight);
-
-line.on('mouseover',function(){
+line.on('mouseover',()=>{
 line.setStyle({weight:6});
-line.bindTooltip(label,{
-direction:'top',
-className:'route-label'
-}).openTooltip();
+line.bindTooltip(label,{direction:'top',className:'route-label'}).openTooltip();
 });
 
-line.on('mouseout',function(){
+line.on('mouseout',()=>{
 line.setStyle({weight:4});
 line.closeTooltip();
 });
@@ -215,7 +201,7 @@ line.closeTooltip();
 return line;
 }
 
-/* FLIGHTS (EDIT HERE ONLY) */
+/* FLIGHTS */
 
 var flights = [
 
@@ -223,14 +209,14 @@ var flights = [
 {coords:[[62.6629,29.6076],[60.3172,24.9633]], link:'flights/efjo-efhk.html', label:'EFJO → EFHK'},
 {coords:[[59.6519,17.9186],[60.1939,11.1004]], link:'flights/essa-engm.html', label:'ESSA → ENGM'},
 {coords:[[60.1939,11.1004],[53.4213,-6.2701]], link:'flights/engm-eidw.html', label:'ENGM → EIDW'},
-{coords:[[53.4213,-6.2701],[51.4700,-0.4543]], link:'flights/eidw-egll.html', label:'EIDW → EGLL'},
-{coords:[[51.4700,-0.4543],[38.7742,-9.1342]], link:'flights/egll-lppt.html', label:'EGLL → LPPT'},
-{coords:[[38.7742,-9.1342],[40.4722,-3.5608]], link:'flights/lppt-lemd.html', label:'LPPT → LEMD'},
-{coords:[[40.4722,-3.5608],[49.0097,2.5479]], link:'flights/lemd-lfpg.html', label:'LEMD → LFPG'},
-{coords:[[49.0097,2.5479],[50.9010,4.4844]], link:'flights/lfpg-ebbr.html', label:'LFPG → EBBR'},
-{coords:[[50.9010,4.4844],[52.3105,4.7683]], link:'flights/ebbr-eham.html', label:'EBBR → EHAM'}
+{coords:[[53.4213,-6.2701],[51.4700,-0.4543]], link:'flights/eidw-egll.html', label:'EIDW → EGLL (A330)'},
+{coords:[[51.4700,-0.4543],[38.7742,-9.1342]], link:'flights/egll-lppt.html', label:'EGLL → LPPT (A330)'},
+{coords:[[38.7742,-9.1342],[40.4722,-3.5608]], link:'flights/lppt-lemd.html', label:'LPPT → LEMD (A330)'},
+{coords:[[40.4722,-3.5608],[49.0097,2.5479]], link:'flights/lemd-lfpg.html', label:'LEMD → LFPG (A330)'},
+{coords:[[49.0097,2.5479],[50.9010,4.4844]], link:'flights/lfpg-ebbr.html', label:'LFPG → EBBR (A330)'},
+{coords:[[50.9010,4.4844],[52.3105,4.7683]], link:'flights/ebbr-eham.html', label:'EBBR → EHAM (A330)'}
 
-/* FUTURE FLIGHTS (UNCOMMENT WHEN FLOWN)
+/* FUTURE FLIGHTS
 
 ,{coords:[[50.9010,4.4844],[49.6233,6.2044]], link:'flights/ebbr-ellx.html', label:'EBBR → ELLX'}
 ,{coords:[[49.6233,6.2044],[46.9141,7.4972]], link:'flights/ellx-lszb.html', label:'ELLX → LSZB'}
@@ -247,10 +233,7 @@ var flights = [
 /* DRAW ROUTES */
 
 var routes = [];
-
-flights.forEach(f => {
-routes.push(animateRoute(f.coords, f.link, f.label));
-});
+flights.forEach(f => routes.push(animateRoute(f.coords, f.link, f.label)));
 
 /* AIRPORTS */
 
@@ -264,27 +247,35 @@ fillOpacity:1
 }).addTo(map);
 }
 
-/* auto-add airports from flights */
-flights.forEach(f => {
+flights.forEach(f=>{
 airport(f.coords[0][0], f.coords[0][1]);
 airport(f.coords[1][0], f.coords[1][1]);
 });
 
-/* FIT MAP */
+/* FIT */
 
 var group = L.featureGroup(routes);
 map.fitBounds(group.getBounds(),{padding:[80,80]});
 
-/* RECENT FLIGHTS */
+/* RECENT FLIGHTS (WORKING) */
+
+document.addEventListener("DOMContentLoaded", function(){
 
 var recentList = document.getElementById("recent-list");
 
 var lastThree = flights.slice(-3).reverse();
 
-lastThree.forEach(function(flight){
+lastThree.forEach(f=>{
 let li = document.createElement("li");
-li.innerHTML = `<a href="${flight.link}">${flight.label}</a>`;
+
+let a = document.createElement("a");
+a.href = f.link;
+a.textContent = f.label;
+
+li.appendChild(a);
 recentList.appendChild(li);
+});
+
 });
 
 </script>
