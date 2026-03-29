@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 <head>
 
@@ -23,14 +24,6 @@ position:absolute;
 top:0;
 bottom:0;
 width:100%;
-z-index:1;
-}
-
-/* UI ABOVE MAP */
-.top-ui,
-.recent-flights{
-z-index:9999;
-pointer-events:auto;
 }
 
 /* HEADER */
@@ -39,12 +32,25 @@ position:absolute;
 top:20px;
 left:50%;
 transform:translateX(-50%);
+z-index:1000;
 background:rgba(10,10,10,0.85);
 padding:14px 28px;
 border-radius:12px;
 text-align:center;
 }
 
+.top-ui h1{
+margin:0;
+font-size:28px;
+}
+
+.top-ui p{
+margin-top:4px;
+color:#b5b5b5;
+font-size:13px;
+}
+
+/* NAV */
 .nav{
 margin-top:10px;
 display:flex;
@@ -71,31 +77,11 @@ background:#000;
 color:#fff;
 padding:4px 8px;
 border-radius:6px;
-}
-
-/* RECENT */
-.recent-flights{
-position:absolute;
-bottom:20px;
-left:50%;
-transform:translateX(-50%);
-background:rgba(10,10,10,0.9);
-padding:14px;
-border-radius:12px;
-width:260px;
-}
-
-.recent-flights a{
-color:#2F80ED;
-text-decoration:none;
-cursor:pointer;
-}
-
-.recent-flights a:hover{
-text-decoration:underline;
+font-size:12px;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -110,11 +96,6 @@ text-decoration:underline;
 <a href="#">Aircraft</a>
 <a href="#">About</a>
 </div>
-</div>
-
-<div class="recent-flights">
-<h3>Recent Flights</h3>
-<ul id="recent-list"></ul>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -163,7 +144,8 @@ line.closeTooltip();
 return line;
 }
 
-/* FLIGHTS DATA */
+/* FLIGHTS */
+
 var flights = [
 
 {coords:[[60.3172,24.9633],[59.6519,17.9186]], link:'flights/efhk-essa.html', label:'EFHK → ESSA'},
@@ -177,7 +159,7 @@ var flights = [
 {coords:[[49.0097,2.5479],[50.9010,4.4844]], link:'flights/lfpg-ebbr.html', label:'LFPG → EBBR (A330)'},
 {coords:[[50.9010,4.4844],[52.3105,4.7683]], link:'flights/ebbr-eham.html', label:'EBBR → EHAM (A330)'}
 
-/* FUTURE FLIGHTS
+/* FUTURE FLIGHTS (UNCOMMENT WHEN FLOWN)
 
 ,{coords:[[50.9010,4.4844],[49.6233,6.2044]], link:'flights/ebbr-ellx.html', label:'EBBR → ELLX'}
 ,{coords:[[49.6233,6.2044],[46.9141,7.4972]], link:'flights/ellx-lszb.html', label:'ELLX → LSZB'}
@@ -191,11 +173,13 @@ var flights = [
 
 ];
 
-/* DRAW ALL */
+/* DRAW ROUTES */
+
 var routes = [];
 flights.forEach(f => routes.push(animateRoute(f.coords, f.link, f.label)));
 
 /* AIRPORTS */
+
 function airport(lat,lon){
 L.circleMarker([lat,lon],{
 radius:4,
@@ -211,30 +195,10 @@ airport(f.coords[0][0], f.coords[0][1]);
 airport(f.coords[1][0], f.coords[1][1]);
 });
 
-/* FIT */
+/* FIT MAP */
+
 var group = L.featureGroup(routes);
 map.fitBounds(group.getBounds(),{padding:[80,80]});
-
-/* RECENT FLIGHTS (FINAL FIX) */
-window.onload = function(){
-
-var list = document.getElementById("recent-list");
-list.innerHTML = "";
-
-var last = flights.slice(-3).reverse();
-
-last.forEach(f=>{
-let li = document.createElement("li");
-
-let a = document.createElement("a");
-a.href = f.link;
-a.textContent = f.label;
-
-li.appendChild(a);
-list.appendChild(li);
-});
-
-};
 
 </script>
 
