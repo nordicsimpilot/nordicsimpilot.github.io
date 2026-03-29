@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 <head>
 
@@ -81,6 +82,11 @@ font-size:12px;
 border:none;
 }
 
+/* GLOW EFFECT */
+.glow-line{
+filter: drop-shadow(0 0 6px rgba(47,128,237,0.6));
+}
+
 /* RECENT FLIGHTS PANEL */
 
 .recent-flights{
@@ -119,7 +125,7 @@ border-bottom:none;
 }
 
 .recent-flights a{
-color:#39FF14;
+color:#2F80ED;
 text-decoration:none;
 }
 
@@ -163,7 +169,9 @@ L.tileLayer(
 attribution:'© OpenStreetMap contributors © CARTO'
 }).addTo(map);
 
-var routeColor = "#39FF14";
+/* PROFESSIONAL AVIATION BLUE */
+var routeColor = "#2F80ED";
+
 var routeData = [];
 
 function animateRoute(coords, link, label){
@@ -173,9 +181,10 @@ routeData.push({coords, link, label});
 let line = L.polyline([],{
 color:routeColor,
 weight:4,
-opacity:0.95,
+opacity:0.8,
 lineCap:'round',
-lineJoin:'round'
+lineJoin:'round',
+className:'glow-line'
 }).addTo(map);
 
 let i = 0;
@@ -279,51 +288,45 @@ routes.push(animateRoute(
 'flights/ebbr-eham.html',
 'EBBR → EHAM (A330)'
 ));
+
 /* FUTURE ROUTES (UNCOMMENT WHEN FLOWN)
 
-// EBBR → ELLX (Luxembourg)
 routes.push(animateRoute(
 [[50.9010,4.4844],[49.6233,6.2044]],
 'flights/ebbr-ellx.html',
 'EBBR → ELLX'
 ));
 
-// ELLX → LSZB (Bern)
 routes.push(animateRoute(
 [[49.6233,6.2044],[46.9141,7.4972]],
 'flights/ellx-lszb.html',
 'ELLX → LSZB'
 ));
 
-// LSZB → LIRF (Rome)
 routes.push(animateRoute(
 [[46.9141,7.4972],[41.8003,12.2389]],
 'flights/lszb-lirf.html',
 'LSZB → LIRF'
 ));
 
-// LIRF → LATI (Tirana)
 routes.push(animateRoute(
 [[41.8003,12.2389],[41.4147,19.7206]],
 'flights/lirf-lati.html',
 'LIRF → LATI'
 ));
 
-// LATI → LGAV (Athens)
 routes.push(animateRoute(
 [[41.4147,19.7206],[37.9364,23.9475]],
 'flights/lati-lgav.html',
 'LATI → LGAV'
 ));
 
-// LGAV → LWSK (Skopje)
 routes.push(animateRoute(
 [[37.9364,23.9475],[41.9616,21.6214]],
 'flights/lgav-lwsk.html',
 'LGAV → LWSK'
 ));
 
-// LWSK → LYBE (Belgrade)
 routes.push(animateRoute(
 [[41.9616,21.6214],[44.8184,20.3091]],
 'flights/lwsk-lybe.html',
@@ -331,6 +334,7 @@ routes.push(animateRoute(
 ));
 
 */
+
 /* AIRPORTS */
 
 function airport(lat,lon){
@@ -354,18 +358,19 @@ airport(40.4722,-3.5608);
 airport(49.0097,2.5479);
 airport(50.9010,4.4844);
 airport(52.3105,4.7683);
-  
+
 /* FUTURE AIRPORTS (UNCOMMENT WHEN NEEDED)
 
-airport(49.6233,6.2044); // ELLX (Luxembourg)
-airport(46.9141,7.4972); // LSZB (Bern)
-airport(41.8003,12.2389); // LIRF (Rome)
-airport(41.4147,19.7206); // LATI (Tirana)
-airport(37.9364,23.9475); // LGAV (Athens)
-airport(41.9616,21.6214); // LWSK (Skopje)
-airport(44.8184,20.3091); // LYBE (Belgrade)
+airport(49.6233,6.2044); // ELLX
+airport(46.9141,7.4972); // LSZB
+airport(41.8003,12.2389); // LIRF
+airport(41.4147,19.7206); // LATI
+airport(37.9364,23.9475); // LGAV
+airport(41.9616,21.6214); // LWSK
+airport(44.8184,20.3091); // LYBE
 
 */
+
 /* FIT MAP */
 
 var group = L.featureGroup(routes);
