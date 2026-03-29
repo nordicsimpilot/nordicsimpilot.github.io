@@ -4,6 +4,7 @@
 
 <meta charset="utf-8">
 <title>Payam's Flight Logbook</title>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
@@ -15,8 +16,10 @@ margin:0;
 font-family:system-ui,-apple-system,Segoe UI,Roboto;
 background:#0a0a0a;
 color:white;
-opacity:0;
-transition:opacity 1s ease;
+}
+
+.leaflet-interactive:focus{
+outline:none !important;
 }
 
 #map{
@@ -36,13 +39,11 @@ text-align:center;
 background:rgba(10,10,10,0.85);
 padding:14px 28px;
 border-radius:12px;
-width:90%;
-max-width:420px;
 }
 
 .top-ui h1{
 margin:0;
-font-size:26px;
+font-size:28px;
 font-weight:600;
 }
 
@@ -56,7 +57,7 @@ font-size:13px;
 margin-top:10px;
 display:flex;
 justify-content:center;
-gap:20px;
+gap:25px;
 }
 
 .nav a{
@@ -80,6 +81,52 @@ font-size:12px;
 border:none;
 }
 
+/* RECENT FLIGHTS PANEL */
+
+.recent-flights{
+position:absolute;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+z-index:1000;
+background:rgba(10,10,10,0.9);
+padding:14px 20px;
+border-radius:12px;
+width:260px;
+text-align:left;
+}
+
+.recent-flights h3{
+margin:0 0 8px 0;
+font-size:14px;
+font-weight:600;
+}
+
+.recent-flights ul{
+list-style:none;
+padding:0;
+margin:0;
+}
+
+.recent-flights li{
+font-size:13px;
+padding:4px 0;
+border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+.recent-flights li:last-child{
+border-bottom:none;
+}
+
+.recent-flights a{
+color:#39FF14;
+text-decoration:none;
+}
+
+.recent-flights a:hover{
+text-decoration:underline;
+}
+
 </style>
 
 </head>
@@ -99,74 +146,58 @@ border:none;
 </div>
 </div>
 
+<div class="recent-flights">
+<h3>Recent Flights</h3>
+<ul id="recent-list"></ul>
+</div>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
 
-// Fade in
-window.onload = () => {
-document.body.style.opacity = 1;
-};
+var map = L.map('map').setView([55,10],4);
 
-// Map
-var map = L.map('map', {tap:true}).setView([55,10],4);
-
-// Dark theme tiles
 L.tileLayer(
-'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
 {
-attribution:'© OpenStreetMap © CARTO'
+attribution:'© OpenStreetMap contributors © CARTO'
 }).addTo(map);
 
 var routeColor = "#39FF14";
+var routeData = [];
 
-// Smooth animation
-function animateLine(coords, glow, line){
-let i = 0;
-
-function step(){
-if(i < coords.length){
-glow.addLatLng(coords[i]);
-line.addLatLng(coords[i]);
-i++;
-requestAnimationFrame(step);
-}
-}
-
-step();
-}
-
-// Route creator
 function animateRoute(coords, link, label){
 
-let glow = L.polyline([],{
-color:routeColor,
-weight:16,
-opacity:0.2
-}).addTo(map);
+routeData.push({coords, link, label});
 
 let line = L.polyline([],{
 color:routeColor,
-weight:6,
-opacity:1,
-lineCap:'round'
+weight:4,
+opacity:0.95,
+lineCap:'round',
+lineJoin:'round'
 }).addTo(map);
 
-// Animate
-animateLine(coords, glow, line);
+let i = 0;
 
-// Click behavior
-line.on('click', function(e){
+let interval = setInterval(function(){
+line.addLatLng(coords[i]);
+i++;
+if(i >= coords.length){
+clearInterval(interval);
+}
+},100);
+
+function goToFlight(e){
 L.DomEvent.stopPropagation(e);
-line.setStyle({color:"#ffffff"});
-setTimeout(()=> {
 window.location.href = link;
-},150);
-});
+}
 
-// Hover
+line.on('click', goToFlight);
+line.on('touchstart', goToFlight);
+
 line.on('mouseover',function(){
-line.setStyle({weight:9});
+line.setStyle({weight:6});
 line.bindTooltip(label,{
 direction:'top',
 className:'route-label'
@@ -174,105 +205,182 @@ className:'route-label'
 });
 
 line.on('mouseout',function(){
-line.setStyle({weight:6});
+line.setStyle({weight:4});
 line.closeTooltip();
+});
+
+line.on('mousedown',function(e){
+L.DomEvent.preventDefault(e);
 });
 
 return line;
 }
 
-// Data-driven routes
-var routeData = [
-{
-coords: [[60.3172,24.9633],[59.6519,17.9186]],
-link: 'flights/efhk-essa.html',
-label: 'EFHK → ESSA'
-},
-{
-coords: [[62.6629,29.6076],[60.3172,24.9633]],
-link: 'flights/efjo-efhk.html',
-label: 'EFJO → EFHK'
-},
-{
-coords: [[59.6519,17.9186],[60.1939,11.1004]],
-link: 'flights/essa-engm.html',
-label: 'ESSA → ENGM'
-},
-{
-coords: [[60.1939,11.1004],[53.4213,-6.2701]],
-link: 'flights/engm-eidw.html',
-label: 'ENGM → EIDW'
-},
-{
-coords: [[53.4213,-6.2701],[51.4700,-0.4543]],
-link: 'flights/eidw-egll.html',
-label: 'EIDW → EGLL (A330)'
-},
-{
-coords: [[51.4700,-0.4543],[38.7742,-9.1342]],
-link: 'flights/egll-lppt.html',
-label: 'EGLL → LPPT (A330)'
-},
-{
-coords: [[38.7742,-9.1342],[40.4722,-3.5608]],
-link: 'flights/lppt-lemd.html',
-label: 'LPPT → LEMD (A330)'
-},
-{
-coords: [[40.4722,-3.5608],[49.0097,2.5479]],
-link: 'flights/lemd-lfpg.html',
-label: 'LEMD → LFPG (A330)'
-},
-{
-coords: [[49.0097,2.5479],[50.9010,4.4844]],
-link: 'flights/lfpg-ebbr.html',
-label: 'LFPG → EBBR (A330)'
-},
-{
-coords: [[50.9010,4.4844],[52.3105,4.7683]],
-link: 'flights/ebbr-eham.html',
-label: 'EBBR → EHAM (A330)'
-}
-];
+/* ROUTES */
 
-// Render routes
-var routes = routeData.map(r => 
-animateRoute(r.coords, r.link, r.label)
-);
+var routes = [];
 
-// Airports
-function airport(lat, lon, name){
+routes.push(animateRoute(
+[[60.3172,24.9633],[59.6519,17.9186]],
+'flights/efhk-essa.html',
+'EFHK → ESSA'
+));
+
+routes.push(animateRoute(
+[[62.6629,29.6076],[60.3172,24.9633]],
+'flights/efjo-efhk.html',
+'EFJO → EFHK'
+));
+
+routes.push(animateRoute(
+[[59.6519,17.9186],[60.1939,11.1004]],
+'flights/essa-engm.html',
+'ESSA → ENGM'
+));
+
+routes.push(animateRoute(
+[[60.1939,11.1004],[53.4213,-6.2701]],
+'flights/engm-eidw.html',
+'ENGM → EIDW'
+));
+
+routes.push(animateRoute(
+[[53.4213,-6.2701],[51.4700,-0.4543]],
+'flights/eidw-egll.html',
+'EIDW → EGLL (A330)'
+));
+
+routes.push(animateRoute(
+[[51.4700,-0.4543],[38.7742,-9.1342]],
+'flights/egll-lppt.html',
+'EGLL → LPPT (A330)'
+));
+
+routes.push(animateRoute(
+[[38.7742,-9.1342],[40.4722,-3.5608]],
+'flights/lppt-lemd.html',
+'LPPT → LEMD (A330)'
+));
+
+routes.push(animateRoute(
+[[40.4722,-3.5608],[49.0097,2.5479]],
+'flights/lemd-lfpg.html',
+'LEMD → LFPG (A330)'
+));
+  
+routes.push(animateRoute(
+[[49.0097,2.5479],[50.9010,4.4844]],
+'flights/lfpg-ebbr.html',
+'LFPG → EBBR (A330)'
+));
+
+routes.push(animateRoute(
+[[50.9010,4.4844],[52.3105,4.7683]],
+'flights/ebbr-eham.html',
+'EBBR → EHAM (A330)'
+));
+/* FUTURE ROUTES (UNCOMMENT WHEN FLOWN)
+
+// EBBR → ELLX (Luxembourg)
+routes.push(animateRoute(
+[[50.9010,4.4844],[49.6233,6.2044]],
+'flights/ebbr-ellx.html',
+'EBBR → ELLX'
+));
+
+// ELLX → LSZB (Bern)
+routes.push(animateRoute(
+[[49.6233,6.2044],[46.9141,7.4972]],
+'flights/ellx-lszb.html',
+'ELLX → LSZB'
+));
+
+// LSZB → LIRF (Rome)
+routes.push(animateRoute(
+[[46.9141,7.4972],[41.8003,12.2389]],
+'flights/lszb-lirf.html',
+'LSZB → LIRF'
+));
+
+// LIRF → LATI (Tirana)
+routes.push(animateRoute(
+[[41.8003,12.2389],[41.4147,19.7206]],
+'flights/lirf-lati.html',
+'LIRF → LATI'
+));
+
+// LATI → LGAV (Athens)
+routes.push(animateRoute(
+[[41.4147,19.7206],[37.9364,23.9475]],
+'flights/lati-lgav.html',
+'LATI → LGAV'
+));
+
+// LGAV → LWSK (Skopje)
+routes.push(animateRoute(
+[[37.9364,23.9475],[41.9616,21.6214]],
+'flights/lgav-lwsk.html',
+'LGAV → LWSK'
+));
+
+// LWSK → LYBE (Belgrade)
+routes.push(animateRoute(
+[[41.9616,21.6214],[44.8184,20.3091]],
+'flights/lwsk-lybe.html',
+'LWSK → LYBE'
+));
+
+*/
+/* AIRPORTS */
+
+function airport(lat,lon){
 L.circleMarker([lat,lon],{
 radius:4,
 color:"#000",
 weight:1,
 fillColor:"#fff",
 fillOpacity:1
-})
-.bindTooltip(name, {direction:'top'})
-.addTo(map);
+}).addTo(map);
 }
 
-// Airport data
-var airports = [
-[60.3172,24.9633,"Helsinki (EFHK)"],
-[59.6519,17.9186,"Stockholm (ESSA)"],
-[62.6629,29.6076,"Joensuu (EFJO)"],
-[60.1939,11.1004,"Oslo (ENGM)"],
-[53.4213,-6.2701,"Dublin (EIDW)"],
-[51.4700,-0.4543,"London Heathrow (EGLL)"],
-[38.7742,-9.1342,"Lisbon (LPPT)"],
-[40.4722,-3.5608,"Madrid (LEMD)"],
-[49.0097,2.5479,"Paris CDG (LFPG)"],
-[50.9010,4.4844,"Brussels (EBBR)"],
-[52.3105,4.7683,"Amsterdam (EHAM)"]
-];
+airport(60.3172,24.9633);
+airport(59.6519,17.9186);
+airport(62.6629,29.6076);
+airport(60.1939,11.1004);
+airport(53.4213,-6.2701);
+airport(51.4700,-0.4543);
+airport(38.7742,-9.1342);
+airport(40.4722,-3.5608);
+airport(49.0097,2.5479);
+airport(50.9010,4.4844);
+airport(52.3105,4.7683);
+  
+/* FUTURE AIRPORTS (UNCOMMENT WHEN NEEDED)
 
-airports.forEach(a => airport(...a));
+airport(49.6233,6.2044); // ELLX (Luxembourg)
+airport(46.9141,7.4972); // LSZB (Bern)
+airport(41.8003,12.2389); // LIRF (Rome)
+airport(41.4147,19.7206); // LATI (Tirana)
+airport(37.9364,23.9475); // LGAV (Athens)
+airport(41.9616,21.6214); // LWSK (Skopje)
+airport(44.8184,20.3091); // LYBE (Belgrade)
 
-// Fit map
+*/
+/* FIT MAP */
+
 var group = L.featureGroup(routes);
 map.fitBounds(group.getBounds(),{padding:[80,80]});
+
+/* RECENT FLIGHTS AUTO */
+
+var recentList = document.getElementById("recent-list");
+var lastThree = routeData.slice(-3).reverse();
+
+lastThree.forEach(function(flight){
+let li = document.createElement("li");
+li.innerHTML = `<a href="${flight.link}">${flight.label}</a>`;
+recentList.appendChild(li);
+});
 
 </script>
 
