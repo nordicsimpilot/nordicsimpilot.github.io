@@ -29,6 +29,21 @@ margin:0;
 font-size:26px;
 }
 
+/* BACK BUTTON */
+.back-btn{
+position:absolute;
+left:20px;
+top:18px;
+color:#2F80ED;
+text-decoration:none;
+font-size:14px;
+}
+
+.back-btn:hover{
+text-decoration:underline;
+}
+
+/* NAV */
 .nav{
 margin-top:10px;
 display:flex;
@@ -89,25 +104,32 @@ letter-spacing:1px;
 <body>
 
 <div class="top-ui">
+
+<a href="index.html" class="back-btn">← Back to Map</a>
+
 <h1>Flights</h1>
+
 <div class="nav">
 <a href="index.html">Map</a>
 <a href="flights.html">Flights</a>
 <a href="aircraft.html">Aircraft</a>
 <a href="about.html">About</a>
 </div>
+
 </div>
 
 <div class="container">
 
-<div class="flight">
-<span class="code">EFHK → ESSA</span>
-<a href="flights/efhk-essa.html">View flight →</a>
-</div>
+<!-- Correct chronological / route order -->
 
 <div class="flight">
 <span class="code">EFJO → EFHK</span>
 <a href="flights/efjo-efhk.html">View flight →</a>
+</div>
+
+<div class="flight">
+<span class="code">EFHK → ESSA</span>
+<a href="flights/efhk-essa.html">View flight →</a>
 </div>
 
 <div class="flight">
