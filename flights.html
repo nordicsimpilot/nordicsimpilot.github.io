@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Flights | Payam's Flight Logbook</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+body{
+margin:0;
+font-family:system-ui,-apple-system,Segoe UI,Roboto;
+background:#0a0a0a;
+color:white;
+}
+
+/* HEADER */
+.top-ui{
+position:sticky;
+top:0;
+background:rgba(10,10,10,0.95);
+padding:14px 28px;
+text-align:center;
+border-bottom:1px solid #222;
+}
+
+.top-ui h1{
+margin:0;
+font-size:26px;
+}
+
+.nav{
+margin-top:10px;
+display:flex;
+gap:20px;
+justify-content:center;
+}
+
+.nav a{
+color:white;
+text-decoration:none;
+}
+
+.nav a:hover{
+text-decoration:underline;
+}
+
+/* LIST */
+.container{
+max-width:900px;
+margin:40px auto;
+padding:0 20px;
+}
+
+.flight{
+background:#111;
+padding:16px 20px;
+margin-bottom:12px;
+border-radius:10px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+transition:0.2s;
+}
+
+.flight:hover{
+background:#1a1a1a;
+transform:translateY(-2px);
+}
+
+.flight a{
+color:#2F80ED;
+text-decoration:none;
+font-weight:500;
+}
+
+.flight a:hover{
+text-decoration:underline;
+}
+
+.code{
+font-weight:600;
+letter-spacing:1px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="top-ui">
+<h1>Flights</h1>
+<div class="nav">
+<a href="index.html">Map</a>
+<a href="flights.html">Flights</a>
+<a href="aircraft.html">Aircraft</a>
+<a href="about.html">About</a>
+</div>
+</div>
+
+<div class="container">
+
+<div class="flight">
+<span class="code">EFHK → ESSA</span>
+<a href="flights/efhk-essa.html">View flight →</a>
+</div>
+
+<div class="flight">
+<span class="code">EFJO → EFHK</span>
+<a href="flights/efjo-efhk.html">View flight →</a>
+</div>
+
+<div class="flight">
+<span class="code">ESSA → ENGM</span>
+<a href="flights/essa-engm.html">View flight →</a>
+</div>
+
+<div class="flight">
+<span class="code">ENGM → EIDW</span>
+<a href="flights/engm-eidw.html">View flight →</a>
+</div>
+
+<div class="flight">
+<span class="code">EIDW → EGLL</span>
+<a href="flights/eidw-egll.html">View flight →</a>
+</div>
+
+<div class="flight">
+<span class="code">EGLL → LPPT</span>
+<a href="flights/egll-lppt.html">View flight →</a>
+</div>
+
+<div class="flight">
+<span class="code">LPPT → LEMD</span>
+<a href="flights/lppt-lemd.html">View flight →</a>
+</div>
+
+<div class="flight">
+<span class="code">LEMD → LFPG</span>
+<a href="flights/lemd-lfpg.html">View flight →</a>
+</div>
+
+<div class="flight">
+<span class="code">LFPG → EBBR</span>
+<a href="flights/lfpg-ebbr.html">View flight →</a>
+</div>
+
+<div class="flight">
+<span class="code">EBBR → EHAM</span>
+<a href="flights/ebbr-eham.html">View flight →</a>
+</div>
+
+<div class="flight">
+<span class="code">EHAM → ELLX</span>
+<a href="flights/eham-ellx.html">View flight →</a>
+</div>
+
+</div>
+
+</body>
+</html>
