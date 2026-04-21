@@ -1,1 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LUXEMBOURG (ELLX) → ZURICH (LSZH) | A330-300 | Payam’s Flight Logbook</title>
+
+<style>
+
+body{
+font-family:system-ui;
+background:#0a0a0a;
+color:#e5e5e5;
+margin:0;
+padding:60px 20px;
+line-height:1.6;
+}
+
+.container{
+max-width:1000px;
+margin:auto;
+}
+
+.back{
+position:absolute;
+top:20px;
+left:20px;
+color:#cfcfcf;
+text-decoration:none;
+transition:0.2s;
+}
+
+.back:hover{
+color:white;
+transform:translateX(-3px);
+}
+
+h1{
+margin-bottom:20px;
+}
+
+.info{
+margin-bottom:30px;
+color:#b5b5b5;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+margin-bottom:40px;
+}
+
+.card{
+background:#111;
+padding:15px;
+border-radius:10px;
+}
+
+.video{
+position:relative;
+padding-bottom:56.25%;
+height:0;
+overflow:hidden;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,0.6);
+margin-bottom:50px;
+}
+
+.video iframe{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+border:none;
+}
+
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:20px;
+}
+
+.gallery img{
+width:100%;
+border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,0.5);
+cursor:pointer;
+transition:0.25s;
+}
+
+.gallery img:hover{
+transform:scale(1.03);
+}
+
+.lightbox{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.95);
+justify-content:center;
+align-items:center;
+z-index:1000;
+}
+
+.lightbox img{
+max-width:90%;
+max-height:90%;
+border-radius:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<a href="../index.html" class="back">← Back to Map</a>
+
+<div class="container">
+
+<h1>ELLX → LSZH</h1>
+
+<div class="info">
+
+<p><b>Aircraft:</b> Airbus A330-300 (Trent 772)</p>
+<p><b>Simulator:</b> X-Plane 12</p>
+
+</div>
+
+<!-- STATS -->
+
+<div class="stats">
+
+<div class="card">
+<b>Route</b><br>
+Standard IFR routing (see OFP PDF)
+</div>
+
+<div class="card">
+<b>Cruise Level</b><br>
+FL340
+</div>
+
+<div class="card">
+<b>Distance</b><br>
+~200–250 NM (air)
+</div>
+
+<div class="card">
+<b>Flight Time</b><br>
+~50–60 min (air)
+</div>
+
+<div class="card">
+<b>Departure</b><br>
+ELLX RWY 24 (or as per ATC)
+</div>
+
+<div class="card">
+<b>Arrival</b><br>
+LSZH RWY 14 (or as per ATC)
+</div>
+
+<div class="card">
+<b>Block Fuel</b><br>
+~11–13 tons
+</div>
+
+<div class="card">
+<b>Callsign</b><br>
+FINXXXX
+</div>
+
+</div>
+
+<!-- VIDEO -->
+
+<h2>Flight Video</h2>
+
+<div class="video">
+
+<iframe
+src="https://www.youtube.com/embed/REPLACE_WITH_YOUR_VIDEO"
+title="ELLX to LSZH Flight"
+allowfullscreen>
+</iframe>
+
+</div>
+
+<!-- SCREENSHOTS -->
+
+<h2>Flight Screenshots</h2>
+
+<div class="gallery">
+
+<img src="../images/LUX1.PNG" onclick="openImage(this.src)">
+
+</div>
+
+</div>
+
+<!-- LIGHTBOX -->
+
+<div id="lightbox" class="lightbox" onclick="closeImage()">
+<img id="lightbox-img">
+</div>
+
+<script>
+
+function openImage(src){
+document.getElementById("lightbox-img").src = src;
+document.getElementById("lightbox").style.display = "flex";
+}
+
+function closeImage(){
+document.getElementById("lightbox").style.display = "none";
+}
+
+</script>
+
+</body>
+</html>
