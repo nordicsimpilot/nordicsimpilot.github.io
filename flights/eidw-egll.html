@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DUBLIN (EIDW) → LONDON HEATHROW (EGLL) | A330-300 | Payam’s Flight Logbook</title>
+<title>LUXEMBOURG (ELLX) → ZURICH (LSZH) | A330-300 | Payam’s Flight Logbook</title>
 
 <style>
 
@@ -96,6 +96,8 @@ transition:0.25s;
 transform:scale(1.03);
 }
 
+/* PDF CARD */
+
 .pdf-card{
 display:flex;
 align-items:center;
@@ -128,6 +130,8 @@ font-size:14px;
 color:#ccc;
 }
 
+/* LIGHTBOX */
+
 .lightbox{
 display:none;
 position:fixed;
@@ -157,13 +161,12 @@ border-radius:10px;
 
 <div class="container">
 
-<h1>EIDW → EGLL</h1>
+<h1>ELLX → LSZH</h1>
 
 <div class="info">
-
 <p><b>Aircraft:</b> Airbus A330-300 (Trent 772)</p>
 <p><b>Simulator:</b> X-Plane 12</p>
-
+<p><b>Callsign:</b> FIN1012</p>
 </div>
 
 <!-- STATS -->
@@ -172,42 +175,42 @@ border-radius:10px;
 
 <div class="card">
 <b>Route</b><br>
-PESIT2J → PESIT → BAKUR → GUBJE → DAVAZ → AVZAC → INFEC → JETZI → AMFUL → ORZEB → SIRIC1H
+GTQ3P → GTQ → DCT → BAMEV → DCT → BLM → BLM3G
 </div>
 
 <div class="card">
 <b>Cruise Level</b><br>
-FL330
+FL230
 </div>
 
 <div class="card">
 <b>Distance</b><br>
-~335 NM
+167 NM
 </div>
 
 <div class="card">
 <b>Flight Time</b><br>
-~56 min
+00:33 (air) / 01:01 (block)
 </div>
 
 <div class="card">
 <b>Departure</b><br>
-EIDW RWY 28R
+ELLX RWY 06
 </div>
 
 <div class="card">
 <b>Arrival</b><br>
-EGLL RWY 09L
+LSZH RWY 14
 </div>
 
 <div class="card">
 <b>Block Fuel</b><br>
-12.9 tons
+11.1 tons
 </div>
 
 <div class="card">
-<b>Callsign</b><br>
-FIN1005
+<b>Alternate</b><br>
+LSGG (Geneva)
 </div>
 
 </div>
@@ -219,8 +222,8 @@ FIN1005
 <div class="video">
 
 <iframe
-src="https://www.youtube.com/embed/xEvlIE77XHc"
-title="EIDW to EGLL Flight"
+src="https://www.youtube.com/embed/946Dtk329r0"
+title="ELLX to LSZH Flight"
 allowfullscreen>
 </iframe>
 
@@ -232,7 +235,7 @@ allowfullscreen>
 
 <div class="gallery">
 
-<a href="../files/EIDWEGLL.pdf" target="_blank" class="pdf-card">
+<a href="../docs/ELLXLSZH.pdf" target="_blank" class="pdf-card">
 
 <div class="pdf-content">
 <div class="pdf-icon">📄</div>
@@ -250,10 +253,10 @@ allowfullscreen>
 
 <div class="gallery">
 
-<img src="../images/LON1.png" onclick="openImage(this.src)">
-<img src="../images/LON2.png" onclick="openImage(this.src)">
-<img src="../images/LON3.png" onclick="openImage(this.src)">
-<img src="../images/LON4.png" onclick="openImage(this.src)">
+<img src="../images/LUX1.png" onclick="openImage(this.src)">
+<img src="../images/LUX2.png" onclick="openImage(this.src)">
+<img src="../images/LUX3.png" onclick="openImage(this.src)">
+<img src="../images/LUX4.png" onclick="openImage(this.src)">
 
 </div>
 
@@ -275,6 +278,11 @@ document.getElementById("lightbox").style.display = "flex";
 function closeImage(){
 document.getElementById("lightbox").style.display = "none";
 }
+
+/* ESC support */
+document.addEventListener('keydown', function(e){
+if(e.key === "Escape") closeImage();
+});
 
 </script>
 
