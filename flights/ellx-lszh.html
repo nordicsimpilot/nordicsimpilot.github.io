@@ -96,6 +96,42 @@ transition:0.25s;
 transform:scale(1.03);
 }
 
+/* PDF CARD */
+
+.pdf-card{
+display:flex;
+align-items:center;
+justify-content:center;
+height:180px;
+border-radius:12px;
+background:linear-gradient(135deg,#1f1f1f,#111);
+box-shadow:0 10px 25px rgba(0,0,0,0.6);
+text-decoration:none;
+color:white;
+transition:0.25s;
+}
+
+.pdf-card:hover{
+transform:scale(1.03);
+background:linear-gradient(135deg,#2a2a2a,#111);
+}
+
+.pdf-content{
+text-align:center;
+}
+
+.pdf-icon{
+font-size:40px;
+margin-bottom:10px;
+}
+
+.pdf-label{
+font-size:14px;
+color:#ccc;
+}
+
+/* LIGHTBOX */
+
 .lightbox{
 display:none;
 position:fixed;
@@ -139,7 +175,7 @@ border-radius:10px;
 
 <div class="card">
 <b>Route</b><br>
-GTQ3P GTQ DCT BAMEV DCT BLM BLM3G
+GTQ3P → GTQ → DCT → BAMEV → DCT → BLM → BLM3G
 </div>
 
 <div class="card">
@@ -149,7 +185,7 @@ FL230
 
 <div class="card">
 <b>Distance</b><br>
-167 NM (air)
+167 NM
 </div>
 
 <div class="card">
@@ -193,6 +229,24 @@ allowfullscreen>
 
 </div>
 
+<!-- PDF -->
+
+<h2>Flight Plan</h2>
+
+<div class="gallery">
+
+<a href="../docs/ELLXLSZH.pdf" target="_blank" class="pdf-card">
+
+<div class="pdf-content">
+<div class="pdf-icon">📄</div>
+<div><b>Flight Plan (OFP)</b></div>
+<div class="pdf-label">Click to open PDF</div>
+</div>
+
+</a>
+
+</div>
+
 <!-- SCREENSHOTS -->
 
 <h2>Flight Screenshots</h2>
@@ -225,7 +279,7 @@ function closeImage(){
 document.getElementById("lightbox").style.display = "none";
 }
 
-/* ESC key support */
+/* ESC support */
 document.addEventListener('keydown', function(e){
 if(e.key === "Escape") closeImage();
 });
