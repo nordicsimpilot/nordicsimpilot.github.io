@@ -128,10 +128,9 @@ border-radius:10px;
 <h1>ELLX → LSZH</h1>
 
 <div class="info">
-
 <p><b>Aircraft:</b> Airbus A330-300 (Trent 772)</p>
 <p><b>Simulator:</b> X-Plane 12</p>
-
+<p><b>Callsign:</b> FIN1012</p>
 </div>
 
 <!-- STATS -->
@@ -140,42 +139,42 @@ border-radius:10px;
 
 <div class="card">
 <b>Route</b><br>
-Standard IFR routing (see OFP PDF)
+GTQ3P GTQ DCT BAMEV DCT BLM BLM3G
 </div>
 
 <div class="card">
 <b>Cruise Level</b><br>
-FL340
+FL230
 </div>
 
 <div class="card">
 <b>Distance</b><br>
-~200–250 NM (air)
+167 NM (air)
 </div>
 
 <div class="card">
 <b>Flight Time</b><br>
-~50–60 min (air)
+00:33 (air) / 01:01 (block)
 </div>
 
 <div class="card">
 <b>Departure</b><br>
-ELLX RWY 24 (or as per ATC)
+ELLX RWY 06
 </div>
 
 <div class="card">
 <b>Arrival</b><br>
-LSZH RWY 14 (or as per ATC)
+LSZH RWY 14
 </div>
 
 <div class="card">
 <b>Block Fuel</b><br>
-~11–13 tons
+11.1 tons
 </div>
 
 <div class="card">
-<b>Callsign</b><br>
-FINXXXX
+<b>Alternate</b><br>
+LSGG (Geneva)
 </div>
 
 </div>
@@ -201,6 +200,9 @@ allowfullscreen>
 <div class="gallery">
 
 <img src="../images/LUX1.PNG" onclick="openImage(this.src)">
+<img src="../images/LUX2.PNG" onclick="openImage(this.src)">
+<img src="../images/LUX3.PNG" onclick="openImage(this.src)">
+<img src="../images/LUX4.PNG" onclick="openImage(this.src)">
 
 </div>
 
@@ -222,6 +224,11 @@ document.getElementById("lightbox").style.display = "flex";
 function closeImage(){
 document.getElementById("lightbox").style.display = "none";
 }
+
+/* ESC key support */
+document.addEventListener('keydown', function(e){
+if(e.key === "Escape") closeImage();
+});
 
 </script>
 
