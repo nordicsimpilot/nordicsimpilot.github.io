@@ -75,14 +75,32 @@ outline: none !important;
 /* ROUTES */
 .glow-line{
 filter: drop-shadow(0 0 6px rgba(47,128,237,0.6));
+cursor:pointer;
 }
 
+/* LATEST LEG (PROMAGANATE RED) */
+.latest-leg{
+filter: drop-shadow(0 0 10px rgba(192,57,43,0.9));
+}
+
+/* Tooltip */
 .route-label{
 background:#000;
 color:#fff;
 padding:4px 8px;
 border-radius:6px;
 font-size:12px;
+}
+
+/* CLICK HINT (subtle pulse animation) */
+@keyframes pulse {
+0% {opacity:0.7;}
+50% {opacity:1;}
+100% {opacity:0.7;}
+}
+
+.clickable{
+animation:pulse 2s infinite;
 }
 
 </style>
@@ -115,16 +133,18 @@ L.tileLayer(
 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
 ).addTo(map);
 
-var routeColor = "#2F80ED";
+/* COLORS */
+var defaultColor = "#2F80ED";
+var latestColor = "#c0392b"; // pomegranate red
 
 /* DRAW ROUTE */
-function animateRoute(coords, link, label){
+function animateRoute(coords, link, label, isLatest=false){
 
 let line = L.polyline([],{
-color:routeColor,
-weight:4,
-opacity:0.8,
-className:'glow-line',
+color: isLatest ? latestColor : defaultColor,
+weight: isLatest ? 6 : 4,
+opacity:1,
+className: (isLatest ? 'latest-leg clickable' : 'glow-line clickable'),
 interactive:true
 }).addTo(map);
 
@@ -136,19 +156,20 @@ i++;
 if(i >= coords.length) clearInterval(interval);
 },100);
 
-/* FIXED CLICK HANDLING */
+/* CLICK */
 line.on('click', function(e){
 L.DomEvent.stop(e);
 window.location.href = link;
 });
 
+/* HOVER */
 line.on('mouseover',()=>{
-line.setStyle({weight:6});
+line.setStyle({weight: isLatest ? 8 : 6});
 line.bindTooltip(label,{className:'route-label'}).openTooltip();
 });
 
 line.on('mouseout',()=>{
-line.setStyle({weight:4});
+line.setStyle({weight: isLatest ? 6 : 4});
 line.closeTooltip();
 });
 
@@ -170,26 +191,27 @@ var flights = [
 {coords:[[49.0097,2.5479],[50.9010,4.4844]], link:'flights/lfpg-ebbr.html', label:'LFPG → EBBR'},
 {coords:[[50.9010,4.4844],[52.3105,4.7683]], link:'flights/ebbr-eham.html', label:'EBBR → EHAM'},
 {coords:[[52.3105,4.7683],[49.6233,6.2044]], link:'flights/eham-ellx.html', label:'EHAM → ELLX'},
-{coords: [[49.6233, 6.2044],[47.4581, 8.5555]], link: 'flights/ellx-lszh.html', label:'ELLX → LSZH'},
-{coords: [[47.4581, 8.5555],[45.6306, 8.7281]], link: 'flights/lszh-limc.html', label:'LSZH → LIMC'}
-/*
+{coords:[[49.6233,6.2044],[47.4581,8.5555]], link:'flights/ellx-lszh.html', label:'ELLX → LSZH'},
 
-,{coords:[[46.9141,7.4972],[41.8003,12.2389]], link:'flights/lszb-lirf.html', label:'LSZB → LIRF'}
+/* 🔴 LATEST LEG */
+{coords:[[47.4581,8.5555],[45.6306,8.7281]], link:'flights/lszh-limc.html', label:'LSZH → LIMC', latest:true}
 
-,{coords:[[41.8003,12.2389],[41.4147,19.7206]], link:'flights/lirf-lati.html', label:'LIRF → LATI'}
-
-,{coords:[[41.4147,19.7206],[37.9364,23.9475]], link:'flights/lati-lgav.html', label:'LATI → LGAV'}
-
-,{coords:[[37.9364,23.9475],[41.9616,21.6214]], link:'flights/lgav-lwsk.html', label:'LGAV → LWSK'}
-
-,{coords:[[41.9616,21.6214],[44.8184,20.3091]], link:'flights/lwsk-lybe.html', label:'LWSK → LYBE'}
-*/
 ];
 
 /* DRAW ROUTES */
 
 var routes = [];
-flights.forEach(f => routes.push(animateRoute(f.coords, f.link, f.label)));
+
+flights.forEach(f => {
+routes.push(
+animateRoute(
+f.coords,
+f.link,
+f.label,
+f.latest === true
+)
+);
+});
 
 /* AIRPORTS */
 
