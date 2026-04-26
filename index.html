@@ -1,185 +1,123 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 
-<meta charset="UTF-8">
+<meta charset="utf-8">
+<title>Payam's Flight Logbook</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>FIUMICINO (LIRF) → PALMA (LEPA) | A330-300 | Payam’s Flight Logbook</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
 <style>
 
 body{
-font-family:system-ui;
-background:#0a0a0a;
-color:#e5e5e5;
 margin:0;
-padding:60px 20px;
-line-height:1.6;
-}
-
-.container{
-max-width:1000px;
-margin:auto;
-}
-
-.back{
-position:absolute;
-top:20px;
-left:20px;
-color:#cfcfcf;
-text-decoration:none;
-transition:0.2s;
-}
-
-.back:hover{
+font-family:system-ui,-apple-system,Segoe UI,Roboto;
+background:#0a0a0a;
 color:white;
-transform:translateX(-3px);
 }
 
-h1{
-margin-bottom:20px;
-}
-
-.info{
-margin-bottom:30px;
-color:#b5b5b5;
-}
-
-.stats{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
-margin-bottom:40px;
-}
-
-.card{
-background:#111;
-padding:15px;
-border-radius:10px;
-}
-
-/* VIDEO THUMBNAIL */
-
-.video-thumb{
-position:relative;
-border-radius:12px;
-overflow:hidden;
-cursor:pointer;
-box-shadow:0 10px 30px rgba(0,0,0,0.6);
-margin-bottom:50px;
-}
-
-.video-thumb img{
-width:100%;
-display:block;
-}
-
-.play-btn{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-font-size:60px;
-color:white;
-background:rgba(0,0,0,0.6);
-border-radius:50%;
-padding:10px 20px;
-}
-
-/* VIDEO */
-
-.video{
-position:relative;
-padding-bottom:56.25%;
-height:0;
-overflow:hidden;
-border-radius:12px;
-box-shadow:0 10px 30px rgba(0,0,0,0.6);
-margin-bottom:50px;
-display:none;
-}
-
-.video iframe{
+/* MAP */
+#map{
 position:absolute;
 top:0;
-left:0;
+bottom:0;
 width:100%;
-height:100%;
-border:none;
 }
 
-.gallery{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-gap:20px;
-}
-
-.gallery img{
-width:100%;
+/* HEADER */
+.top-ui{
+position:absolute;
+top:20px;
+left:50%;
+transform:translateX(-50%);
+z-index:1000;
+background:rgba(10,10,10,0.85);
+padding:14px 28px;
 border-radius:12px;
-box-shadow:0 10px 25px rgba(0,0,0,0.5);
-cursor:pointer;
-transition:0.25s;
-}
-
-.gallery img:hover{
-transform:scale(1.03);
-}
-
-/* PDF CARD */
-
-.pdf-card{
-display:flex;
-align-items:center;
-justify-content:center;
-height:180px;
-border-radius:12px;
-background:linear-gradient(135deg,#1f1f1f,#111);
-box-shadow:0 10px 25px rgba(0,0,0,0.6);
-text-decoration:none;
-color:white;
-transition:0.25s;
-}
-
-.pdf-card:hover{
-transform:scale(1.03);
-background:linear-gradient(135deg,#2a2a2a,#111);
-}
-
-.pdf-content{
 text-align:center;
 }
 
-.pdf-icon{
-font-size:40px;
-margin-bottom:10px;
+.top-ui h1{
+margin:0;
+font-size:28px;
 }
 
-.pdf-label{
-font-size:14px;
-color:#ccc;
+.top-ui p{
+margin-top:4px;
+color:#b5b5b5;
+font-size:13px;
 }
 
-/* LIGHTBOX */
-
-.lightbox{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.95);
+/* NAV */
+.nav{
+margin-top:10px;
+display:flex;
+gap:20px;
 justify-content:center;
-align-items:center;
-z-index:1000;
 }
 
-.lightbox img{
-max-width:90%;
-max-height:90%;
-border-radius:10px;
+.nav a{
+color:white;
+text-decoration:none;
+}
+
+.nav a:hover{
+text-decoration:underline;
+}
+
+/* ROUTES */
+.glow-line{
+filter: drop-shadow(0 0 6px rgba(47,128,237,0.7));
+cursor:pointer;
+}
+
+/* Tooltip */
+.route-label{
+background:#000;
+color:#fff;
+padding:4px 8px;
+border-radius:6px;
+font-size:12px;
+}
+
+/* RECENT FLIGHTS PANEL */
+.recent{
+position:absolute;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+background:rgba(10,10,10,0.9);
+padding:12px 20px;
+border-radius:12px;
+z-index:1000;
+display:flex;
+gap:20px;
+align-items:center;
+}
+
+.recent span{
+color:#aaa;
+font-size:12px;
+}
+
+.recent a{
+color:white;
+text-decoration:none;
+font-weight:500;
+padding:6px 12px;
+border-radius:8px;
+background:#111;
+transition:0.2s;
+}
+
+.recent a:hover{
+background:#2F80ED;
+}
+
+/* REMOVE FOCUS OUTLINE */
+.leaflet-interactive:focus {
+outline: none !important;
 }
 
 </style>
@@ -188,120 +126,134 @@ border-radius:10px;
 
 <body>
 
-<a href="../index.html" class="back">← Back to Map</a>
+<div id="map"></div>
 
-<div class="container">
-
-<h1>LIRF → LEPA</h1>
-
-<div class="info">
-<p><b>Aircraft:</b> Airbus A330-300 (Trent 772)</p>
-<p><b>Simulator:</b> X-Plane 12</p>
-<p><b>Callsign:</b> FIN1015</p>
+<div class="top-ui">
+<h1>Payam’s Flight Logbook</h1>
+<p>Virtual routes across the world</p>
+<div class="nav">
+<a href="index.html">Map</a>
+<a href="flights.html">Flights</a>
+<a href="aircraft.html">Aircraft</a>
+<a href="about.html">About</a>
+</div>
 </div>
 
-<!-- STATS -->
-
-<div class="stats">
-
-<div class="card"><b>Route</b><br>
-ESINO8H → ESINO → DCT → ABIDU → DCT → OKIDO → DCT → KOLUS → DCT → GOKMI → DCT → SUPUX → DCT → KUPIM → DCT → SUXER → DCT → RIPAL → MORSS3P</div>
-
-<div class="card"><b>Cruise Level</b><br>FL390</div>
-
-<div class="card"><b>Distance</b><br>474 NM (air) / 464 NM (ground)</div>
-
-<div class="card"><b>Flight Time</b><br>01:11 (air) / 01:39 (block)</div>
-
-<div class="card"><b>Departure</b><br>LIRF RWY 25</div>
-
-<div class="card"><b>Arrival</b><br>LEPA RWY 24L (ILS)</div>
-
-<div class="card"><b>Block Fuel</b><br>13.5 tons</div>
-
-<div class="card"><b>Alternate</b><br>LEBL (Barcelona)</div>
-
-<div class="card"><b>Cost Index</b><br>CI 10</div>
-
-<div class="card"><b>Average Wind</b><br>263° / 9 kt</div>
-
+<!-- RECENT FLIGHTS -->
+<div class="recent">
+<span>Recent Flights:</span>
+<a href="flights/limc-lirf.html">LIMC → LIRF</a>
+<a href="flights/lirf-lepa.html">LIRF → LEPA</a>
 </div>
 
-<!-- VIDEO -->
-
-<h2>Flight Video</h2>
-
-<div class="video-thumb" onclick="playVideo()">
-<img src="../images/LIRFLEPA_thumb.png">
-<div class="play-btn">▶</div>
-</div>
-
-<div class="video" id="videoPlayer">
-<iframe id="ytFrame"
-src=""
-title="LIRF to LEPA Flight"
-allow="autoplay"
-allowfullscreen>
-</iframe>
-</div>
-
-<!-- PDF -->
-
-<h2>Flight Plan</h2>
-
-<div class="gallery">
-<a href="../docs/LIRFLEPA.pdf" target="_blank" class="pdf-card">
-<div class="pdf-content">
-<div class="pdf-icon">📄</div>
-<div><b>Flight Plan (OFP)</b></div>
-<div class="pdf-label">Click to open PDF</div>
-</div>
-</a>
-</div>
-
-<!-- SCREENSHOTS -->
-
-<h2>Flight Screenshots</h2>
-
-<div class="gallery">
-
-<img src="../images/PMI1.png" onclick="openImage(this.src)">
-<img src="../images/PMI2.png" onclick="openImage(this.src)">
-<img src="../images/PMI3.png" onclick="openImage(this.src)">
-<img src="../images/PMI4.png" onclick="openImage(this.src)">
-<img src="../images/PMI5.png" onclick="openImage(this.src)">
-<img src="../images/PMI6.png" onclick="openImage(this.src)">
-
-</div>
-
-</div>
-
-<!-- LIGHTBOX -->
-
-<div id="lightbox" class="lightbox" onclick="closeImage()">
-<img id="lightbox-img">
-</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
 
-function playVideo(){
-document.querySelector(".video-thumb").style.display="none";
-document.getElementById("videoPlayer").style.display="block";
-document.getElementById("ytFrame").src="https://www.youtube.com/embed/YOUR_NEW_VIDEO?autoplay=1";
-}
+/* MAP */
+var map = L.map('map').setView([50,10],4);
 
-function openImage(src){
-document.getElementById("lightbox-img").src = src;
-document.getElementById("lightbox").style.display = "flex";
-}
+L.tileLayer(
+'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
+).addTo(map);
 
-function closeImage(){
-document.getElementById("lightbox").style.display = "none";
-}
+/* COLOR */
+var routeColor = "#2F80ED";
 
-document.addEventListener('keydown', function(e){
-if(e.key === "Escape") closeImage();
+/* DRAW ROUTE */
+function animateRoute(coords, link, label){
+
+let line = L.polyline([],{
+color: routeColor,
+weight:4,
+opacity:1,
+className:'glow-line',
+interactive:true
+}).addTo(map);
+
+let i = 0;
+
+let interval = setInterval(()=>{
+line.addLatLng(coords[i]);
+i++;
+if(i >= coords.length) clearInterval(interval);
+},100);
+
+/* CLICK */
+line.on('click', function(e){
+L.DomEvent.stop(e);
+window.location.href = link;
 });
+
+/* HOVER */
+line.on('mouseover',()=>{
+line.setStyle({weight:6});
+line.bindTooltip(label,{className:'route-label'}).openTooltip();
+});
+
+line.on('mouseout',()=>{
+line.setStyle({weight:4});
+line.closeTooltip();
+});
+
+return line;
+}
+
+/* FLIGHTS */
+
+var flights = [
+
+{coords:[[60.3172,24.9633],[59.6519,17.9186]], link:'flights/efhk-essa.html', label:'EFHK → ESSA'},
+{coords:[[62.6629,29.6076],[60.3172,24.9633]], link:'flights/efjo-efhk.html', label:'EFJO → EFHK'},
+{coords:[[59.6519,17.9186],[60.1939,11.1004]], link:'flights/essa-engm.html', label:'ESSA → ENGM'},
+{coords:[[60.1939,11.1004],[53.4213,-6.2701]], link:'flights/engm-eidw.html', label:'ENGM → EIDW'},
+{coords:[[53.4213,-6.2701],[51.4700,-0.4543]], link:'flights/eidw-egll.html', label:'EIDW → EGLL'},
+{coords:[[51.4700,-0.4543],[38.7742,-9.1342]], link:'flights/egll-lppt.html', label:'EGLL → LPPT'},
+{coords:[[38.7742,-9.1342],[40.4722,-3.5608]], link:'flights/lppt-lemd.html', label:'LPPT → LEMD'},
+{coords:[[40.4722,-3.5608],[49.0097,2.5479]], link:'flights/lemd-lfpg.html', label:'LEMD → LFPG'},
+{coords:[[49.0097,2.5479],[50.9010,4.4844]], link:'flights/lfpg-ebbr.html', label:'LFPG → EBBR'},
+{coords:[[50.9010,4.4844],[52.3105,4.7683]], link:'flights/ebbr-eham.html', label:'EBBR → EHAM'},
+{coords:[[52.3105,4.7683],[49.6233,6.2044]], link:'flights/eham-ellx.html', label:'EHAM → ELLX'},
+{coords:[[49.6233,6.2044],[47.4581,8.5555]], link:'flights/ellx-lszh.html', label:'ELLX → LSZH'},
+
+/* RECENT */
+{coords:[[47.4581,8.5555],[45.6306,8.7281]], link:'flights/lszh-limc.html', label:'LSZH → LIMC'},
+{coords:[[45.6306,8.7281],[41.8003,12.2389]], link:'flights/limc-lirf.html', label:'LIMC → LIRF'},
+{coords:[[41.8003,12.2389],[39.5517,2.7388]], link:'flights/lirf-lepa.html', label:'LIRF → LEPA'}
+
+];
+
+/* DRAW */
+
+var routes = [];
+
+flights.forEach(f => {
+routes.push(
+animateRoute(f.coords, f.link, f.label)
+);
+});
+
+/* AIRPORTS */
+
+function airport(lat,lon){
+L.circleMarker([lat,lon],{
+radius:4,
+fillColor:"#fff",
+color:"#000",
+weight:1,
+fillOpacity:1
+}).addTo(map);
+}
+
+flights.forEach(f=>{
+airport(f.coords[0][0], f.coords[0][1]);
+airport(f.coords[1][0], f.coords[1][1]);
+});
+
+/* FIT */
+
+var group = L.featureGroup(routes);
+map.fitBounds(group.getBounds(),{padding:[80,80]});
 
 </script>
 
