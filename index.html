@@ -17,7 +17,6 @@ background:#0a0a0a;
 color:white;
 }
 
-/* MAP */
 #map{
 position:absolute;
 top:0;
@@ -25,7 +24,6 @@ bottom:0;
 width:100%;
 }
 
-/* HEADER */
 .top-ui{
 position:absolute;
 top:20px;
@@ -49,7 +47,6 @@ color:#b5b5b5;
 font-size:13px;
 }
 
-/* NAV */
 .nav{
 margin-top:10px;
 display:flex;
@@ -66,13 +63,11 @@ text-decoration:none;
 text-decoration:underline;
 }
 
-/* ROUTES */
 .glow-line{
 filter: drop-shadow(0 0 6px rgba(47,128,237,0.7));
 cursor:pointer;
 }
 
-/* Tooltip */
 .route-label{
 background:#000;
 color:#fff;
@@ -81,7 +76,6 @@ border-radius:6px;
 font-size:12px;
 }
 
-/* RECENT FLIGHTS PANEL */
 .recent{
 position:absolute;
 bottom:20px;
@@ -115,7 +109,6 @@ transition:0.2s;
 background:#2F80ED;
 }
 
-/* REMOVE FOCUS OUTLINE */
 .leaflet-interactive:focus {
 outline: none !important;
 }
@@ -142,25 +135,23 @@ outline: none !important;
 <!-- RECENT FLIGHTS -->
 <div class="recent">
 <span>Recent Flights:</span>
-<a href="flights/limc-lirf.html">LIMC → LIRF</a>
-<a href="flights/lirf-lepa.html">LIRF → LEPA</a>
+<a href="flights/lszh-limc.html">Zurich → Milan</a>
+<a href="flights/lirf-lepa.html">Rome → Palma</a>
+<a href="flights/lepa-leib.html">Palma → Ibiza</a>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
 
-/* MAP */
 var map = L.map('map').setView([50,10],4);
 
 L.tileLayer(
 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
 ).addTo(map);
 
-/* COLOR */
 var routeColor = "#2F80ED";
 
-/* DRAW ROUTE */
 function animateRoute(coords, link, label){
 
 let line = L.polyline([],{
@@ -179,13 +170,11 @@ i++;
 if(i >= coords.length) clearInterval(interval);
 },100);
 
-/* CLICK */
 line.on('click', function(e){
 L.DomEvent.stop(e);
 window.location.href = link;
 });
 
-/* HOVER */
 line.on('mouseover',()=>{
 line.setStyle({weight:6});
 line.bindTooltip(label,{className:'route-label'}).openTooltip();
@@ -199,31 +188,30 @@ line.closeTooltip();
 return line;
 }
 
-/* FLIGHTS */
+/* FLIGHTS (CITY NAMES) */
 
 var flights = [
 
-{coords:[[60.3172,24.9633],[59.6519,17.9186]], link:'flights/efhk-essa.html', label:'EFHK → ESSA'},
-{coords:[[62.6629,29.6076],[60.3172,24.9633]], link:'flights/efjo-efhk.html', label:'EFJO → EFHK'},
-{coords:[[59.6519,17.9186],[60.1939,11.1004]], link:'flights/essa-engm.html', label:'ESSA → ENGM'},
-{coords:[[60.1939,11.1004],[53.4213,-6.2701]], link:'flights/engm-eidw.html', label:'ENGM → EIDW'},
-{coords:[[53.4213,-6.2701],[51.4700,-0.4543]], link:'flights/eidw-egll.html', label:'EIDW → EGLL'},
-{coords:[[51.4700,-0.4543],[38.7742,-9.1342]], link:'flights/egll-lppt.html', label:'EGLL → LPPT'},
-{coords:[[38.7742,-9.1342],[40.4722,-3.5608]], link:'flights/lppt-lemd.html', label:'LPPT → LEMD'},
-{coords:[[40.4722,-3.5608],[49.0097,2.5479]], link:'flights/lemd-lfpg.html', label:'LEMD → LFPG'},
-{coords:[[49.0097,2.5479],[50.9010,4.4844]], link:'flights/lfpg-ebbr.html', label:'LFPG → EBBR'},
-{coords:[[50.9010,4.4844],[52.3105,4.7683]], link:'flights/ebbr-eham.html', label:'EBBR → EHAM'},
-{coords:[[52.3105,4.7683],[49.6233,6.2044]], link:'flights/eham-ellx.html', label:'EHAM → ELLX'},
-{coords:[[49.6233,6.2044],[47.4581,8.5555]], link:'flights/ellx-lszh.html', label:'ELLX → LSZH'},
+{coords:[[60.3172,24.9633],[59.6519,17.9186]], link:'flights/efhk-essa.html', label:'Helsinki → Stockholm'},
+{coords:[[62.6629,29.6076],[60.3172,24.9633]], link:'flights/efjo-efhk.html', label:'Joensuu → Helsinki'},
+{coords:[[59.6519,17.9186],[60.1939,11.1004]], link:'flights/essa-engm.html', label:'Stockholm → Oslo'},
+{coords:[[60.1939,11.1004],[53.4213,-6.2701]], link:'flights/engm-eidw.html', label:'Oslo → Dublin'},
+{coords:[[53.4213,-6.2701],[51.4700,-0.4543]], link:'flights/eidw-egll.html', label:'Dublin → London'},
+{coords:[[51.4700,-0.4543],[38.7742,-9.1342]], link:'flights/egll-lppt.html', label:'London → Lisbon'},
+{coords:[[38.7742,-9.1342],[40.4722,-3.5608]], link:'flights/lppt-lemd.html', label:'Lisbon → Madrid'},
+{coords:[[40.4722,-3.5608],[49.0097,2.5479]], link:'flights/lemd-lfpg.html', label:'Madrid → Paris'},
+{coords:[[49.0097,2.5479],[50.9010,4.4844]], link:'flights/lfpg-ebbr.html', label:'Paris → Brussels'},
+{coords:[[50.9010,4.4844],[52.3105,4.7683]], link:'flights/ebbr-eham.html', label:'Brussels → Amsterdam'},
+{coords:[[52.3105,4.7683],[49.6233,6.2044]], link:'flights/eham-ellx.html', label:'Amsterdam → Luxembourg'},
+{coords:[[49.6233,6.2044],[47.4581,8.5555]], link:'flights/ellx-lszh.html', label:'Luxembourg → Zurich'},
 
 /* RECENT */
-{coords:[[47.4581,8.5555],[45.6306,8.7281]], link:'flights/lszh-limc.html', label:'LSZH → LIMC'},
-{coords:[[45.6306,8.7281],[41.8003,12.2389]], link:'flights/limc-lirf.html', label:'LIMC → LIRF'},
-{coords:[[41.8003,12.2389],[39.5517,2.7388]], link:'flights/lirf-lepa.html', label:'LIRF → LEPA'}
+
+{coords:[[47.4581,8.5555],[45.6306,8.7281]], link:'flights/lszh-limc.html', label:'Zurich → Milan'},
+{coords:[[41.8003,12.2389],[39.5517,2.7388]], link:'flights/lirf-lepa.html', label:'Rome → Palma'},
+{coords:[[39.5517,2.7388],[38.8729,1.3731]], link:'flights/lepa-leib.html', label:'Palma → Ibiza'}
 
 ];
-
-/* DRAW */
 
 var routes = [];
 
@@ -233,7 +221,7 @@ animateRoute(f.coords, f.link, f.label)
 );
 });
 
-/* AIRPORTS */
+/* AIRPORT MARKERS */
 
 function airport(lat,lon){
 L.circleMarker([lat,lon],{
@@ -249,8 +237,6 @@ flights.forEach(f=>{
 airport(f.coords[0][0], f.coords[0][1]);
 airport(f.coords[1][0], f.coords[1][1]);
 });
-
-/* FIT */
 
 var group = L.featureGroup(routes);
 map.fitBounds(group.getBounds(),{padding:[80,80]});
