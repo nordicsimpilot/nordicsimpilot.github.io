@@ -188,7 +188,7 @@ line.closeTooltip();
 return line;
 }
 
-/* FLIGHTS (CITY NAMES) */
+/* FLIGHTS */
 
 var flights = [
 
@@ -205,9 +205,10 @@ var flights = [
 {coords:[[52.3105,4.7683],[49.6233,6.2044]], link:'flights/eham-ellx.html', label:'Amsterdam → Luxembourg'},
 {coords:[[49.6233,6.2044],[47.4581,8.5555]], link:'flights/ellx-lszh.html', label:'Luxembourg → Zurich'},
 
-/* RECENT */
+/* PREVIOUS + RECENT LEGS */
 
 {coords:[[47.4581,8.5555],[45.6306,8.7281]], link:'flights/lszh-limc.html', label:'Zurich → Milan'},
+{coords:[[45.6306,8.7281],[41.8003,12.2389]], link:'flights/limc-lirf.html', label:'Milan → Rome'},   // ← restored
 {coords:[[41.8003,12.2389],[39.5517,2.7388]], link:'flights/lirf-lepa.html', label:'Rome → Palma'},
 {coords:[[39.5517,2.7388],[38.8729,1.3731]], link:'flights/lepa-leib.html', label:'Palma → Ibiza'}
 
@@ -221,7 +222,7 @@ animateRoute(f.coords, f.link, f.label)
 );
 });
 
-/* AIRPORT MARKERS */
+/* AIRPORTS */
 
 function airport(lat,lon){
 L.circleMarker([lat,lon],{
