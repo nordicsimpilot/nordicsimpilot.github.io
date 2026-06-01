@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -109,8 +110,8 @@ transition:0.2s;
 background:#2F80ED;
 }
 
-.leaflet-interactive:focus {
-outline: none !important;
+.leaflet-interactive:focus{
+outline:none !important;
 }
 
 </style>
@@ -132,13 +133,12 @@ outline: none !important;
 </div>
 </div>
 
-<!-- RECENT FLIGHTS -->
 <div class="recent">
 <span>Recent Flights:</span>
-<a href="flights/lszh-limc.html">Zurich → Milan</a>
 <a href="flights/limc-lirf.html">Milan → Rome</a>
 <a href="flights/lirf-lepa.html">Rome → Palma</a>
 <a href="flights/lepa-leib.html">Palma → Ibiza</a>
+<a href="flights/leib-leal.html">Ibiza → Alicante</a>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -209,7 +209,8 @@ var flights = [
 {coords:[[47.4581,8.5555],[45.6306,8.7281]], link:'flights/lszh-limc.html', label:'Zurich → Milan'},
 {coords:[[45.6306,8.7281],[41.8003,12.2389]], link:'flights/limc-lirf.html', label:'Milan → Rome'},
 {coords:[[41.8003,12.2389],[39.5517,2.7388]], link:'flights/lirf-lepa.html', label:'Rome → Palma'},
-{coords:[[39.5517,2.7388],[38.8729,1.3731]], link:'flights/lepa-leib.html', label:'Palma → Ibiza'}
+{coords:[[39.5517,2.7388],[38.8729,1.3731]], link:'flights/lepa-leib.html', label:'Palma → Ibiza'},
+{coords:[[38.8729,1.3731],[38.2822,-0.5581]], link:'flights/leib-leal.html', label:'Ibiza → Alicante'}
 
 ];
 
@@ -237,9 +238,10 @@ airport(f.coords[1][0], f.coords[1][1]);
 });
 
 var group = L.featureGroup(routes);
-map.fitBounds(group.getBounds(),{padding:[80,80]});
+map.fitBounds(group.getBounds(), {padding:[80,80]});
 
 </script>
 
 </body>
 </html>
+```
