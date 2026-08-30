@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,7 +64,7 @@ text-decoration:underline;
 }
 
 .glow-line{
-filter: drop-shadow(0 0 6px rgba(47,128,237,0.7));
+filter:drop-shadow(0 0 6px rgba(47,128,237,0.7));
 cursor:pointer;
 }
 
@@ -75,6 +74,8 @@ color:#fff;
 padding:4px 8px;
 border-radius:6px;
 font-size:12px;
+border:none;
+box-shadow:none;
 }
 
 .recent{
@@ -123,122 +124,353 @@ outline:none !important;
 <div id="map"></div>
 
 <div class="top-ui">
+
 <h1>Payam’s Flight Logbook</h1>
+
 <p>Virtual routes across the world</p>
+
 <div class="nav">
 <a href="index.html">Map</a>
 <a href="flights.html">Flights</a>
 <a href="aircraft.html">Aircraft</a>
 <a href="about.html">About</a>
 </div>
+
 </div>
 
 <div class="recent">
-<span>Lastest flight:</span>
-<a href="flights/leib-leal.html">Ibiza → Alicante</a>
+
+<span>Latest flight:</span>
+
+<a href="flights/leib-leal.html">
+Ibiza → Alicante
+</a>
+
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
 
+/* MAP */
+
 var map = L.map('map').setView([50,10],4);
 
+
+/* OPENSTREETMAP
+   No API key required
+*/
+
 L.tileLayer(
-'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+        attribution:'&copy; OpenStreetMap contributors'
+    }
 ).addTo(map);
+
+
+/* ROUTE SETTINGS */
 
 var routeColor = "#2F80ED";
 
+
+/* ANIMATE ROUTE */
+
 function animateRoute(coords, link, label){
 
-let line = L.polyline([],{
-color: routeColor,
-weight:4,
-opacity:1,
-className:'glow-line',
-interactive:true
-}).addTo(map);
+    let line = L.polyline([],{
+        color:routeColor,
+        weight:4,
+        opacity:1,
+        className:'glow-line',
+        interactive:true
+    }).addTo(map);
 
-let i = 0;
+    let i = 0;
 
-let interval = setInterval(()=>{
-line.addLatLng(coords[i]);
-i++;
-if(i >= coords.length) clearInterval(interval);
-},100);
+    let interval = setInterval(()=>{
 
-line.on('click', function(e){
-L.DomEvent.stop(e);
-window.location.href = link;
-});
+        line.addLatLng(coords[i]);
 
-line.on('mouseover',()=>{
-line.setStyle({weight:6});
-line.bindTooltip(label,{className:'route-label'}).openTooltip();
-});
+        i++;
 
-line.on('mouseout',()=>{
-line.setStyle({weight:4});
-line.closeTooltip();
-});
+        if(i >= coords.length){
+            clearInterval(interval);
+        }
 
-return line;
+    },100);
+
+
+    /* CLICK */
+
+    line.on('click', function(e){
+
+        L.DomEvent.stop(e);
+
+        window.location.href = link;
+
+    });
+
+
+    /* MOUSE OVER */
+
+    line.on('mouseover',()=>{
+
+        line.setStyle({
+            weight:6
+        });
+
+        line
+            .bindTooltip(label,{
+                className:'route-label'
+            })
+            .openTooltip();
+
+    });
+
+
+    /* MOUSE OUT */
+
+    line.on('mouseout',()=>{
+
+        line.setStyle({
+            weight:4
+        });
+
+        line.closeTooltip();
+
+    });
+
+
+    return line;
+
 }
+
 
 /* FLIGHTS */
 
 var flights = [
 
-{coords:[[60.3172,24.9633],[59.6519,17.9186]], link:'flights/efhk-essa.html', label:'Helsinki → Stockholm'},
-{coords:[[62.6629,29.6076],[60.3172,24.9633]], link:'flights/efjo-efhk.html', label:'Joensuu → Helsinki'},
-{coords:[[59.6519,17.9186],[60.1939,11.1004]], link:'flights/essa-engm.html', label:'Stockholm → Oslo'},
-{coords:[[60.1939,11.1004],[53.4213,-6.2701]], link:'flights/engm-eidw.html', label:'Oslo → Dublin'},
-{coords:[[53.4213,-6.2701],[51.4700,-0.4543]], link:'flights/eidw-egll.html', label:'Dublin → London'},
-{coords:[[51.4700,-0.4543],[38.7742,-9.1342]], link:'flights/egll-lppt.html', label:'London → Lisbon'},
-{coords:[[38.7742,-9.1342],[40.4722,-3.5608]], link:'flights/lppt-lemd.html', label:'Lisbon → Madrid'},
-{coords:[[40.4722,-3.5608],[49.0097,2.5479]], link:'flights/lemd-lfpg.html', label:'Madrid → Paris'},
-{coords:[[49.0097,2.5479],[50.9010,4.4844]], link:'flights/lfpg-ebbr.html', label:'Paris → Brussels'},
-{coords:[[50.9010,4.4844],[52.3105,4.7683]], link:'flights/ebbr-eham.html', label:'Brussels → Amsterdam'},
-{coords:[[52.3105,4.7683],[49.6233,6.2044]], link:'flights/eham-ellx.html', label:'Amsterdam → Luxembourg'},
-{coords:[[49.6233,6.2044],[47.4581,8.5555]], link:'flights/ellx-lszh.html', label:'Luxembourg → Zurich'},
+    {
+        coords:[
+            [60.3172,24.9633],
+            [59.6519,17.9186]
+        ],
+        link:'flights/efhk-essa.html',
+        label:'Helsinki → Stockholm'
+    },
 
-{coords:[[47.4581,8.5555],[45.6306,8.7281]], link:'flights/lszh-limc.html', label:'Zurich → Milan'},
-{coords:[[45.6306,8.7281],[41.8003,12.2389]], link:'flights/limc-lirf.html', label:'Milan → Rome'},
-{coords:[[41.8003,12.2389],[39.5517,2.7388]], link:'flights/lirf-lepa.html', label:'Rome → Palma'},
-{coords:[[39.5517,2.7388],[38.8729,1.3731]], link:'flights/lepa-leib.html', label:'Palma → Ibiza'},
-{coords:[[38.8729,1.3731],[38.2822,-0.5581]], link:'flights/leib-leal.html', label:'Ibiza → Alicante'}
+    {
+        coords:[
+            [62.6629,29.6076],
+            [60.3172,24.9633]
+        ],
+        link:'flights/efjo-efhk.html',
+        label:'Joensuu → Helsinki'
+    },
+
+    {
+        coords:[
+            [59.6519,17.9186],
+            [60.1939,11.1004]
+        ],
+        link:'flights/essa-engm.html',
+        label:'Stockholm → Oslo'
+    },
+
+    {
+        coords:[
+            [60.1939,11.1004],
+            [53.4213,-6.2701]
+        ],
+        link:'flights/engm-eidw.html',
+        label:'Oslo → Dublin'
+    },
+
+    {
+        coords:[
+            [53.4213,-6.2701],
+            [51.4700,-0.4543]
+        ],
+        link:'flights/eidw-egll.html',
+        label:'Dublin → London'
+    },
+
+    {
+        coords:[
+            [51.4700,-0.4543],
+            [38.7742,-9.1342]
+        ],
+        link:'flights/egll-lppt.html',
+        label:'London → Lisbon'
+    },
+
+    {
+        coords:[
+            [38.7742,-9.1342],
+            [40.4722,-3.5608]
+        ],
+        link:'flights/lppt-lemd.html',
+        label:'Lisbon → Madrid'
+    },
+
+    {
+        coords:[
+            [40.4722,-3.5608],
+            [49.0097,2.5479]
+        ],
+        link:'flights/lemd-lfpg.html',
+        label:'Madrid → Paris'
+    },
+
+    {
+        coords:[
+            [49.0097,2.5479],
+            [50.9010,4.4844]
+        ],
+        link:'flights/lfpg-ebbr.html',
+        label:'Paris → Brussels'
+    },
+
+    {
+        coords:[
+            [50.9010,4.4844],
+            [52.3105,4.7683]
+        ],
+        link:'flights/ebbr-eham.html',
+        label:'Brussels → Amsterdam'
+    },
+
+    {
+        coords:[
+            [52.3105,4.7683],
+            [49.6233,6.2044]
+        ],
+        link:'flights/eham-ellx.html',
+        label:'Amsterdam → Luxembourg'
+    },
+
+    {
+        coords:[
+            [49.6233,6.2044],
+            [47.4581,8.5555]
+        ],
+        link:'flights/ellx-lszh.html',
+        label:'Luxembourg → Zurich'
+    },
+
+    {
+        coords:[
+            [47.4581,8.5555],
+            [45.6306,8.7281]
+        ],
+        link:'flights/lszh-limc.html',
+        label:'Zurich → Milan'
+    },
+
+    {
+        coords:[
+            [45.6306,8.7281],
+            [41.8003,12.2389]
+        ],
+        link:'flights/limc-lirf.html',
+        label:'Milan → Rome'
+    },
+
+    {
+        coords:[
+            [41.8003,12.2389],
+            [39.5517,2.7388]
+        ],
+        link:'flights/lirf-lepa.html',
+        label:'Rome → Palma'
+    },
+
+    {
+        coords:[
+            [39.5517,2.7388],
+            [38.8729,1.3731]
+        ],
+        link:'flights/lepa-leib.html',
+        label:'Palma → Ibiza'
+    },
+
+    {
+        coords:[
+            [38.8729,1.3731],
+            [38.2822,-0.5581]
+        ],
+        link:'flights/leib-leal.html',
+        label:'Ibiza → Alicante'
+    }
 
 ];
+
+
+/* CREATE ROUTES */
 
 var routes = [];
 
 flights.forEach(f => {
-routes.push(
-animateRoute(f.coords, f.link, f.label)
-);
+
+    routes.push(
+        animateRoute(
+            f.coords,
+            f.link,
+            f.label
+        )
+    );
+
 });
+
+
+/* AIRPORT MARKERS */
 
 function airport(lat,lon){
-L.circleMarker([lat,lon],{
-radius:4,
-fillColor:"#fff",
-color:"#000",
-weight:1,
-fillOpacity:1
-}).addTo(map);
+
+    L.circleMarker(
+        [lat,lon],
+        {
+            radius:4,
+            fillColor:"#fff",
+            color:"#000",
+            weight:1,
+            fillOpacity:1
+        }
+    ).addTo(map);
+
 }
 
+
+/* ADD AIRPORTS */
+
 flights.forEach(f=>{
-airport(f.coords[0][0], f.coords[0][1]);
-airport(f.coords[1][0], f.coords[1][1]);
+
+    airport(
+        f.coords[0][0],
+        f.coords[0][1]
+    );
+
+    airport(
+        f.coords[1][0],
+        f.coords[1][1]
+    );
+
 });
 
+
+/* FIT MAP TO ALL ROUTES */
+
 var group = L.featureGroup(routes);
-map.fitBounds(group.getBounds(), {padding:[80,80]});
+
+map.fitBounds(
+    group.getBounds(),
+    {
+        padding:[80,80]
+    }
+);
 
 </script>
 
 </body>
 </html>
-```
