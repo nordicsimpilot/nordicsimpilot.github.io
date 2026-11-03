@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -173,6 +172,40 @@ L.tileLayer(
 /* ROUTE SETTINGS */
 
 var routeColor = "#2F80ED";
+var selectedRouteRectangle = null;
+
+
+/* SELECT ROUTE: DRAW RECTANGLE AND ZOOM */
+
+function selectRoute(coords){
+
+    // Remove the previously selected rectangle
+    if(selectedRouteRectangle){
+        map.removeLayer(selectedRouteRectangle);
+        selectedRouteRectangle = null;
+    }
+
+    // Create bounds around the selected route
+    var bounds = L.latLngBounds(coords);
+
+    // Draw the rectangle around the route
+    selectedRouteRectangle = L.rectangle(bounds,{
+        color:"#FF8C42",
+        weight:3,
+        opacity:1,
+        fillColor:"#FF8C42",
+        fillOpacity:0.08,
+        dashArray:"8, 6",
+        interactive:false
+    }).addTo(map);
+
+    // Zoom to the selected route
+    map.fitBounds(bounds,{
+        padding:[80,80],
+        maxZoom:7,
+        animate:true
+    });
+}
 
 
 /* ANIMATE ROUTE */
@@ -204,7 +237,16 @@ function animateRoute(coords, link, label){
 
     line.on('click',function(e){
         L.DomEvent.stop(e);
-        window.location.href = link;
+
+        // First click selects and highlights the route
+        selectRoute(coords);
+
+        // Open the flight page on the next click
+        if(line._selectedOnce){
+            window.location.href = link;
+        }else{
+            line._selectedOnce = true;
+        }
     });
 
 
