@@ -235,8 +235,10 @@ CI 36
 
 <div class="video">
 <iframe
-src="www.youtube.com/embed/DzeovuIvj-Q"
+src="https://www.youtube.com/embed/DzeovuIvj-Q"
 title="LEAL to DAAG Flight"
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+referrerpolicy="strict-origin-when-cross-origin"
 allowfullscreen>
 </iframe>
 </div>
@@ -245,7 +247,7 @@ allowfullscreen>
 
 <div class="gallery">
 
-<a href="../docs/LEALDAAG.pdf" target="_blank" class="pdf-card">
+<a href="../docs/LEALDAAG.pdf" target="_blank" rel="noopener noreferrer" class="pdf-card">
 <div class="pdf-content">
 <div class="pdf-icon">📄</div>
 <div><b>Flight Plan (OFP)</b></div>
@@ -259,19 +261,19 @@ allowfullscreen>
 
 <div class="gallery">
 
-<img src="../images/DAAG1.png" onclick="openImage(this.src)">
-<img src="../images/DAAG2.png" onclick="openImage(this.src)">
-<img src="../images/DAAG3.png" onclick="openImage(this.src)">
-<img src="../images/DAAG4.png" onclick="openImage(this.src)">
-<img src="../images/DAAG5.png" onclick="openImage(this.src)">
-<img src="../images/DAAG6.png" onclick="openImage(this.src)">
+<img src="../images/DAAG1.png" onclick="openImage(this.src)" alt="Flight screenshot 1">
+<img src="../images/DAAG2.png" onclick="openImage(this.src)" alt="Flight screenshot 2">
+<img src="../images/DAAG3.png" onclick="openImage(this.src)" alt="Flight screenshot 3">
+<img src="../images/DAAG4.png" onclick="openImage(this.src)" alt="Flight screenshot 4">
+<img src="../images/DAAG5.png" onclick="openImage(this.src)" alt="Flight screenshot 5">
+<img src="../images/DAAG6.png" onclick="openImage(this.src)" alt="Flight screenshot 6">
 
 </div>
 
 </div>
 
 <div id="lightbox" class="lightbox" onclick="closeImage()">
-<img id="lightbox-img">
+<img id="lightbox-img" alt="Enlarged flight screenshot">
 </div>
 
 <script>
@@ -283,6 +285,7 @@ document.getElementById("lightbox").style.display = "flex";
 
 function closeImage(){
 document.getElementById("lightbox").style.display = "none";
+document.getElementById("lightbox-img").src = "";
 }
 
 document.addEventListener('keydown', function(e){
