@@ -7,10 +7,8 @@
 
 <title>Payam’s Flight Logbook</title>
 
-<link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-/>
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
 <style>
 body {
@@ -176,39 +174,31 @@ var routeColor = "#2F80ED";
 var selectedRouteRectangle = null;
 
 
-/* SELECT ROUTE: DRAW RECTANGLE AND ZOOM */
+/* SELECT ROUTE */
 
 function selectRoute(coords) {
 
-    // Remove previously selected rectangle
+    // Remove previous rectangle
     if (selectedRouteRectangle) {
         map.removeLayer(selectedRouteRectangle);
         selectedRouteRectangle = null;
     }
 
-    // Calculate route boundaries
+    // Calculate bounds from airport coordinates
     var bounds = L.latLngBounds(coords);
 
-    // Draw rectangle around selected route
+    // Draw rectangle around route
     selectedRouteRectangle = L.rectangle(bounds, {
         color: "#FF8C42",
-        weight: 4,
+        weight: 3,
         opacity: 1,
         fillColor: "#FF8C42",
-        fillOpacity: 0.12,
-        dashArray: "10, 6",
+        fillOpacity: 0.08,
+        dashArray: "8, 6",
         interactive: false
     }).addTo(map);
 
-    // Bring rectangle above route lines
-    selectedRouteRectangle.bringToFront();
-
-    // Zoom into selected route
-    map.fitBounds(bounds, {
-        padding: [100, 100],
-        maxZoom: 7,
-        animate: true
-    });
+    // Do NOT zoom or move the map
 }
 
 
@@ -243,16 +233,20 @@ function animateRoute(coords, link, label) {
 
     line.on('click', function(e) {
 
-        L.DomEvent.stopPropagation(e);
+        L.DomEvent.stop(e);
 
-        // First click: select and zoom
-        selectRoute(coords);
-
-        // Second click: open flight page
+        // Second click opens flight page
         if (line._selectedOnce) {
+
             window.location.href = link;
+
         } else {
+
+            // First click selects route without zooming
+            selectRoute(coords);
+
             line._selectedOnce = true;
+
         }
 
     });
