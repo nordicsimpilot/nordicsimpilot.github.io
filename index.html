@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,120 +13,120 @@
 />
 
 <style>
-body{
-    margin:0;
-    font-family:system-ui;
-    background:#0a0a0a;
-    color:#e5e5e5;
+body {
+    margin: 0;
+    font-family: system-ui;
+    background: #0a0a0a;
+    color: #e5e5e5;
 }
 
-#map{
-    position:fixed;
-    inset:0;
-    z-index:1;
+#map {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
 }
 
-.top-ui{
-    position:absolute;
-    top:20px;
-    left:20px;
-    z-index:1000;
-    background:rgba(10,10,10,0.88);
-    padding:20px;
-    border-radius:12px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.4);
-    backdrop-filter:blur(10px);
+.top-ui {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background: rgba(10,10,10,0.88);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    backdrop-filter: blur(10px);
 }
 
-.top-ui h1{
-    margin:0 0 5px;
-    font-size:24px;
+.top-ui h1 {
+    margin: 0 0 5px;
+    font-size: 24px;
 }
 
-.top-ui p{
-    margin:0 0 15px;
-    color:#aaa;
+.top-ui p {
+    margin: 0 0 15px;
+    color: #aaa;
 }
 
-.nav{
-    display:flex;
-    gap:15px;
+.nav {
+    display: flex;
+    gap: 15px;
 }
 
-.nav a{
-    color:#cfcfcf;
-    text-decoration:none;
-    transition:0.2s;
+.nav a {
+    color: #cfcfcf;
+    text-decoration: none;
+    transition: 0.2s;
 }
 
-.nav a:hover{
-    color:white;
+.nav a:hover {
+    color: white;
 }
 
-.glow-line{
-    filter:drop-shadow(0 0 6px rgba(47,128,237,0.7));
-    cursor:pointer;
+.glow-line {
+    filter: drop-shadow(0 0 6px rgba(47,128,237,0.7));
+    cursor: pointer;
 }
 
-.route-label{
-    background:#111;
-    color:#fff;
-    border:1px solid #2F80ED;
-    border-radius:6px;
-    padding:4px 8px;
-    font-size:12px;
-    box-shadow:none;
+.route-label {
+    background: #111;
+    color: #fff;
+    border: 1px solid #2F80ED;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 12px;
+    box-shadow: none;
 }
 
-.recent{
-    position:absolute;
-    bottom:20px;
-    left:20px;
-    z-index:1000;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    background:rgba(10,10,10,0.9);
-    padding:12px 16px;
-    border-radius:10px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.4);
+.recent {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(10,10,10,0.9);
+    padding: 12px 16px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
 
-.recent span{
-    color:#aaa;
+.recent span {
+    color: #aaa;
 }
 
-.recent a{
-    color:#fff;
-    text-decoration:none;
+.recent a {
+    color: #fff;
+    text-decoration: none;
 }
 
-.recent a:hover{
-    color:#2F80ED;
+.recent a:hover {
+    color: #2F80ED;
 }
 
-@media(max-width:600px){
-    .top-ui{
-        top:10px;
-        left:10px;
-        right:10px;
-        padding:15px;
+@media(max-width:600px) {
+    .top-ui {
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        padding: 15px;
     }
 
-    .top-ui h1{
-        font-size:20px;
+    .top-ui h1 {
+        font-size: 20px;
     }
 
-    .nav{
-        gap:12px;
-        flex-wrap:wrap;
+    .nav {
+        gap: 12px;
+        flex-wrap: wrap;
     }
 
-    .recent{
-        left:10px;
-        right:10px;
-        bottom:10px;
-        flex-wrap:wrap;
+    .recent {
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        flex-wrap: wrap;
     }
 }
 </style>
@@ -177,95 +178,111 @@ var selectedRouteRectangle = null;
 
 /* SELECT ROUTE: DRAW RECTANGLE AND ZOOM */
 
-function selectRoute(coords){
+function selectRoute(coords) {
 
-    // Remove the previously selected rectangle
-    if(selectedRouteRectangle){
+    // Remove previously selected rectangle
+    if (selectedRouteRectangle) {
         map.removeLayer(selectedRouteRectangle);
         selectedRouteRectangle = null;
     }
 
-    // Create bounds around the selected route
+    // Calculate route boundaries
     var bounds = L.latLngBounds(coords);
 
-    // Draw the rectangle around the route
-    selectedRouteRectangle = L.rectangle(bounds,{
-        color:"#FF8C42",
-        weight:3,
-        opacity:1,
-        fillColor:"#FF8C42",
-        fillOpacity:0.08,
-        dashArray:"8, 6",
-        interactive:false
+    // Draw rectangle around selected route
+    selectedRouteRectangle = L.rectangle(bounds, {
+        color: "#FF8C42",
+        weight: 4,
+        opacity: 1,
+        fillColor: "#FF8C42",
+        fillOpacity: 0.12,
+        dashArray: "10, 6",
+        interactive: false
     }).addTo(map);
 
-    // Zoom to the selected route
-    map.fitBounds(bounds,{
-        padding:[80,80],
-        maxZoom:7,
-        animate:true
+    // Bring rectangle above route lines
+    selectedRouteRectangle.bringToFront();
+
+    // Zoom into selected route
+    map.fitBounds(bounds, {
+        padding: [100, 100],
+        maxZoom: 7,
+        animate: true
     });
 }
 
 
 /* ANIMATE ROUTE */
 
-function animateRoute(coords, link, label){
+function animateRoute(coords, link, label) {
 
-    let line = L.polyline([],{
-        color:routeColor,
-        weight:4,
-        opacity:1,
-        className:'glow-line',
-        interactive:true
+    let line = L.polyline([], {
+        color: routeColor,
+        weight: 4,
+        opacity: 1,
+        className: 'glow-line',
+        interactive: true
     }).addTo(map);
 
     let i = 0;
 
-    let interval = setInterval(()=>{
-        if(i >= coords.length){
+    let interval = setInterval(() => {
+
+        if (i >= coords.length) {
             clearInterval(interval);
             return;
         }
 
         line.addLatLng(coords[i]);
         i++;
-    },100);
+
+    }, 100);
 
 
     /* CLICK */
 
-    line.on('click',function(e){
-        L.DomEvent.stop(e);
+    line.on('click', function(e) {
 
-        // First click selects and highlights the route
+        L.DomEvent.stopPropagation(e);
+
+        // First click: select and zoom
         selectRoute(coords);
 
-        // Open the flight page on the next click
-        if(line._selectedOnce){
+        // Second click: open flight page
+        if (line._selectedOnce) {
             window.location.href = link;
-        }else{
+        } else {
             line._selectedOnce = true;
         }
+
     });
 
 
     /* MOUSE OVER */
 
-    line.on('mouseover',()=>{
-        line.setStyle({weight:6});
+    line.on('mouseover', () => {
 
-        line.bindTooltip(label,{
-            className:'route-label'
+        line.setStyle({
+            weight: 6
+        });
+
+        line.bindTooltip(label, {
+            className: 'route-label'
         }).openTooltip();
+
     });
 
 
     /* MOUSE OUT */
 
-    line.on('mouseout',()=>{
-        line.setStyle({weight:4});
+    line.on('mouseout', () => {
+
+        line.setStyle({
+            weight: 4
+        });
+
         line.closeTooltip();
+
     });
 
     return line;
@@ -391,23 +408,25 @@ var flights = [
 
 var routes = [];
 
-flights.forEach(f=>{
+flights.forEach(f => {
+
     routes.push(
-        animateRoute(f.coords,f.link,f.label)
+        animateRoute(f.coords, f.link, f.label)
     );
+
 });
 
 
 /* AIRPORT MARKERS */
 
-function airport(lat,lon){
+function airport(lat, lon) {
 
-    L.circleMarker([lat,lon],{
-        radius:4,
-        fillColor:"#fff",
-        color:"#000",
-        weight:1,
-        fillOpacity:1
+    L.circleMarker([lat,lon], {
+        radius: 4,
+        fillColor: "#fff",
+        color: "#000",
+        weight: 1,
+        fillOpacity: 1
     }).addTo(map);
 
 }
@@ -415,9 +434,11 @@ function airport(lat,lon){
 
 /* ADD AIRPORTS */
 
-flights.forEach(f=>{
-    airport(f.coords[0][0],f.coords[0][1]);
-    airport(f.coords[1][0],f.coords[1][1]);
+flights.forEach(f => {
+
+    airport(f.coords[0][0], f.coords[0][1]);
+    airport(f.coords[1][0], f.coords[1][1]);
+
 });
 
 
@@ -425,8 +446,8 @@ flights.forEach(f=>{
 
 var group = L.featureGroup(routes);
 
-map.fitBounds(group.getBounds(),{
-    padding:[80,80]
+map.fitBounds(group.getBounds(), {
+    padding: [80,80]
 });
 
 </script>
