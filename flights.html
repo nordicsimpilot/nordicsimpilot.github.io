@@ -1,9 +1,11 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<title>Flights | Payam's Flight Logbook</title>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Flights | Payam's Flight Logbook</title>
 
 <style>
 
@@ -15,6 +17,7 @@ color:white;
 }
 
 /* HEADER */
+
 .top-ui{
 position:sticky;
 top:0;
@@ -22,6 +25,7 @@ background:rgba(10,10,10,0.95);
 padding:14px 28px;
 text-align:center;
 border-bottom:1px solid #222;
+z-index:100;
 }
 
 .top-ui h1{
@@ -30,6 +34,7 @@ font-size:26px;
 }
 
 /* BACK BUTTON */
+
 .back-btn{
 position:absolute;
 left:20px;
@@ -44,6 +49,7 @@ text-decoration:underline;
 }
 
 /* NAV */
+
 .nav{
 margin-top:10px;
 display:flex;
@@ -61,6 +67,7 @@ text-decoration:underline;
 }
 
 /* LIST */
+
 .container{
 max-width:900px;
 margin:40px auto;
@@ -98,6 +105,59 @@ font-weight:600;
 letter-spacing:1px;
 }
 
+.latest{
+border:1px solid #2F80ED;
+}
+
+.latest-label{
+font-size:11px;
+color:#2F80ED;
+margin-left:10px;
+font-weight:500;
+letter-spacing:0;
+}
+
+@media(max-width:600px){
+
+.top-ui{
+padding:15px;
+}
+
+.top-ui h1{
+font-size:22px;
+}
+
+.back-btn{
+position:static;
+display:block;
+text-align:left;
+margin-bottom:10px;
+}
+
+.nav{
+gap:14px;
+flex-wrap:wrap;
+}
+
+.container{
+margin:25px auto;
+padding:0 12px;
+}
+
+.flight{
+padding:15px;
+}
+
+.code{
+font-size:13px;
+}
+
+.flight a{
+font-size:13px;
+}
+
+}
+
 </style>
 </head>
 
@@ -118,70 +178,145 @@ letter-spacing:1px;
 
 </div>
 
+
 <div class="container">
 
-<!-- Correct chronological / route order -->
+<!-- FLIGHT 1 -->
 
 <div class="flight">
 <span class="code">EFJO → EFHK</span>
 <a href="flights/efjo-efhk.html">View flight →</a>
 </div>
 
+<!-- FLIGHT 2 -->
+
 <div class="flight">
 <span class="code">EFHK → ESSA</span>
 <a href="flights/efhk-essa.html">View flight →</a>
 </div>
+
+<!-- FLIGHT 3 -->
 
 <div class="flight">
 <span class="code">ESSA → ENGM</span>
 <a href="flights/essa-engm.html">View flight →</a>
 </div>
 
+<!-- FLIGHT 4 -->
+
 <div class="flight">
 <span class="code">ENGM → EIDW</span>
 <a href="flights/engm-eidw.html">View flight →</a>
 </div>
+
+<!-- FLIGHT 5 -->
 
 <div class="flight">
 <span class="code">EIDW → EGLL</span>
 <a href="flights/eidw-egll.html">View flight →</a>
 </div>
 
+<!-- FLIGHT 6 -->
+
 <div class="flight">
 <span class="code">EGLL → LPPT</span>
 <a href="flights/egll-lppt.html">View flight →</a>
 </div>
+
+<!-- FLIGHT 7 -->
 
 <div class="flight">
 <span class="code">LPPT → LEMD</span>
 <a href="flights/lppt-lemd.html">View flight →</a>
 </div>
 
+<!-- FLIGHT 8 -->
+
 <div class="flight">
 <span class="code">LEMD → LFPG</span>
 <a href="flights/lemd-lfpg.html">View flight →</a>
 </div>
+
+<!-- FLIGHT 9 -->
 
 <div class="flight">
 <span class="code">LFPG → EBBR</span>
 <a href="flights/lfpg-ebbr.html">View flight →</a>
 </div>
 
+<!-- FLIGHT 10 -->
+
 <div class="flight">
 <span class="code">EBBR → EHAM</span>
 <a href="flights/ebbr-eham.html">View flight →</a>
 </div>
+
+<!-- FLIGHT 11 -->
 
 <div class="flight">
 <span class="code">EHAM → ELLX</span>
 <a href="flights/eham-ellx.html">View flight →</a>
 </div>
 
+<!-- FLIGHT 12 -->
+
 <div class="flight">
 <span class="code">ELLX → LSZH</span>
 <a href="flights/ellx-lszh.html">View flight →</a>
 </div>
-  
+
+<!-- FLIGHT 13 -->
+
+<div class="flight">
+<span class="code">LSZH → LIMC</span>
+<a href="flights/lszh-limc.html">View flight →</a>
+</div>
+
+<!-- FLIGHT 14 -->
+
+<div class="flight">
+<span class="code">LIMC → LIRF</span>
+<a href="flights/limc-lirf.html">View flight →</a>
+</div>
+
+<!-- FLIGHT 15 -->
+
+<div class="flight">
+<span class="code">LIRF → LEPA</span>
+<a href="flights/lirf-lepa.html">View flight →</a>
+</div>
+
+<!-- FLIGHT 16 -->
+
+<div class="flight">
+<span class="code">LEPA → LEIB</span>
+<a href="flights/lepa-leib.html">View flight →</a>
+</div>
+
+<!-- FLIGHT 17 -->
+
+<div class="flight">
+<span class="code">LEIB → LEAL</span>
+<a href="flights/leib-leal.html">View flight →</a>
+</div>
+
+<!-- FLIGHT 18 -->
+
+<div class="flight">
+<span class="code">LEAL → DAAG</span>
+<a href="flights/leal-daag.html">View flight →</a>
+</div>
+
+<!-- FLIGHT 19: LATEST -->
+
+<div class="flight latest">
+<span class="code">
+DAAG → LIEE
+<span class="latest-label">LATEST FLIGHT</span>
+</span>
+<a href="flights/daag-liee.html">View flight →</a>
+</div>
+
 </div>
 
 </body>
