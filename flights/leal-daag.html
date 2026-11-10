@@ -1,463 +1,304 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Payam’s Flight Logbook</title>
-
-<link rel="stylesheet"
-href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<title>LEAL → DAAG | A330-300 | Payam's Flight Logbook</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: system-ui;
-    background: #0a0a0a;
-    color: #e5e5e5;
+
+body{
+font-family:system-ui;
+background:#0a0a0a;
+color:#e5e5e5;
+margin:0;
+padding:60px 20px;
+line-height:1.6;
 }
 
-#map {
-    position: fixed;
-    inset: 0;
-    z-index: 1;
+.container{
+max-width:1000px;
+margin:auto;
 }
 
-.leaflet-container,
-.leaflet-interactive,
-.leaflet-overlay-pane svg,
-.leaflet-overlay-pane path:focus {
-    outline: none !important;
+.back{
+position:absolute;
+top:20px;
+left:20px;
+color:#cfcfcf;
+text-decoration:none;
+transition:0.2s;
 }
 
-.top-ui {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    z-index: 1000;
-    background: rgba(10,10,10,0.88);
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-    backdrop-filter: blur(10px);
+.back:hover{
+color:white;
+transform:translateX(-3px);
 }
 
-.top-ui h1 {
-    margin: 0 0 5px;
-    font-size: 24px;
+h1{
+margin-bottom:20px;
 }
 
-.top-ui p {
-    margin: 0 0 15px;
-    color: #aaa;
+.info{
+margin-bottom:30px;
+color:#b5b5b5;
 }
 
-.nav {
-    display: flex;
-    gap: 15px;
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+margin-bottom:40px;
 }
 
-.nav a {
-    color: #cfcfcf;
-    text-decoration: none;
-    transition: 0.2s;
+.card{
+background:#111;
+padding:15px;
+border-radius:10px;
 }
 
-.nav a:hover {
-    color: white;
+.video{
+position:relative;
+padding-bottom:56.25%;
+height:0;
+overflow:hidden;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,0.6);
+margin-bottom:50px;
 }
 
-.glow-line {
-    filter: drop-shadow(0 0 6px rgba(47,128,237,0.7));
-    cursor: pointer;
+.video iframe{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+border:none;
 }
 
-.route-label {
-    background: #111;
-    color: #fff;
-    border: 1px solid #2F80ED;
-    border-radius: 6px;
-    padding: 4px 8px;
-    font-size: 12px;
-    box-shadow: none;
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:20px;
 }
 
-.recent {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: rgba(10,10,10,0.9);
-    padding: 12px 16px;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+.gallery img{
+width:100%;
+border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,0.5);
+cursor:pointer;
+transition:0.25s;
 }
 
-.recent span {
-    color: #aaa;
+.gallery img:hover{
+transform:scale(1.03);
 }
 
-.recent a {
-    color: #fff;
-    text-decoration: none;
+.pdf-card{
+display:flex;
+align-items:center;
+justify-content:center;
+height:180px;
+border-radius:12px;
+background:linear-gradient(135deg,#1f1f1f,#111);
+box-shadow:0 10px 25px rgba(0,0,0,0.6);
+text-decoration:none;
+color:white;
+transition:0.25s;
 }
 
-.recent a:hover {
-    color: #2F80ED;
+.pdf-card:hover{
+transform:scale(1.03);
+background:linear-gradient(135deg,#2a2a2a,#111);
 }
 
-@media(max-width:600px) {
-    .top-ui {
-        top: 10px;
-        left: 10px;
-        right: 10px;
-        padding: 15px;
-    }
-
-    .top-ui h1 {
-        font-size: 20px;
-    }
-
-    .nav {
-        gap: 12px;
-        flex-wrap: wrap;
-    }
-
-    .recent {
-        left: 10px;
-        right: 10px;
-        bottom: 10px;
-        flex-wrap: wrap;
-    }
+.pdf-content{
+text-align:center;
 }
+
+.pdf-icon{
+font-size:40px;
+margin-bottom:10px;
+}
+
+.pdf-label{
+font-size:14px;
+color:#ccc;
+}
+
+.lightbox{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.95);
+justify-content:center;
+align-items:center;
+z-index:1000;
+}
+
+.lightbox img{
+max-width:90%;
+max-height:90%;
+border-radius:10px;
+}
+
 </style>
+
 </head>
 
 <body>
 
-<div id="map"></div>
+<a href="../index.html" class="back">← Back to Map</a>
 
-<div class="top-ui">
-    <h1>Payam’s Flight Logbook</h1>
-    <p>Virtual routes across the world</p>
+<div class="container">
 
-    <div class="nav">
-        <a href="index.html">Map</a>
-        <a href="flights.html">Flights</a>
-        <a href="aircraft.html">Aircraft</a>
-        <a href="about.html">About</a>
-    </div>
+<h1>LEAL → DAAG</h1>
+
+<div class="info">
+<p><b>Aircraft:</b> Airbus A330-900 (Trent 772)</p>
+<p><b>Simulator:</b> X-Plane 12</p>
+<p><b>Callsign:</b> FIN1018</p>
+<p><b>Date:</b> 2 November 2026</p>
 </div>
 
-<div class="recent">
-    <span>Latest flight:</span>
-    <a href="flights/daag-liee.html">Algiers → Cagliari</a>
+<div class="stats">
+
+<div class="card">
+<b>Route</b><br>
+MAGAL2D → MAGAL → L150 → LABRO → UA31 → CHE → A31 → ALR
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<div class="card">
+<b>Cruise Level</b><br>
+FL270
+</div>
+
+<div class="card">
+<b>Distance</b><br>
+237 NM
+</div>
+
+<div class="card">
+<b>Flight Time</b><br>
+00:40 (air) / 01:08 (block)
+</div>
+
+<div class="card">
+<b>Departure</b><br>
+LEAL RWY 28
+</div>
+
+<div class="card">
+<b>Arrival</b><br>
+DAAG RWY 05
+</div>
+
+<div class="card">
+<b>Block Fuel</b><br>
+12.0 tons
+</div>
+
+<div class="card">
+<b>Alternate</b><br>
+DABT (Batna)
+</div>
+
+<div class="card">
+<b>Cost Index</b><br>
+CI 36
+</div>
+
+<div class="card">
+<b>Average Wind</b><br>
+289° / 21 kt
+</div>
+
+<div class="card">
+<b>Takeoff Weight</b><br>
+169.1 tons
+</div>
+
+<div class="card">
+<b>Landing Weight</b><br>
+165.0 tons
+</div>
+
+</div>
+
+<h2>Flight Video</h2>
+
+<div class="video">
+    <iframe
+        src="https://www.youtube.com/embed/DzeovuIvj-Q?rel=0"
+        title="LEAL to DAAG Flight"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen>
+    </iframe>
+</div>
+
+<p style="text-align:center; margin-top:-30px; margin-bottom:50px;">
+    <a href="https://www.youtube.com/watch?v=DzeovuIvj-Q"
+       target="_blank"
+       rel="noopener noreferrer"
+       style="color:#aaa; text-decoration:none;">
+       Watch on YouTube ↗
+    </a>
+</p>
+
+<h2>Flight Plan</h2>
+
+<div class="gallery">
+
+<a href="../docs/LEALDAAG.pdf" target="_blank" rel="noopener noreferrer" class="pdf-card">
+<div class="pdf-content">
+<div class="pdf-icon">📄</div>
+<div><b>Flight Plan (OFP)</b></div>
+<div class="pdf-label">Click to open PDF</div>
+</div>
+</a>
+
+</div>
+
+<h2>Flight Screenshots</h2>
+
+<div class="gallery">
+
+<img src="../images/DAAG1.png" onclick="openImage(this.src)" alt="Flight screenshot 1">
+<img src="../images/DAAG2.png" onclick="openImage(this.src)" alt="Flight screenshot 2">
+<img src="../images/DAAG3.png" onclick="openImage(this.src)" alt="Flight screenshot 3">
+<img src="../images/DAAG4.png" onclick="openImage(this.src)" alt="Flight screenshot 4">
+<img src="../images/DAAG5.png" onclick="openImage(this.src)" alt="Flight screenshot 5">
+<img src="../images/DAAG6.png" onclick="openImage(this.src)" alt="Flight screenshot 6">
+
+</div>
+
+</div>
+
+<div id="lightbox" class="lightbox" onclick="closeImage()">
+<img id="lightbox-img" alt="Enlarged flight screenshot">
+</div>
 
 <script>
 
-/* MAP */
-
-var map = L.map('map', {
-    zoomControl: true
-}).setView([50,10],4);
-
-L.tileLayer(
-    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    {
-        attribution: '&copy; OpenStreetMap contributors',
-        maxZoom: 19
-    }
-).addTo(map);
-
-
-/* ROUTE SETTINGS */
-
-var routeColor = "#2F80ED";
-
-
-/* ANIMATE ROUTE */
-
-function animateRoute(coords, link, label) {
-
-    let line = L.polyline([], {
-        color: routeColor,
-        weight: 4,
-        opacity: 1,
-        className: 'glow-line',
-        interactive: true
-    }).addTo(map);
-
-    let i = 0;
-
-    let interval = setInterval(() => {
-
-        if (i >= coords.length) {
-            clearInterval(interval);
-            return;
-        }
-
-        line.addLatLng(coords[i]);
-        i++;
-
-    }, 100);
-
-
-    /* CLICK */
-
-    line.on('click', function(e) {
-
-        L.DomEvent.stop(e);
-
-        if (line._selectedOnce) {
-
-            window.location.href = link;
-
-        } else {
-
-            line._selectedOnce = true;
-
-            line.setStyle({
-                weight: 6,
-                color: "#FF8C42"
-            });
-
-        }
-
-    });
-
-
-    /* MOUSE OVER */
-
-    line.on('mouseover', () => {
-
-        line.setStyle({
-            weight: 6
-        });
-
-        line.bindTooltip(label, {
-            className: 'route-label'
-        }).openTooltip();
-
-    });
-
-
-    /* MOUSE OUT */
-
-    line.on('mouseout', () => {
-
-        if (!line._selectedOnce) {
-
-            line.setStyle({
-                weight: 4,
-                color: routeColor
-            });
-
-        } else {
-
-            line.setStyle({
-                weight: 6,
-                color: "#FF8C42"
-            });
-
-        }
-
-        line.closeTooltip();
-
-    });
-
-    return line;
+function openImage(src){
+document.getElementById("lightbox-img").src = src;
+document.getElementById("lightbox").style.display = "flex";
 }
 
-
-/* FLIGHTS */
-
-var flights = [
-
-    {
-        coords:[[60.3172,24.9633],[59.6519,17.9186]],
-        link:'flights/efhk-essa.html',
-        label:'Helsinki → Stockholm'
-    },
-
-    {
-        coords:[[62.6629,29.6076],[60.3172,24.9633]],
-        link:'flights/efjo-efhk.html',
-        label:'Joensuu → Helsinki'
-    },
-
-    {
-        coords:[[59.6519,17.9186],[60.1939,11.1004]],
-        link:'flights/essa-engm.html',
-        label:'Stockholm → Oslo'
-    },
-
-    {
-        coords:[[60.1939,11.1004],[53.4213,-6.2701]],
-        link:'flights/engm-eidw.html',
-        label:'Oslo → Dublin'
-    },
-
-    {
-        coords:[[53.4213,-6.2701],[51.4700,-0.4543]],
-        link:'flights/eidw-egll.html',
-        label:'Dublin → London'
-    },
-
-    {
-        coords:[[51.4700,-0.4543],[38.7742,-9.1342]],
-        link:'flights/egll-lppt.html',
-        label:'London → Lisbon'
-    },
-
-    {
-        coords:[[38.7742,-9.1342],[40.4722,-3.5608]],
-        link:'flights/lppt-lemd.html',
-        label:'Lisbon → Madrid'
-    },
-
-    {
-        coords:[[40.4722,-3.5608],[49.0097,2.5479]],
-        link:'flights/lemd-lfpg.html',
-        label:'Madrid → Paris'
-    },
-
-    {
-        coords:[[49.0097,2.5479],[50.9010,4.4844]],
-        link:'flights/lfpg-ebbr.html',
-        label:'Paris → Brussels'
-    },
-
-    {
-        coords:[[50.9010,4.4844],[52.3105,4.7683]],
-        link:'flights/ebbr-eham.html',
-        label:'Brussels → Amsterdam'
-    },
-
-    {
-        coords:[[52.3105,4.7683],[49.6233,6.2044]],
-        link:'flights/eham-ellx.html',
-        label:'Amsterdam → Luxembourg'
-    },
-
-    {
-        coords:[[49.6233,6.2044],[47.4581,8.5555]],
-        link:'flights/ellx-lszh.html',
-        label:'Luxembourg → Zurich'
-    },
-
-    {
-        coords:[[47.4581,8.5555],[45.6306,8.7281]],
-        link:'flights/lszh-limc.html',
-        label:'Zurich → Milan'
-    },
-
-    {
-        coords:[[45.6306,8.7281],[41.8003,12.2389]],
-        link:'flights/limc-lirf.html',
-        label:'Milan → Rome'
-    },
-
-    {
-        coords:[[41.8003,12.2389],[39.5517,2.7388]],
-        link:'flights/lirf-lepa.html',
-        label:'Rome → Palma'
-    },
-
-    {
-        coords:[[39.5517,2.7388],[38.8729,1.3731]],
-        link:'flights/lepa-leib.html',
-        label:'Palma → Ibiza'
-    },
-
-    {
-        coords:[[38.8729,1.3731],[38.2822,-0.5581]],
-        link:'flights/leib-leal.html',
-        label:'Ibiza → Alicante'
-    },
-
-    {
-        coords:[[38.2822,-0.5581],[36.6910,3.2154]],
-        link:'flights/leal-daag.html',
-        label:'Alicante → Algiers'
-    },
-
-    /* NEW FLIGHT: ALGIERS → CAGLIARI */
-
-    {
-        coords:[
-            [36.6950,3.2167],    // DAAG - Algiers
-            [37.1667,3.4100],    // BOUGA
-            [37.9450,4.9400],    // ALG045111
-            [37.9900,5.0000],    // BOURI
-            [38.0917,5.4683],    // TOC
-            [38.4750,7.3150],    // TOD
-            [38.9017,9.5783],    // PIRIX
-            [39.1117,9.5083],    // CARBONARA
-            [39.2467,9.0567]     // LIEE - Cagliari
-        ],
-        link:'flights/daag-liee.html',
-        label:'Algiers → Cagliari'
-    }
-
-];
-
-
-/* CREATE ROUTES */
-
-var routes = [];
-
-flights.forEach(f => {
-
-    routes.push(
-        animateRoute(f.coords, f.link, f.label)
-    );
-
-});
-
-
-/* AIRPORT MARKERS */
-
-function airport(lat, lon) {
-
-    L.circleMarker([lat,lon], {
-        radius: 4,
-        fillColor: "#fff",
-        color: "#000",
-        weight: 1,
-        fillOpacity: 1,
-        interactive: false
-    }).addTo(map);
-
+function closeImage(){
+document.getElementById("lightbox").style.display = "none";
+document.getElementById("lightbox-img").src = "";
 }
 
-
-/* ADD AIRPORTS */
-
-flights.forEach(f => {
-
-    airport(f.coords[0][0], f.coords[0][1]);
-
-    airport(
-        f.coords[f.coords.length-1][0],
-        f.coords[f.coords.length-1][1]
-    );
-
-});
-
-
-/* FIT MAP TO ALL ROUTES */
-
-var group = L.featureGroup(routes);
-
-map.fitBounds(group.getBounds(), {
-    padding: [80,80]
+document.addEventListener('keydown', function(e){
+if(e.key === "Escape") closeImage();
 });
 
 </script>
