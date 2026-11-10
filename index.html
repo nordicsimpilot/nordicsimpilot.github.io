@@ -24,6 +24,13 @@ body {
     z-index: 1;
 }
 
+.leaflet-container,
+.leaflet-interactive,
+.leaflet-overlay-pane svg,
+.leaflet-overlay-pane path:focus {
+    outline: none !important;
+}
+
 .top-ui {
     position: absolute;
     top: 20px;
@@ -148,7 +155,7 @@ body {
 
 <div class="recent">
     <span>Latest flight:</span>
-    <a href="flights/leal-daag.html">Alicante → Algiers</a>
+    <a href="flights/daag-liee.html">Algiers → Cagliari</a>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -157,7 +164,9 @@ body {
 
 /* MAP */
 
-var map = L.map('map').setView([50,10],4);
+var map = L.map('map', {
+    zoomControl: true
+}).setView([50,10],4);
 
 L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -171,35 +180,6 @@ L.tileLayer(
 /* ROUTE SETTINGS */
 
 var routeColor = "#2F80ED";
-var selectedRouteRectangle = null;
-
-
-/* SELECT ROUTE */
-
-function selectRoute(coords) {
-
-    // Remove previous rectangle
-    if (selectedRouteRectangle) {
-        map.removeLayer(selectedRouteRectangle);
-        selectedRouteRectangle = null;
-    }
-
-    // Calculate bounds from airport coordinates
-    var bounds = L.latLngBounds(coords);
-
-    // Draw rectangle around route
-    selectedRouteRectangle = L.rectangle(bounds, {
-        color: "#FF8C42",
-        weight: 3,
-        opacity: 1,
-        fillColor: "#FF8C42",
-        fillOpacity: 0.08,
-        dashArray: "8, 6",
-        interactive: false
-    }).addTo(map);
-
-    // Do NOT zoom or move the map
-}
 
 
 /* ANIMATE ROUTE */
@@ -235,17 +215,18 @@ function animateRoute(coords, link, label) {
 
         L.DomEvent.stop(e);
 
-        // Second click opens flight page
         if (line._selectedOnce) {
 
             window.location.href = link;
 
         } else {
 
-            // First click selects route without zooming
-            selectRoute(coords);
-
             line._selectedOnce = true;
+
+            line.setStyle({
+                weight: 6,
+                color: "#FF8C42"
+            });
 
         }
 
@@ -271,9 +252,21 @@ function animateRoute(coords, link, label) {
 
     line.on('mouseout', () => {
 
-        line.setStyle({
-            weight: 4
-        });
+        if (!line._selectedOnce) {
+
+            line.setStyle({
+                weight: 4,
+                color: routeColor
+            });
+
+        } else {
+
+            line.setStyle({
+                weight: 6,
+                color: "#FF8C42"
+            });
+
+        }
 
         line.closeTooltip();
 
@@ -393,6 +386,24 @@ var flights = [
         coords:[[38.2822,-0.5581],[36.6910,3.2154]],
         link:'flights/leal-daag.html',
         label:'Alicante → Algiers'
+    },
+
+    /* NEW FLIGHT: ALGIERS → CAGLIARI */
+
+    {
+        coords:[
+            [36.6950,3.2167],    // DAAG - Algiers
+            [37.1667,3.4100],    // BOUGA
+            [37.9450,4.9400],    // ALG045111
+            [37.9900,5.0000],    // BOURI
+            [38.0917,5.4683],    // TOC
+            [38.4750,7.3150],    // TOD
+            [38.9017,9.5783],    // PIRIX
+            [39.1117,9.5083],    // CARBONARA
+            [39.2467,9.0567]     // LIEE - Cagliari
+        ],
+        link:'flights/daag-liee.html',
+        label:'Algiers → Cagliari'
     }
 
 ];
@@ -420,7 +431,8 @@ function airport(lat, lon) {
         fillColor: "#fff",
         color: "#000",
         weight: 1,
-        fillOpacity: 1
+        fillOpacity: 1,
+        interactive: false
     }).addTo(map);
 
 }
@@ -431,7 +443,11 @@ function airport(lat, lon) {
 flights.forEach(f => {
 
     airport(f.coords[0][0], f.coords[0][1]);
-    airport(f.coords[1][0], f.coords[1][1]);
+
+    airport(
+        f.coords[f.coords.length-1][0],
+        f.coords[f.coords.length-1][1]
+    );
 
 });
 
