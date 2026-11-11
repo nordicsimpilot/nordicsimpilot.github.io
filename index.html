@@ -209,71 +209,63 @@ function animateRoute(coords, link, label) {
     }, 100);
 
 
-    /* CLICK */
+    
+/* CLICK */
 
-    line.on('click', function(e) {
+line.on('click', function(e) {
 
-        L.DomEvent.stop(e);
+    L.DomEvent.stop(e);
 
-        if (line._selectedOnce) {
+    // Second click opens the flight page
+    if (line._selectedOnce) {
 
-            window.location.href = link;
+        window.location.href = link;
 
-        } else {
+    } else {
 
-            line._selectedOnce = true;
-
-            line.setStyle({
-                weight: 6,
-                color: "#FF8C42"
-            });
-
-        }
-
-    });
-
-
-    /* MOUSE OVER */
-
-    line.on('mouseover', () => {
+        // First click temporarily highlights the route
+        line._selectedOnce = true;
 
         line.setStyle({
-            weight: 6
+            weight: 6,
+            color: "#FF8C42"
         });
 
-        line.bindTooltip(label, {
-            className: 'route-label'
-        }).openTooltip();
+    }
 
+});
+
+
+/* MOUSE OVER */
+
+line.on('mouseover', () => {
+
+    line.setStyle({
+        weight: 6,
+        color: line._selectedOnce ? "#FF8C42" : routeColor
     });
 
+    line.bindTooltip(label, {
+        className: 'route-label'
+    }).openTooltip();
 
-    /* MOUSE OUT */
+});
 
-    line.on('mouseout', () => {
 
-        if (!line._selectedOnce) {
+/* MOUSE OUT */
 
-            line.setStyle({
-                weight: 4,
-                color: routeColor
-            });
+line.on('mouseout', () => {
 
-        } else {
-
-            line.setStyle({
-                weight: 6,
-                color: "#FF8C42"
-            });
-
-        }
-
-        line.closeTooltip();
-
+    // Always restore original blue colour
+    line.setStyle({
+        weight: 4,
+        color: routeColor
     });
 
-    return line;
-}
+    line.closeTooltip();
+
+});
+
 
 
 /* FLIGHTS */
