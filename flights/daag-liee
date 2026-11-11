@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DAAG → LIEE | A330-300 | Payam's Flight Logbook</title>
+<title>DAAG → LIEE | A330-900 | Payam's Flight Logbook</title>
 
 <style>
 
@@ -150,7 +150,7 @@ border-radius:10px;
 
 @media(max-width:600px){
 body{
-padding:65px 15px 30px;
+padding:60px 15px;
 }
 
 .gallery{
@@ -172,18 +172,16 @@ grid-template-columns:1fr;
 
 <div class="info">
 
-<p><b>Aircraft:</b> Airbus A330-300 (Trent 772)</p>
-
+<p><b>Aircraft:</b> Airbus A330-900</p>
 <p><b>Registration:</b> N339SB</p>
-
 <p><b>Simulator:</b> X-Plane 12</p>
-
 <p><b>Callsign:</b> FIN1019</p>
-
 <p><b>Date:</b> 10 November 2026</p>
 
 </div>
 
+
+<!-- STATS -->
 
 <div class="stats">
 
@@ -228,8 +226,8 @@ LIEE RWY 32
 </div>
 
 <div class="card">
-<b>Takeoff Fuel</b><br>
-11.895 tons
+<b>Callsign</b><br>
+FIN1019
 </div>
 
 <div class="card">
@@ -262,21 +260,18 @@ CI 14
 150.047 tons
 </div>
 
-<div class="card">
-<b>Scheduled Arrival</b><br>
-17:05 UTC
 </div>
 
-</div>
 
+<!-- VIDEO -->
 
 <h2>Flight Video</h2>
 
 <div class="video">
 
 <iframe
-src=""
-title="DAAG to LIEE Flight"
+src="https://www.youtube.com/embed/3_KkUt3fhrI?rel=0"
+title="Algiers to Cagliari | FIN1019 | Airbus A330-900"
 loading="lazy"
 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 referrerpolicy="strict-origin-when-cross-origin"
@@ -285,6 +280,21 @@ allowfullscreen>
 
 </div>
 
+<p style="text-align:center; margin-top:-30px; margin-bottom:50px;">
+
+<a href="https://youtu.be/3_KkUt3fhrI"
+target="_blank"
+rel="noopener noreferrer"
+style="color:#aaa; text-decoration:none;">
+
+Watch on YouTube ↗
+
+</a>
+
+</p>
+
+
+<!-- FLIGHT PLAN -->
 
 <h2>Flight Plan</h2>
 
@@ -310,16 +320,20 @@ class="pdf-card">
 </div>
 
 
+<!-- SCREENSHOTS -->
+
 <h2>Flight Screenshots</h2>
 
 <div class="gallery">
 
-<!-- Add flight screenshots here -->
+<!-- Add screenshots here -->
 
 </div>
 
 </div>
 
+
+<!-- LIGHTBOX -->
 
 <div id="lightbox" class="lightbox" onclick="closeImage()">
 
