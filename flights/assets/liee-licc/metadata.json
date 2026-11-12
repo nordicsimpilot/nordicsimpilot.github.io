@@ -1,0 +1,75 @@
+{
+  "slug": "liee-licc",
+  "flight": {
+    "departure": "LIEE",
+    "arrival": "LICC",
+    "aircraft": "Airbus A330-300",
+    "aircraft_ofp": "Airbus A330-300",
+    "aircraft_override_note": "OFP code A333 identifies Airbus A330-300. Actual aircraft is prefilled as Airbus A330-300; verify against the simulator aircraft.",
+    "simulator": "X-Plane 12",
+    "route": "",
+    "flight_date": "11NOV2026",
+    "callsign": "FIN1020",
+    "cruise_level": "FL190",
+    "distance": "350 NM",
+    "block_fuel": "12348 kg",
+    "trip_fuel": "",
+    "taxi_fuel": "",
+    "parser_note": "Extracted from selectable SimBrief OFP text. Verify every field against the original OFP and actual simulator flight before publishing."
+  },
+  "content": {
+    "youtube_title": "LIEE to LICC | Airbus A330-300 | X-Plane 12",
+    "youtube_description": "Join me on a simulated flight from LIEE to LICC in Airbus A330-300. This flight is part of the NordicSimPilot virtual flight logbook. All operations shown are flight simulation for entertainment and learning, not real-world aviation.",
+    "page_intro": "Join me on a simulated flight from LIEE to LICC in Airbus A330-300. This flight is part of the NordicSimPilot virtual flight logbook. All operations shown are flight simulation for entertainment and learning, not real-world aviation.",
+    "tags": [
+      "flight simulation",
+      "X-Plane 12",
+      "NordicSimPilot"
+    ],
+    "thumbnail_text": "LIEE → LICC",
+    "ai_note": "OpenAI API key not configured; fallback copy generated."
+  },
+  "youtube": {
+    "video_id": "fPT7-xnKII0",
+    "url": "https://www.youtube.com/watch?v=fPT7-xnKII0",
+    "privacy_status": "managed manually by user",
+    "upload_method": "manual",
+    "metadata_updated": true,
+    "thumbnail_uploaded": true,
+    "thumbnail_verified": true,
+    "thumbnail_upload_response": {
+      "kind": "youtube#thumbnailSetResponse",
+      "etag": "7mnAlV2JryYwWa12JYf8WRe9fY4",
+      "items": [
+        {
+          "default": {
+            "url": "https://i9.ytimg.com/vi/fPT7-xnKII0/default.jpg?sqp=CNiU2NcG&rs=AOn4CLC7WH1f48rI5A7kMDWlHg5PfKkC8w",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i9.ytimg.com/vi/fPT7-xnKII0/mqdefault.jpg?sqp=CNiU2NcG&rs=AOn4CLCT-kj4HCVu8Hp9p_voGAcTrf0HFw",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i9.ytimg.com/vi/fPT7-xnKII0/hqdefault.jpg?sqp=CNiU2NcG&rs=AOn4CLAANrmDl2yQNMvFlSX9ctJ9r0IAvA",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i9.ytimg.com/vi/fPT7-xnKII0/sddefault.jpg?sqp=CNiU2NcG&rs=AOn4CLBdNlQKy3HW2rCERDuwey9TIvyJ2A",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i9.ytimg.com/vi/fPT7-xnKII0/maxresdefault.jpg?sqp=CNiU2NcG&rs=AOn4CLCCqGT4U-qXjmThJ6b3p6q79MSKQA",
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ]
+    }
+  },
+  "thumbnail": "thumbnail.jpg"
+}
