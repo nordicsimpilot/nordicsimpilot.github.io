@@ -1,0 +1,39 @@
+{
+  "slug": "licc-lica",
+  "flight": {
+    "departure": "LICC",
+    "arrival": "LICA",
+    "aircraft": "Airbus A330-300",
+    "aircraft_ofp": "Airbus A330-300",
+    "aircraft_override_note": "OFP code A333 identifies Airbus A330-300. Actual aircraft is prefilled as Airbus A330-300; verify against the simulator aircraft.",
+    "simulator": "X-Plane 12",
+    "route": "PEKOD5Y PEKOD Y93 RCA RCA5A",
+    "flight_date": "14NOV2026",
+    "callsign": "FIN1021",
+    "cruise_level": "FL160",
+    "distance": "164 NM",
+    "block_fuel": "11296 kg",
+    "trip_fuel": "",
+    "taxi_fuel": "",
+    "parser_note": "Extracted from selectable SimBrief OFP text. Verify every field against the original OFP and actual simulator flight before publishing."
+  },
+  "content": {
+    "youtube_title": "LICC to LICA | Airbus A330-300 | X-Plane 12",
+    "youtube_description": "Join me on a simulated flight from LICC to LICA in Airbus A330-300. This flight is part of the NordicSimPilot virtual flight logbook. All operations shown are flight simulation for entertainment and learning, not real-world aviation.",
+    "page_intro": "Join me on a simulated flight from LICC to LICA in Airbus A330-300. This flight is part of the NordicSimPilot virtual flight logbook. All operations shown are flight simulation for entertainment and learning, not real-world aviation.",
+    "tags": [
+      "flight simulation",
+      "X-Plane 12",
+      "NordicSimPilot"
+    ],
+    "thumbnail_text": "LICC → LICA",
+    "ai_note": "OpenAI API key not configured; fallback copy generated."
+  },
+  "youtube": {
+    "video_id": "DgfHM29Q-Yg",
+    "url": "https://www.youtube.com/watch?v=DgfHM29Q-Yg",
+    "privacy_status": "managed manually by user",
+    "upload_method": "manual"
+  },
+  "thumbnail": "thumbnail.jpg"
+}
