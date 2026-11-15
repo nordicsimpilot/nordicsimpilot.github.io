@@ -211,29 +211,11 @@ function animateRoute(coords, link, label) {
 
 
     
-/* CLICK */
+/* CLICK: open the flight page immediately */
 
 line.on('click', function(e) {
-
     L.DomEvent.stop(e);
-
-    // Second click opens the flight page
-    if (line._selectedOnce) {
-
-        window.location.href = link;
-
-    } else {
-
-        // First click temporarily highlights the route
-        line._selectedOnce = true;
-
-        line.setStyle({
-            weight: 6,
-            color: "#FF8C42"
-        });
-
-    }
-
+    window.location.href = link;
 });
 
 
@@ -243,7 +225,7 @@ line.on('mouseover', () => {
 
     line.setStyle({
         weight: 6,
-        color: line._selectedOnce ? "#FF8C42" : routeColor
+        color: routeColor
     });
 
     line.bindTooltip(label, {
@@ -257,7 +239,7 @@ line.on('mouseover', () => {
 
 line.on('mouseout', () => {
 
-    // Always restore original blue colour
+    // Restore the original route colour
     line.setStyle({
         weight: 4,
         color: routeColor
@@ -384,19 +366,19 @@ var flights = [
     {
         coords:[[36.691,3.21541],[39.2515,9.05428]],
         link:"flights/daag-liee.html",
-        label:"DAAG → LIEE"
+        label:"Algiers → Cagliari"
     },
 
     {
         coords:[[39.2515,9.05428],[37.4668,15.0664]],
         link:"flights/liee-licc.html",
-        label:"LIEE → LICC"
+        label:"Cagliari → Catania"
     },
 
     {
         coords:[[37.4668,15.0664],[38.9054,16.2423]],
         link:"flights/licc-lica.html",
-        label:"LICC → LICA"
+        label:"Catania → Lamezia Terme"
     }
 
 ];
